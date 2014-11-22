@@ -18,30 +18,25 @@ $(document).ready(function () {
 		$('#id_hour_' + i).click(hourClicked);
 	}
 	// minute header
-	for (var i = 0; i < 60; i += 10){
+	for (var i = 0; i < 60; i += 5){
 		var min = '' + i;
 		if (i < 10) min = '0' + i;
 		$('#id_min_' + min).click(minuteClicked);
 	}
 
-    $('#id_submit').click(function() {
-
+    $('#submit_finish_poll').click(function() {
         if (g_chosen_datetimes.length === 0) {
             alert('Nothing selected!\nClick on cells to turn them green...');
             return;
         }
 
-        var form = document.form1;
-        form.elements['j'].value = JSON.stringify(
+        var form = document.finish_poll;
+        form.elements['chosen_dates'].value = JSON.stringify(
             {
-                q: 'page2',
-                poll_id: form.elements['poll_id'].value,
                 chosen: g_chosen_datetimes
 			});
-
-        form.submit();
+		form.submit();
     });
-
 });
 function hourClicked(e) {
 

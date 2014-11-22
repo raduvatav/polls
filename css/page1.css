@@ -1,3 +1,12 @@
+body {
+    margin: 10px;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
 a {
     text-decoration: none;
 }
@@ -77,7 +86,7 @@ th {
 }
 
 td {
-	vertical-align: top;
+	vertical-align: center;
 	text-align: center;
 }
 
@@ -99,38 +108,38 @@ td {
     padding-right: 75px;
 }
 #id_header_month_1:before {
-    content: 'Jan (01)';
+    content: 'Jan';
 }
 #id_header_month_2:before {
-    content: 'Feb (02)';
+    content: 'Feb';
 }
 #id_header_month_3:before {
-    content: 'Mar (03)';
+    content: 'Mar';
 }
 #id_header_month_4:before {
-    content: 'Apr (04)';
+    content: 'Apr';
 }
 #id_header_month_5:before {
-    content: 'May (05)';
+    content: 'May';
 }
 #id_header_month_6:before {
-    content: 'Jun (06)';
+    content: 'Jun';
 }
 #id_header_month_7:before {
-    content: 'Jul (07)';
+    content: 'Jul';
 }
 #id_header_month_8:before {
-    content: 'Aug (08)';
+    content: 'Aug';
 }
 #id_header_month_9:before {
-    content: 'Sep (09)';
+    content: 'Sep';
 }
 #id_header_month_10:before {
-    content: 'Oct (10)';
+    content: 'Oct';
 }
 #id_header_month_11:before {
-    content: 'Nov (11)';
+    content: 'Nov';
 }
 #id_header_month_12:before {
-    content: 'Dec (12)';
+    content: 'Dec';
 }

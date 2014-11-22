@@ -1,6 +1,31 @@
+body {
+    margin: 10px;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin: 10px 0 5px 0;
+}
+
+#id_table_1 {
+    padding-top: 10px;
+}
+
+p.desc {
+    color: #333333;
+}
+
+p.url {
+    padding: 0;
+}
 
 td {
-    vertical-align: top;
+    vertical-align: center;
     text-align: center;
 }
 
@@ -71,8 +96,8 @@ th {
     text-align: center;
 }
 #id_user_name {
-    font-size: 1.5em;
-    text-align: right;
+    font-size: 1.1em;
+    text-align: left;
 }
 #id_user_dt {
     font-size: 0.6em;

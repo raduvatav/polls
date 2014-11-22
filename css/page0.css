@@ -1,18 +1,42 @@
+body {
+    margin: 10px;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
+.label_h1 {
+	display:block;
+}
+
+div.new_poll {
+	width: 100%;
+}
+
+div.goto_poll {
+    /*background-color: green;*/
+}
+
 th {
-    padding: 7px;
+    padding: 3px;
     background-color: aliceblue;
 }
 .cl_title {
     font-size: 2em;
-    padding: 7px;
-    background-color: cadetblue;
+    /*padding: 7px;*/
+    /*background-color: cadetblue;*/
 
+}
+.input_title{
+    font-size: 1.2em;
 }
 #id_in_title {
     width: 390px;
     padding: 10px;
     margin: 0px;
-    border: 1px solid #CCC;
+    /*border: 1px solid #CCC;*/
 
 }
 
@@ -22,27 +46,39 @@ th {
 }
 
 .cl_create_form td {
-    padding: 2px 0;
+    padding: 3px;
     text-align: left;
-	border-left: 15px solid white;
+    vertical-align: center;
+    border-left: 1px solid #cccccc;
+    border-top: 2px solid gray;
+    /*border-left: 15px solid white;*/
 }
 
 
-td {
-    padding-left: 10px;
-	vertical-align: top;
-	text-align: center;
-}
+/*td {
+    background-color: red;
+    padding: 3px;
+    vertical-align: center;
+    text-align: center;
+}*/
 
 .cl_link {
     cursor: pointer;
-    border: 1px solid #CCC;
+    /*border: 1px solid #CCC;*/
 }
 .cl_delete {
 	cursor: pointer;
-	background-color: red;
+	background-color: #ff0000;
 }
 
 #id_th_descr {
 	width: 400px;
+}
+
+#id_tab_radio td {
+    text-align: left;
+}
+
+.cl_poll_url {
+    cursor: pointer;
 }

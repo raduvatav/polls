@@ -3,6 +3,19 @@ var g_selected_yes = [];
 var g_selected_no = [];
 
 $(document).ready(function () {
+
+    // check if ac
+    /*var ac = document.getElementById('id_ac_detected');
+    if (ac != null) {
+        var name = null;
+        while ((name === null) || (name.length < 3)) {
+            name = window.prompt("You are not registered.\nPlease enter your name to vote\n(at least 3 characters!)", "");
+        }
+        //ac.innerHTML = name;
+		var user_name = document.getElementById('user_name');
+		user_name.value = name;
+    }*/
+
     var cells = [];
     cells = document.getElementsByClassName('cl_click');
 
@@ -22,20 +35,29 @@ $(document).ready(function () {
 
 
 
-    $('#id_submit').click(function() {
+    $('#submit_finish_poll').click(function() {
         // todo
-        var form = document.form1;
+        var form = document.finish_poll;
 
         var comm = document.getElementById('id_comment');
 
-
-        form.elements['j'].value = JSON.stringify(
+        var ac_user = '';
+        var ac = document.getElementById('user_name');
+        if (ac != null) {
+            //ac_user = ac.innerHTML;
+			if(ac.length > 3){
+				ac_user = ac.value;
+			} else {
+				alert("You are not registered.\nPlease enter your name to vote\n(at least 3 characters!)");
+				return;
+			}
+		}
+        form.elements['options'].value = JSON.stringify(
             {
-                q: 'finish',
-                poll_id: form.elements['poll_id'].value,
                 sel_yes: g_selected_yes,
                 sel_no: g_selected_no,
-                comment: comm.value
+                comment: comm.value,
+                ac_user: ac_user
             });
         form.submit();
     });

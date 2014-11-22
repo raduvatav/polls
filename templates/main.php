@@ -2,55 +2,87 @@
 use \OCP\DB;
 use \OCP\User;
 
+function sort_dates($a, $b) {
+	$arra = explode('.', $a->date);
+	$dta = $arra[2] . $arra[1] . $arra[0] . '_' . $a->time;
+	$arrb = explode('.', $b->date);
+	$dtb = $arrb[2] . $arrb[1] . $arrb[0] . '_' . $b->time;
+
+	return strcmp($dta, $dtb);
+}
+
+// coming directly to vote (link)
 if (isset ($_GET) && isset ($_GET['poll_id'])){
-	unset ($_POST);
-	$_POST['j'] = '{"q":"vote","poll_id":"' . $_GET['poll_id'] . '"}';
-	unset ($_GET);
-	
+
+    // check if poll is public / user registered
+    $query = DB::prepare('select access from *PREFIX*polls_events where id=?');
+    $result = $query->execute(array($_GET['poll_id']));
+    $row = $result->fetchRow();
+    $access = $row['access'];
+    // if !public and !loggedIn go to login page
+    if (strcmp($access, 'public') && !OCP\User::isLoggedIn()){
+        OCP\User::checkLoggedIn();
+    }
+
+    unset ($_POST);
+    //$_POST['j'] = '{"q":"vote","poll_id":"' . $_GET['poll_id'] . '"}';
+	$_POST['j'] = "vote";
+	$_POST['poll_id'] = $_GET['poll_id'];
+    unset ($_GET);
 }
 
 if (isset ($_POST) && isset ($_POST['j'])) {
-	//echo '<pre>POST: '; print_r($_POST); echo '</pre>';
+    //echo '<pre>POST: '; print_r($_POST); echo '</pre>';
 
     $post_j = $_POST['j'];
 
-    $json = json_decode($post_j);
-	//echo '<pre>json: '; print_r($json); echo '</pre>';
+    //$json = json_decode($post_j);
+    //echo '<pre>json: '; print_r($json); echo '</pre>';
 
-    switch($json->q){
+    //switch($json->q){
+	switch($post_j){
+        case 'start':
+            include 'start.php';
+            return;
         // coming form p0 to p1
         case 'page1':
-	        $title = htmlspecialchars($json->title);
+			$title = htmlspecialchars($_POST['text_title']);
+			$desc = htmlspecialchars($_POST['text_desc']);
+			$access = $_POST['radio_pub'];
+            /*$title = htmlspecialchars($json->title);
             $descr = htmlspecialchars($json->descr);
+            $access = $json->access;*/
  
             // add entry to db; don't set 'created' yet!
-            $query = DB::prepare('insert into *PREFIX*polls_events(title, description, owner) values (?,?,?)');
-            $result = $query->execute(array($title, $descr, User::getUser()));
+            $query = DB::prepare('insert into *PREFIX*polls_events(title, description, owner, access) values (?,?,?,?)');
+            $result = $query->execute(array($title, $desc, User::getUser(), $access));
 
             $poll_id = DB::insertid();
 
             // load next page
-            include 'page1.php';
+            include 'select_dates.php';
 
             return;
 
-		// staying in p0 with delete poll
-		case 'delete':
-			$query = DB::prepare('delete from *PREFIX*polls_events where id=?');
-			$query->execute(array($json->id));
-			$query = DB::prepare('delete from *PREFIX*polls_dts where id=?');
-			$query->execute(array($json->id));
-			$query = DB::prepare('delete from *PREFIX*polls_particip where id=?');
-			$query->execute(array($json->id));
-			$query = DB::prepare('delete from *PREFIX*polls_comments where id=?');
-			$query->execute(array($json->id));
+        // staying in p0 with delete poll
+        case 'delete':
+			$id = $_POST['delete_id'];
+            $query = DB::prepare('delete from *PREFIX*polls_events where id=?');
+            $query->execute(array($id));
+            $query = DB::prepare('delete from *PREFIX*polls_dts where id=?');
+            $query->execute(array($id));
+            $query = DB::prepare('delete from *PREFIX*polls_particip where id=?');
+            $query->execute(array($id));
+            $query = DB::prepare('delete from *PREFIX*polls_comments where id=?');
+            $query->execute(array($id));
 
-			include 'page0.php';
-			return;
+            include 'poll_summary.php';
+            return;
 
-        // from p0 -> select poll
+        // from p0 -> select poll (or link)
         case 'vote':
-            $poll_id = $json->poll_id;
+            //$poll_id = $json->poll_id;
+			$poll_id = $_POST['poll_id'];
 
             // get title and description from DB, needed for next page
             $query = DB::prepare('select title, description from *PREFIX*polls_events where id=?');
@@ -58,7 +90,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
             $row = $result->fetchRow();
 
             $title = $row['title'];
-            $descr = $row['description'];
+            $desc = $row['description'];
 
             // page2 needs json->chosen
             $query = DB::prepare('select dt from *PREFIX*polls_dts where id=?');
@@ -77,7 +109,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 
 			usort($arr, 'sort_dates');
 
-            $json->chosen = $arr;
+            $chosen = $arr;
 
             // other users
             $others = array();
@@ -107,15 +139,16 @@ if (isset ($_POST) && isset ($_POST['j'])) {
             }
 
 
-            include 'page2.php';
+            include 'last.php';
             return;
 
         // coming from p1 to p2
         case 'page2':
-
-            $poll_id = $json->poll_id;
-
-			usort($json->chosen, 'sort_dates');
+			$chosen = json_decode($_POST['chosen_dates'])->chosen;
+			$poll_id = $_POST['poll_id'];
+            /*$poll_id = $json->poll_id;*/
+			
+			usort($chosen, 'sort_dates');
 
             // get title and description from DB, needed for next page
             $query = DB::prepare('select title, description from *PREFIX*polls_events where id=?');
@@ -123,26 +156,33 @@ if (isset ($_POST) && isset ($_POST['j'])) {
             $row = $result->fetchRow();
 
             $title = $row['title'];
-            $descr = $row['description'];
+            $desc = $row['description'];
 
 
             $query = DB::prepare('insert into *PREFIX*polls_dts(id, dt) values(?,?)');
-            foreach($json->chosen as $el) {
+            foreach($chosen as $el) {
                 $query->execute(array($poll_id, $el->date . '_' . $el->time));
             }
 
-            include 'page2.php';
+            include 'last.php';
 
             return;
 
         // from p2 -> finish
         case 'finish':
 
-            $poll_id = $json->poll_id;
+            //$poll_id = $json->poll_id;
+			$poll_id = $_POST['poll_id'];
+			$options = json_decode($_POST['options']);
 
-            $sel_yes = $json->sel_yes;
-            $sel_no = $json->sel_no;
-            $user = User::getUser();
+            $sel_yes = $options->sel_yes;
+            $sel_no = $options->sel_no;
+            if (User::isLoggedIn()) {
+                $user = User::getUser();
+            }
+            else {
+                $user = htmlspecialchars($options->ac_user);
+            }
 
             // remove row (if exist, else doesn't matter)
             $query = DB::prepare('delete from *PREFIX*polls_particip where id=? and user=?');
@@ -154,11 +194,10 @@ if (isset ($_POST) && isset ($_POST['j'])) {
             // insert
             foreach ($sel_yes as $dt){
 
-                $query->execute(array('yes', $poll_id, User::getUser(), $dt));
+                $query->execute(array('yes', $poll_id, $user, $dt));
             }
             foreach ($sel_no as $dt){
-
-                $query->execute(array('no', $poll_id, User::getUser(), $dt));
+                $query->execute(array('no', $poll_id, $user, $dt));
             }
 
 
@@ -173,14 +212,16 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 
                 // set creation date
                 $query = DB::prepare('update *PREFIX*polls_events set created=? where id=?');
-                $query->execute(array(date('d.m.Y_H:i'), $poll_id));
+                //$query->execute(array(date('d.m.Y_H:i'), $poll_id));
+				$query->execute(array(date('U'), $poll_id)); //TODO change time format to date('U')
             }
 
             // save comment
-            if (isset($json->comment) && (strlen($json->comment) > 0)) {
+            if (isset($options->comment) && (strlen($options->comment) > 0)) {
 
                 $query = DB::prepare('insert into *PREFIX*polls_comments(id,user,dt,comment) values(?,?,?,?)');
-                $query->execute(array($poll_id, $user, date('d.m.Y_H:i'), $json->comment));
+                //$query->execute(array($poll_id, $user, date('d.m.Y_H:i'), $json->comment));
+				$query->execute(array($poll_id, $user, date('U'), $options->comment));
 
             }
 
@@ -188,8 +229,12 @@ if (isset ($_POST) && isset ($_POST['j'])) {
             // delete not finished polls
             $query = DB::prepare('delete from *PREFIX*polls_events where created is null');
             $query->execute();
-
-            include 'page0.php';
+            if (User::isLoggedIn()) {
+                include 'poll_summary.php';
+            }
+            else {
+                \OCP\Util::addScript('polls', 'page_anon');
+            }
             return;
     }
 
@@ -199,16 +244,4 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 $query = DB::prepare('delete from *PREFIX*polls_events where created is null and owner=?');
 $query->execute(array(User::getUser()));
 
-include 'page0.php';
-
-
-
-function sort_dates($a, $b) {
-	$arra = explode('.', $a->date);
-	$dta = $arra[2] . $arra[1] . $arra[0] . '_' . $a->time;
-	$arrb = explode('.', $b->date);
-	$dtb = $arrb[2] . $arrb[1] . $arrb[0] . '_' . $b->time;
-
-	return strcmp($dta, $dtb);
-}
-
+include 'poll_summary.php';
