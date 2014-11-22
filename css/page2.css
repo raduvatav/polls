@@ -1,0 +1,95 @@
+
+td {
+    vertical-align: top;
+    text-align: center;
+}
+
+.cl_click {
+    cursor: pointer;
+}
+.cl_maybe {
+
+    border-width: 1px;
+    border-style: solid;
+    border-color: gray;
+    background-color: white;
+}
+
+.cl_yes {
+    border-width: 1px;
+    border-style: solid;
+    border-color: gray;
+    background-color: green;
+}
+.cl_no {
+    border-width: 1px;
+    border-style: solid;
+    border-color: gray;
+    background-color: red;
+}
+
+
+th {
+    padding: 7px;
+    background-color: aliceblue;
+    text-align: center;
+    border-width: 3px;
+    border-style: solid;
+    border-color: white;
+}
+
+#id_title {
+    padding-left: 50px;
+    font-size: 2em;
+    vertical-align: top;
+    text-align: left;
+}
+#id_descr {
+    font-size: 1.5em;
+    text-align: left;
+}
+.cl_comment td {
+    padding: 2px 0;
+    min-width: 100px;
+    text-align: left;
+}
+#id_comment {
+    width: 400px;
+    height: 100px;
+}
+
+.cl_user_comments {
+    table-layout: fixed;
+}
+.cl_user_comments td {
+    word-wrap: break-word;
+    text-align: left;
+}
+.cl_user_comments th {
+    word-wrap: break-word;
+    vertical-align: top;
+    text-align: center;
+}
+#id_user_name {
+    font-size: 1.5em;
+    text-align: right;
+}
+#id_user_dt {
+    font-size: 0.6em;
+    text-align: left;
+}
+
+.cl_total_y {
+	background-color: green;
+	border-left: 2px solid;
+	border-color: white;
+}
+.cl_total_n {
+	background-color: red;
+}
+#id_tab_total {
+	height: 2em;
+	width: 100%;
+	position: relative;
+	top: 10px;
+}

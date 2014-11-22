@@ -1,0 +1,48 @@
+th {
+    padding: 7px;
+    background-color: aliceblue;
+}
+.cl_title {
+    font-size: 2em;
+    padding: 7px;
+    background-color: cadetblue;
+
+}
+#id_in_title {
+    width: 390px;
+    padding: 10px;
+    margin: 0px;
+    border: 1px solid #CCC;
+
+}
+
+#id_in_descr {
+    width: 400px;
+    height: 150px;
+}
+
+.cl_create_form td {
+    padding: 2px 0;
+    text-align: left;
+	border-left: 15px solid white;
+}
+
+
+td {
+    padding-left: 10px;
+	vertical-align: top;
+	text-align: center;
+}
+
+.cl_link {
+    cursor: pointer;
+    border: 1px solid #CCC;
+}
+.cl_delete {
+	cursor: pointer;
+	background-color: red;
+}
+
+#id_th_descr {
+	width: 400px;
+}

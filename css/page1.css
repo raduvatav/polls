@@ -1,0 +1,136 @@
+a {
+    text-decoration: none;
+}
+
+#id_title {
+    padding-left: 50px;
+    font-size: 2em;
+    vertical-align: top;
+}
+#id_descr {
+    font-size: 1.5em;
+}
+
+.td_selected {
+	background-color: green;
+}
+.td_hidden {
+    visibility: hidden;
+    visibility: collapse;
+}
+
+td.td_shown {
+    visibility: visible;
+}
+th {
+    padding: 7px;
+    background-color: aliceblue;
+
+}
+
+#id_in_title {
+    width: 94%;
+    padding: 10px;
+    margin: 0px;
+    border: 1px solid #CCC;
+}
+
+.cl_create_form td {
+    padding: 2px 0;
+}
+
+.cl_with_border td {
+
+    padding-right: 15px;
+    padding: 1px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: gray;
+    -moz-border-radius: initial;
+    text-align: center;
+    vertical-align: bottom;
+	cursor: pointer;
+}
+.cl_time_display {
+	background-color: aqua;
+	cursor: pointer;
+}
+.cl_date_time_header {
+	cursor: pointer;
+}
+.cl_date_time_header:hover {
+	background-color: red;
+}
+.cl_hour {
+    cursor: pointer;
+    background-color: white;
+}
+.cl_min {
+	cursor: pointer;
+    background-color: white;
+}
+.cl_hour_selected {
+    background-color: green;
+}
+.cl_min_selected {
+    background-color: green;
+}
+
+td {
+	vertical-align: top;
+	text-align: center;
+}
+
+#id_cal_table td {
+    padding: 10px;
+}
+#id_time_table td {
+    padding: 8px;
+}
+#id_poss_table td {
+    padding-left: 2px;
+}
+.cl_pad_left {
+    padding-left: 30px;
+}
+
+
+.space {
+    padding-right: 75px;
+}
+#id_header_month_1:before {
+    content: 'Jan (01)';
+}
+#id_header_month_2:before {
+    content: 'Feb (02)';
+}
+#id_header_month_3:before {
+    content: 'Mar (03)';
+}
+#id_header_month_4:before {
+    content: 'Apr (04)';
+}
+#id_header_month_5:before {
+    content: 'May (05)';
+}
+#id_header_month_6:before {
+    content: 'Jun (06)';
+}
+#id_header_month_7:before {
+    content: 'Jul (07)';
+}
+#id_header_month_8:before {
+    content: 'Aug (08)';
+}
+#id_header_month_9:before {
+    content: 'Sep (09)';
+}
+#id_header_month_10:before {
+    content: 'Oct (10)';
+}
+#id_header_month_11:before {
+    content: 'Nov (11)';
+}
+#id_header_month_12:before {
+    content: 'Dec (12)';
+}
