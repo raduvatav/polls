@@ -84,75 +84,76 @@ $line = str_replace("\n", '<br>', $desc);
 
 // ---------- main table --------------
 ?>
-<table class="cl_table_1" id="id_table_1"> <?php //from above title ?>
-	<tr>
-		<th rowspan="3">&nbsp;</th> <?php // upper left header rectangle ?>
-	<?php echo $for_string_years; ?>
-	</tr>
-	<tr>
-		<?php echo $for_string_dates; ?>
-	</tr>
-	<tr>
-		<?php for ($i = 0; $i < count($chosen); $i++) : ?>
-			<?php $ch_obj = $chosen[$i]; ?>
-			<th><?php echo $ch_obj->time; ?></th>
-		<?php endfor; ?>
-	</tr>
-	<?php
-	// init array for counting 'yes'-votes for each dt
-	$total_y = array();
-	for ($i = 0; $i < count($chosen); $i++){
-		$total_y[$i] = 0;
-	}
-	$user_voted = null;
-	// -------------- other users ---------------
-	// loop over users
-	?>
-	<tr>
-	<?php foreach (array_keys($others) as $usr) :
-		if ($usr === User::getUser()) {
-			$user_voted = $others[$usr];
-			continue;
+<div class="scroll_div">
+	<table class="cl_table_1" id="id_table_1"> <?php //from above title ?>
+		<tr>
+			<th rowspan="3">&nbsp;</th> <?php // upper left header rectangle ?>
+		<?php echo $for_string_years; ?>
+		</tr>
+		<tr>
+			<?php echo $for_string_dates; ?>
+		</tr>
+		<tr>
+			<?php for ($i = 0; $i < count($chosen); $i++) : ?>
+				<?php $ch_obj = $chosen[$i]; ?>
+				<th><?php echo $ch_obj->time; ?></th>
+			<?php endfor; ?>
+		</tr>
+		<?php
+		// init array for counting 'yes'-votes for each dt
+		$total_y = array();
+		for ($i = 0; $i < count($chosen); $i++){
+			$total_y[$i] = 0;
 		}
-		echo '<th>' . User::getDisplayName($usr) . '</th>';
-		$i_tot = -1;
-		// loop over dts
-		foreach($chosen as $dt):
-			$i_tot++;
-
-			$cl = 'cl_maybe';
-
-			$arr = $others[$usr];
-
-			$str = $dt->date . '_' . $dt->time;
-
-			// look what user voted for this dts
-			foreach ($others[$usr] as $obj){
-				if ($str === $obj->dt) {
-					if ($obj->ok === 'yes'){
-						$cl = 'cl_yes';
-						$total_y[$i_tot]++;
-					}
-					else if ($obj->ok === 'no'){
-						$total_n[$i_tot]++;
-						$cl = 'cl_no';
-					}
-					break;
+		$user_voted = null;
+		// -------------- other users ---------------
+		// loop over users
+		?>
+		<tr>
+			<?php foreach (array_keys($others) as $usr) :
+				if ($usr === User::getUser()) {
+					$user_voted = $others[$usr];
+					continue;
 				}
-			}
+				echo '<th>' . User::getDisplayName($usr) . '</th>';
+				$i_tot = -1;
+				// loop over dts
+				foreach($chosen as $dt):
+					$i_tot++;
+		
+					$cl = 'cl_maybe';
+		
+					$arr = $others[$usr];
+		
+					$str = $dt->date . '_' . $dt->time;
+		
+					// look what user voted for this dts
+					foreach ($others[$usr] as $obj){
+						if ($str === $obj->dt) {
+							if ($obj->ok === 'yes'){
+								$cl = 'cl_yes';
+								$total_y[$i_tot]++;
+							}
+							else if ($obj->ok === 'no'){
+								$total_n[$i_tot]++;
+								$cl = 'cl_no';
+							}
+							break;
+						}
+					}
 
-			//echo '<td class="' . $cl . '">&nbsp';
-			echo '<td class="' . $cl . '">' . $obj->date;
-			echo '<input type="hidden" value="' . $str .   '" />';
-			echo '</td>';
-		endforeach; ?>
-	</tr>
-	<?php endforeach;
-	
-	// -------------- current user --------------
-	?>
+				//echo '<td class="' . $cl . '">&nbsp';
+				echo '<td class="' . $cl . '">' . $obj->date;
+				echo '<input type="hidden" value="' . $str .   '" />';
+				echo '</td>';
+			endforeach; ?>
+		</tr>
+		<?php endforeach;
+		
+		// -------------- current user --------------
+		?>
 
-	<tr>
+		<tr>
 
 		<?php
 		if (User::isLoggedIn()) {
@@ -189,18 +190,19 @@ $line = str_replace("\n", '<br>', $desc);
 			echo '</td>';
 		}
 		?>
-	</tr>
-	<?php // --------------- total -------------------- ?>
-	<tr>
-		<th><?php p($l->t('Total')); ?>:</th>
-		<?php for ($i = 0; $i < count($chosen); $i++) :
-			echo '<td><table id="id_tab_total"><tr>';
-			echo '<td id="id_y_' . $i . '" class="cl_total_y">' . (isset($total_y[$i]) ? $total_y[$i] : '0') . '</td>';
-			echo '<td id="id_n_' . $i . '" class="cl_total_n">' . (isset($total_n[$i]) ? $total_n[$i] : '0') . '</td>';
-			echo '</tr></table></td>';
-		endfor; ?>
-	</tr>
-</table>
+		</tr>
+		<?php // --------------- total -------------------- ?>
+		<tr>
+			<th><?php p($l->t('Total')); ?>:</th>
+			<?php for ($i = 0; $i < count($chosen); $i++) :
+				echo '<td><table id="id_tab_total"><tr>';
+				echo '<td id="id_y_' . $i . '" class="cl_total_y">' . (isset($total_y[$i]) ? $total_y[$i] : '0') . '</td>';
+				echo '<td id="id_n_' . $i . '" class="cl_total_n">' . (isset($total_n[$i]) ? $total_n[$i] : '0') . '</td>';
+				echo '</tr></table></td>';
+			endfor; ?>
+		</tr>
+	</table>
+</div>
 
 <table class="cl_comment">
 	<?php // -------- leave comment ---------- ?>
