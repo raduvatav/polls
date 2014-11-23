@@ -1,6 +1,7 @@
 <?php
 \OCP\Util::addStyle('polls', 'page2');
 \OCP\Util::addScript('polls', 'page2');
+
 use \OCP\DB;
 use \OCP\User;
 
@@ -68,7 +69,7 @@ $line = str_replace("\n", '<br>', $desc);
 <h2><?php p($l->t('poll URL')); ?></h2>
 <p class="url">
 	<?php
-		$url = \OCP\Util::linkToRoute('polls_index'); 
+		$url = \OCP\Util::linkToRoute('polls_index');
 		$url = \OC_Helper::makeURLAbsolute($url);
 		$url .= 'goto/' . $poll_id;
 	?>
@@ -86,7 +87,7 @@ $line = str_replace("\n", '<br>', $desc);
 <table class="cl_table_1" id="id_table_1"> <?php //from above title ?>
 	<tr>
 		<th rowspan="3">&nbsp;</th> <?php // upper left header rectangle ?>
-	<? php echo $for_string_years; ?>
+	<?php echo $for_string_years; ?>
 	</tr>
 	<tr>
 		<?php echo $for_string_dates; ?>

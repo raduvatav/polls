@@ -30,6 +30,7 @@ $TRANSLATIONS = array(
 	"Comment" => "Kommentar",
 	"Comments" => "Kommentare",
 	"UTC" => "Europe/Berlin",
-	
+	"Send" => "Abschicken",
+	"Home" => "Startseite",	
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";
