@@ -40,6 +40,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
     //echo '<pre>json: '; print_r($json); echo '</pre>';
 
     //switch($json->q){
+	if($post_j != 'vote') OCP\User::checkLoggedIn();
 	switch($post_j){
         case 'start':
             include 'start.php';
