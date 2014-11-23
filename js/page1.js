@@ -114,16 +114,17 @@ function fillCalendar(now_date) {
 }
 // search a date in the array (optional remove)
 function isDateSelected(year, month, day, remove) {
-	for (var i = 0; i < g_selected_dates.length; i++) {
-		var el = g_selected_dates[i];
-		if ((el.day === day) && (el.month === month) && (el.year === year)){
+	for (var i = 0; i < g_chosen_datetimes.length; i++) { //g_chosen_datetimes
+		var el = g_chosen_datetimes[i].date.split('.');
+		if ((el[0] == day) && (el[1] == month) && (el[2] == year)){
 			if (remove) {
-				g_selected_dates.splice(i, 1);
+				g_chosen_datetimes.splice(i, 1);
+				i--; //one step back, because we deleted an element
 			}
-			return true;
+			//return true;
 		}
 	}
-	return false;
+	//return false;
 }
 // add a date to the polls
 function calendarCellClicked(e) {
@@ -222,9 +223,10 @@ function selectPoss(e){
         cell.style.backgroundColor = 'white';
         // remove from array
         for (var i = 0; i < g_chosen_datetimes.length; i++){
-            if ((g_chosen_datetimes[i].date) === date && (g_chosen_datetimes[i].time === time))
-            g_chosen_datetimes.splice(i, 1);
-            break;
+            if ((g_chosen_datetimes[i].date) === date && (g_chosen_datetimes[i].time === time)){
+				g_chosen_datetimes.splice(i, 1);
+				break;
+			}
         }
     }
     else {
@@ -238,7 +240,7 @@ function removeDateRow(e) {
     var spl = e.target.innerHTML.split('.');
 	
 	// delete from array
-    isDateSelected(Number(spl[2]), Number(spl[1]) - 1, Number(spl[0]), true);
+    isDateSelected(Number(spl[2]), Number(spl[1]), Number(spl[0]), true);
 
     fillCalendar(new Date(g_current_displ_year, g_current_displ_month, 1));
 
