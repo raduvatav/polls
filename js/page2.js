@@ -69,13 +69,13 @@ $(document).ready(function () {
 });
 
 function possClicked(e) {
-
     // get column index
-    var ch_ind = 0;
     var child = this;
-    while( (child = child.previousSibling) != null ) {
+    var ch_ind = child.cellIndex;
+	
+    /*while( (child = child.previousSibling) != null ) {
         ch_ind++;
-    }
+    }*/
 	var cell_tot_y = document.getElementById('id_y_' + (ch_ind - 1));
 	var cell_tot_n = document.getElementById('id_n_' + (ch_ind - 1));
 
