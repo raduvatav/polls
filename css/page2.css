@@ -87,13 +87,22 @@ th {
     table-layout: fixed;
 }
 .cl_user_comments td {
-    word-wrap: break-word;
     text-align: left;
 }
 .cl_user_comments th {
     word-wrap: break-word;
     vertical-align: top;
     text-align: center;
+}
+.wordwrap {
+	width: 50%;
+	min-width: 400px;
+    white-space: pre-wrap;      /* CSS3 */
+    white-space: -moz-pre-wrap; /* Firefox */
+    white-space: -pre-wrap;     /* Opera <7 */
+    white-space: -o-pre-wrap;   /* Opera 7 */
+    word-wrap: break-word;
+	word-break: break-all;
 }
 #id_user_name {
     font-size: 1.1em;
