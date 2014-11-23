@@ -39,6 +39,13 @@
                 <notnull>false</notnull>
                 <length>32</length>
             </field>
+            <field>
+                <name>access</name>
+                <type>text</type>
+                <notnull>false</notnull>
+                <length>1024</length>
+            </field>
+
 		</declaration>
 	</table>
     <table>
