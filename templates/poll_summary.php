@@ -11,15 +11,15 @@
 		<table class="cl_create_form">
 			<!--<tr>
 				<td colspan="4">-->
-				<h1>Summary</h1>
+				<h1><?php p($l->t('Summary')); ?></h1>
 				<!--</td>
 			</tr>-->
 			<tr>
-				<th>Title</th>
-				<th id="id_th_descr">Description</th>
-				<th class="cl_cell_width">Created</th>
-				<th>By</th>
-				<th id="id_th_descr">Access (click for link)</th>
+				<th><?php p($l->t('Title')); ?></th>
+				<th id="id_th_descr"><?php p($l->t('Description')); ?></th>
+				<th class="cl_cell_width"><?php p($l->t('Created')); ?></th>
+				<th><?php p($l->t('By')); ?></th>
+				<th id="id_th_descr"><?php p($l->t('Access (click for link)')); ?></th>
 			</tr>
 
 			<?php
@@ -39,13 +39,13 @@
 						<input type="hidden" value="<?php echo $row['id']; ?>" />
 					</td>
 					<?php
-						$str = $row['description'];
+						//$str = $row['description'];
 						/*if (strlen($str) > 60){
 							$str = substr($str, 0, 57) . '...';
 						}*/
-						$str = wordwrap($str, 50, "<br/>", true);
+						//$str = wordwrap($str, 50, "<br/>", true);
 					?>
-					<td><?php echo $str; ?></td>
+					<td><div class="wordwrap"><?php echo $row['description']; ?></div></td>
 					<?php //echo '<td>' . str_replace("_", " ", $row['created']) . '</td>'; ?>
 					<td><?php echo date('d.m.Y H:i', $row['created']); ?></td>
 					<td><?php echo OCP\User::getDisplayName($row['owner']); ?></td>
@@ -57,15 +57,15 @@
 						$url .= 'goto/' . $row['id'];
 					?>
 					<td class="cl_poll_url">
-						<?php echo $row['access']; ?>
+						<?php p($l->t($row['access'])); ?>
 						<input type="hidden" value="<?php echo $url; ?>" />
 					</td>
 					<?php if (strcmp($row['owner'], OCP\User::getUser()) == 0) : ?>
-						<td id="id_del_<?php echo $row['id']; ?>" class="cl_delete">...delete</td>
+						<td id="id_del_<?php echo $row['id']; ?>" class="cl_delete"><?php p($l->t('delete')); ?></td>
 					<?php endif; ?>
 				</tr>
 			<?php endwhile; ?>
 		</table>
 	</div>
-	<input type="submit" id="submit_new_poll" value="Create new poll" />
+	<input type="submit" id="submit_new_poll" value="<?php p($l->t('Create new poll')); ?>" />
 </form>

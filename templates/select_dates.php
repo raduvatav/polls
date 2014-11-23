@@ -8,20 +8,15 @@
 	<tr>
 	<th class="cl_title_header" rowspan="<?php count($arr); ?>"><em><div id="id_title"><?php echo $title; ?></div></em></th>
 
-	<?php for ($i = 0; $i < count($arr); $i++): ?>
-		<?php $line = $arr[$i]; ?>
-		<?php if ($i > 0): ?>
-			<tr>
-				<th class="cl_desc_header"><em><div id="id_descr"><?php wordwrap($line, 50, "<br/>", true); ?></div></em></th>
-			</tr>
-		<?php endif; ?>
-	<?php endfor; ?>
+	<tr>
+		<th class="cl_desc_header"><em><div class="wordwrap" id="id_descr"><?php echo $desc; //wordwrap($line, 50, "<br/>", true); ?></div></em></th>
+	</tr>
 	<tr>
 		<td>&nbsp;</td>
 	</tr>
 	<tr>
-       <td><h2>Click on days to add or remove</h2></td>
-       <td><h2>Select hour & minute, then click on time</h2></td>
+       <td><h2><?php p($l->t('Click on days to add or remove')); ?></h2></td>
+       <td><h2><?php p($l->t('Select hour & minute, then click on time')); ?></h2></td>
 	</tr>
 	<tr>
 		<td class="cl_pad_left">
@@ -37,7 +32,13 @@
 				</th>
 			</tr>
 			<tr>
-				<th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
+				<th><?php p($l->t('Mon')); ?></th>
+				<th><?php p($l->t('Tue')); ?></th>
+				<th><?php p($l->t('Wed')); ?></th>
+				<th><?php p($l->t('Thu')); ?></th>
+				<th><?php p($l->t('Fri')); ?></th>
+				<th><?php p($l->t('Sat')); ?></th
+				><th><?php p($l->t('Sun')); ?></th>
 			</tr>
 			<?php for ($i = 0; $i < 6; $i++) : ?>
 				<tr>
@@ -77,9 +78,9 @@
 
 	<?php // -------- selected hour --- ?>
 							<tr>
-								<td colspan="8" > click to add ---></td>
+								<td colspan="8" > <?php p($l->t('click to add')); ?> ---></td>
 								<td colspan="8" class="cl_time_display" id="id_time_display">00:00</td>
-								<td colspan="8"><--- click to add </td>
+								<td colspan="8"><--- <?php p($l->t('click to add')); ?> </td>
 							</tr>
 						</table>
 					</td>
@@ -90,7 +91,7 @@
 	<?php // table
 	// -------- entries ('possibilities', to be filled by js) ?>
 							<tr id="id_poss_table_header_row"> <?php    // header row ?>
-								<th>date\time</th> <?php         // corner (date\time) ?>
+								<th><?php p($l->t('date\\time')); ?></th> <?php         // corner (date\time) ?>
 							</tr>
 
 						</table>
@@ -105,7 +106,7 @@
 			<input type="hidden" name="poll_id" value="<?php echo $poll_id; ?>" />
 			<input type="hidden" name="chosen_dates" />
 			<td colspan="2">
-				<input type="button" id="submit_finish_poll" value="...next" />
+				<input type="button" id="submit_finish_poll" value="<?php p($l->t('Next')); ?>" />
 			</td>
 		</form>
 	</tr>

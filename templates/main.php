@@ -229,13 +229,74 @@ if (isset ($_POST) && isset ($_POST['j'])) {
             // delete not finished polls
             $query = DB::prepare('delete from *PREFIX*polls_events where created is null');
             $query->execute();
-            if (User::isLoggedIn()) {
+            /*if (User::isLoggedIn()) {
                 include 'poll_summary.php';
             }
             else {
                 \OCP\Util::addScript('polls', 'page_anon');
-            }
+            }*/
+			
+			/* Load vote page (copy of case 'vote')*/
+			unset($_POST);
+			
+			$query = DB::prepare('select title, description from *PREFIX*polls_events where id=?');
+			$result = $query->execute(array($poll_id));
+			$row = $result->fetchRow();
+
+			$title = $row['title'];
+			$desc = $row['description'];
+
+			// page2 needs json->chosen
+			$query = DB::prepare('select dt from *PREFIX*polls_dts where id=?');
+			$result = $query->execute(array($poll_id));
+			$arr = array();
+			while ($row = $result->fetchRow()) {
+
+				$dt = explode('_', $row['dt']);
+
+				$obj = new stdClass();
+				$obj->date = $dt[0];
+				$obj->time = $dt[1];
+				array_push($arr, $obj);
+
+			}
+
+			usort($arr, 'sort_dates');
+
+			$chosen = $arr;
+
+			// other users
+			$others = array();
+			$query = DB::prepare('select dt, user, ok from *PREFIX*polls_particip where id=? order by user');
+			$result = $query->execute(array($poll_id));
+			while($row = $result->fetchRow()) {
+				$obj = new stdClass();
+
+				$obj->dt = $row['dt'];
+				$obj->ok = $row['ok'];
+
+				if (!isset($others[$row['user']])) {
+					$others[$row['user']] = array();
+				}
+				array_push($others[$row['user']], $obj);
+			}
+			// comments
+			$query = DB::prepare('select user, dt, comment from *PREFIX*polls_comments where id=?');
+			$result = $query->execute(array($poll_id));
+			$comments = array();
+			while($row = $result->fetchRow()) {
+				$obj = new stdClass();
+				$obj->user = $row['user'];
+				$obj->dt = $row['dt'];
+				$obj->comment = $row['comment'];
+				array_push($comments, $obj);
+			}
+			include 'last.php';
+			
             return;
+		/*case 'home':
+			include 'poll_summary.php';
+			return;*/
     }
 
 }

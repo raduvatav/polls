@@ -58,14 +58,14 @@ $line = str_replace("\n", '<br>', $desc);
 //echo '<td colspan="' . (count($json->chosen)+1) . '" class="cl_desc_header"><div id="id_descr">' . $line . '</div></th>';
 //echo '</tr>';
 ?>
-<h2>Description</h2>
-<p class="desc"><?php echo wordwrap($line, 100, "<br/>", true); ?></p>
+<h2><?php p($l->t('Description')); ?></h2>
+<div class="wordwrap desc"><?php echo $line; //wordwrap($line, 100, "<br/>", true); ?></div>
 
 <?
 // -------------- url ---------------
 //echo '<tr><th>poll url:</th><td colspan="' . (count($json->chosen)+1) . '">';
 ?>
-<h2>poll URL</h2>
+<h2><?php p($l->t('poll URL')); ?></h2>
 <p class="url">
 	<?php
 		$url = \OCP\Util::linkToRoute('polls_index'); 
@@ -83,7 +83,7 @@ $line = str_replace("\n", '<br>', $desc);
 
 // ---------- main table --------------
 ?>
-<table class="cl_table_1" id="id_table_1">'; <?php //from above title ?>
+<table class="cl_table_1" id="id_table_1"> <?php //from above title ?>
 	<tr>
 		<th rowspan="3">&nbsp;</th> <?php // upper left header rectangle ?>
 	<? php echo $for_string_years; ?>
@@ -191,7 +191,7 @@ $line = str_replace("\n", '<br>', $desc);
 	</tr>
 	<?php // --------------- total -------------------- ?>
 	<tr>
-		<th>Total:</th>
+		<th><?php p($l->t('Total')); ?>:</th>
 		<?php for ($i = 0; $i < count($chosen); $i++) :
 			echo '<td><table id="id_tab_total"><tr>';
 			echo '<td id="id_y_' . $i . '" class="cl_total_y">' . (isset($total_y[$i]) ? $total_y[$i] : '0') . '</td>';
@@ -207,8 +207,8 @@ $line = str_replace("\n", '<br>', $desc);
 		<td>&nbsp;</td>
 	</tr>
 	<tr>
-		<th>Comment</th>
-		<td><textarea cols="50" rows="5" id="id_comment"></textarea></td>
+		<th><?php p($l->t('Comment')); ?></th>
+		<td><textarea cols="50" rows="5" id="comment_box"></textarea></td>
 	</tr>
 	<?php // -------- submit ----------- ?>
 	<tr>
@@ -217,25 +217,30 @@ $line = str_replace("\n", '<br>', $desc);
 	<tr>
 		<?php // linkToRoute is to remove "/goto" if user came here directly ?>
 		<form name="finish_poll" action="<?php echo \OCP\Util::linkToRoute('polls_index'); ?>" method="POST">
-			<input type="hidden" name="j" value="finish" />
+			<input type="hidden" name="j" id="j" value="finish" />
 			<input type="hidden" name="poll_id" value="<?php echo $poll_id; ?>" />
 			<input type="hidden" name="options" />
 			<td colspan="2" style "background-color: white">
-				<input type="button" id="submit_finish_poll" value="Finish" />
+				<input type="button" id="submit_finish_poll" value="<?php p($l->t('Send')); ?>" />
+				<input type="button" id="button_home" value="<?php p($l->t('Home')); ?>" />
 			</td>
 		</form>
 	</tr>
 </table>
 <?php // -------- comments ---------- ?>
-<h2>Comments</h2>
+<h2><?php p($l->t('Comments')); ?></h2>
 <table class="cl_user_comments">
 	<?php foreach ($comments as $obj) : ?>
 		<tr>
 			<th>
-				<div id="id_user_name">' . \OCP\User::getDisplayName($obj->user) . ' :</div>
-				<div id="id_user_dt">' . date('d.m.Y_H:i', $obj->dt) . '</div>
+				<div id="id_user_name"><?php echo \OCP\User::getDisplayName($obj->user); ?>:</div>
+				<div id="id_user_dt"><?php echo date('d.m.Y_H:i', $obj->dt); ?></div>
 			</th>
-			<td><?php echo wordwrap(str_replace("\n", "<br>", $obj->comment), 50, "<br/>", true); ?></td>
+			<td>
+				<div class="wordwrap">
+					<?php echo $obj->comment; //wordwrap(str_replace("\n", "<br>", $obj->comment), 100, "<br/>", true); ?>
+				</div>
+			</td>
 		</tr>
 	<?php endforeach; ?>
 </table>
