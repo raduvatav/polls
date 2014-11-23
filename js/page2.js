@@ -34,12 +34,16 @@ $(document).ready(function () {
     }
 
 
+	$('#button_home').click(function() {
+		document.getElementById('j').value = 'home';
+		document.finish_poll.submit();
+	});
 
     $('#submit_finish_poll').click(function() {
         // todo
         var form = document.finish_poll;
 
-        var comm = document.getElementById('id_comment');
+        var comm = document.getElementById('comment_box');
 
         var ac_user = '';
         var ac = document.getElementById('user_name');
