@@ -36,12 +36,70 @@ $(document).ready(function () {
 				return false;
 			}
 			else {
+				var groups = [];
+				var cells = document.getElementsByClassName('cl_group_item_selected');
+				for (var i = 0; i < cells.length; i++) {
+					groups.push(cells[i].innerHTML);
+				}
+				//var form = document.new_poll;
+				//form.elements['j'].value = 'vote';
+				var form = document.create_poll;
+				form.elements['access_group_ids'].value = JSON.stringify(
+					{
+						groups: groups
+					});
+
 				return true;
 			}
 		}
 	}
 
+
+	// users, groups
+	document.getElementById('select').onclick = showAccessDialog;
+	document.getElementById('button_close_access').onclick = closeAccessDialog;
+
+	var cells = document.getElementsByClassName('cl_group_item');
+	for (var i = 0; i < cells.length; i++) {
+		cells[i].onclick = groupItemClicked;
+	}
+
+
 });
+
+function groupItemClicked() {
+	if (this.className == 'cl_group_item') {
+		this.className = 'cl_group_item_selected';
+	}
+	else {
+		this.className = 'cl_group_item';
+	}
+}
+
+//Popup dialog
+function showAccessDialog() {
+	var message = 'asdf';
+
+	// get the screen height and width
+	var maskHeight = $(document).height();
+	var maskWidth = $(window).width();
+
+	// calculate the values for center alignment
+	var dialogTop = (maskHeight / 3) - ($('#dialog-box').height());
+	var dialogLeft = (maskWidth / 2) - ($('#dialog-box').width() / 2);
+
+	// assign values to the overlay and dialog box
+	$('#dialog-overlay').css({height: maskHeight, width: maskWidth}).show();
+	$('#dialog-box').css({top: dialogTop, left: dialogLeft}).show();
+
+	// display the message
+	$('#dialog-message').html(message);
+
+}
+function closeAccessDialog() {
+	$('#dialog-overlay, #dialog-box').hide();
+	return false;
+}
 
 // open an existing poll
 function pollClicked(e) {
@@ -52,6 +110,7 @@ function pollClicked(e) {
     var form = document.new_poll;
     form.elements['j'].value = 'vote';
 	form.elements['poll_id'].value = id;
+
     form.submit();
 }
 
@@ -70,6 +129,8 @@ function deletePoll(e) {
 		var form = document.new_poll;
 		form.elements['j'].value = 'delete';
 		form.elements['delete_id'].value = this.id.split('_')[2];
+
+
 		form.submit();
 	}
 }

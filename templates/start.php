@@ -21,7 +21,51 @@
 		<input type="radio" name="radio_pub" id="public" value="public">
 		<label for="public"><?php p($l->t('Public access')); ?></label>
 
+		<input type="radio" name="radio_pub" id="select" value="select">
+		<label for="select">Select...</label>
+
+		<input type="hidden" name="access_group_ids" value="" />
+
+        <br>
+
 		<input type="submit" id="submit_create_poll" value="<?php p($l->t('Next')); ?>" />
 	</div>
+
+
+	<div id="dialog-overlay"></div>
+	<div id="dialog-box">
+		<div id="dialog-message"></div>
+
+		<table id="table_access">
+			<tr>
+				<td>
+					<table id="table_groups">
+						<tr>
+							<th>Groups</th>
+						</tr>
+							<?php
+
+							$groups = OC_Group::getUserGroups(OC_User::getUser());
+							foreach($groups as $gid) {
+								echo '<tr><td class="cl_group_item">' . $gid . '</td></tr>';
+							}
+
+							?>
+							?>
+					</table>
+				</td>
+				<td>
+					<table id="table_users">
+						<tr>
+							<th>Users</th>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+
+		<a id="button_close_access">Close</a>
+	</div>
+
 </form>
 

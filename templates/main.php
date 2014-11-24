@@ -56,10 +56,17 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 			$title = htmlspecialchars($_POST['text_title']);
 			$desc = htmlspecialchars($_POST['text_desc']);
 			$access = $_POST['radio_pub'];
-            /*$title = htmlspecialchars($json->title);
-            $descr = htmlspecialchars($json->descr);
-            $access = $json->access;*/
- 
+
+			if ($access === 'select') {
+
+				$groups = json_decode($_POST['access_group_ids'])->groups;
+
+				$access = '';
+				foreach($groups as $group) {
+					$access .= 'group_' . $group . ';';
+				}
+			}
+
             // add entry to db; don't set 'created' yet!
             $query = DB::prepare('insert into *PREFIX*polls_events(title, description, owner, access) values (?,?,?,?)');
             $result = $query->execute(array($title, $desc, User::getUser(), $access));
@@ -312,6 +319,42 @@ $query->execute(array(User::getUser()));
 
 include 'poll_summary.php';
 
+// ---- helper functions ----
+
+function userHasAccess($poll_id) {
+
+	if (!User::isLoggedIn()) return false;
+
+	$query = DB::prepare('select * from *PREFIX*polls_events where id=?');
+	$result = $query->execute(array($poll_id));
+	$row = $result->fetchRow();
+	if ($row) {
+		$access = $row['access'];
+	}
+	else {
+		return false;
+	}
+
+	if (($access === 'registered') || ($access === 'public')) return true;
+
+	$user_groups = OC_Group::getUserGroups(User::getUser());
+
+	$arr = explode(';', $access);
+
+	foreach ($arr as $item) {
+		if (strpos($item, 'group_') === 0) {
+			$grp = substr($item, 6);
+			foreach ($user_groups as $user_group) {
+				if ($user_group === $grp) return true;
+			}
+		}
+	}
+
+	return false;
+
+}
+
 function oclog($str) {
 	Util::writeLog("_____________polls", $str, \OCP\Util::ERROR);
 }
+
