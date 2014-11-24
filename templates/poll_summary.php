@@ -1,6 +1,7 @@
 <?php
 \OCP\Util::addStyle('polls', 'page0');
 \OCP\Util::addScript('polls', 'page0');
+OCP\User::checkLoggedIn();
 ?>
 
 <form name="new_poll" method="POST">
