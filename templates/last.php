@@ -53,6 +53,15 @@ $line = str_replace("\n", '<br>', $desc);
 //echo '<tr>';
 //echo '<th><div id="id_title">' . $title . '</div></th>';
 ?>
+
+<p>
+	<?php if(!User::isLoggedIn()) : ?>
+		<?php p($l->t('Already have an account?')); ?>
+		<?php $url = OC_Helper::linkToAbsolute( '', 'index.php' ).'?redirect_url='.OCP\Util::linkToRoute('polls_goto', array('poll_id' => $poll_id)); ?>
+		<a href="<?php echo $url; ?>"><?php p($l->t('Login')); ?></a>
+	<?php endif; ?>
+</p>
+
 <h1><?php echo $title; ?></h1>
 
 <?php
