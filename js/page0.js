@@ -43,12 +43,11 @@ function pollClicked(e) {
 function deletePoll(e) {
 	var str = 'Are you sure you want to delete the poll ';
 	var child = this;
-	while( child.previousSibling != null ) {
+	while( child.className != 'cl_link' && child.previousSibling != null ) {
 		child = child.previousSibling;
 	}
 	str += '\'' + child.innerHTML.split('<')[0] + '\'' + '?';
 	//str += '\n\n    ' + child.innerHTML.split('<')[0];
-
 	if (confirm(str)) {
 		var form = document.new_poll;
 		form.elements['j'].value = 'delete';

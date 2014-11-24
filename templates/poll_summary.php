@@ -35,8 +35,7 @@
 			<?php while ($row = $result->fetchRow()) : ?>
 				<tr>
 					<td class="cl_link">
-						<?php echo $row['title']; ?>
-						<input type="hidden" value="<?php echo $row['id']; ?>" />
+						<?php echo $row['title']; ?><input type="hidden" value="<?php echo $row['id']; ?>" />
 					</td>
 					<?php
 						//$str = $row['description'];
