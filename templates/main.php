@@ -68,7 +68,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 			}
 
             // add entry to db; don't set 'created' yet!
-            $query = DB::prepare('insert into *PREFIX*polls_events(title, description, owner, access) values (?,?,?,?)');
+            $query = DB::prepare('insert into *PREFIX*polls_events(id, title, description, owner, access) values (uuid(),?,?,?,?)');
             $result = $query->execute(array($title, $desc, User::getUser(), $access));
 
             $poll_id = DB::insertid();
