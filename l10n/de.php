@@ -11,7 +11,7 @@ $TRANSLATIONS = array(
 	"Registered users only" => "Nur registrierte Benutzer",
 	"Public access" => "Öffentlicher Zugriff",
 	"public" => "öffentlich",
-	"private" => "geschlossen",
+	"registered" => "geschlossen",
 	"delete" => "löschen",
 	"Next" => "Weiter",
 	"Click on days to add or remove" => "Klicke auf die Tage um sie hinzuzufügen oder zu löschen",
@@ -31,6 +31,8 @@ $TRANSLATIONS = array(
 	"Comments" => "Kommentare",
 	"UTC" => "Europe/Berlin",
 	"Send" => "Abschicken",
-	"Home" => "Startseite",	
+	"Home" => "Startseite",
+	"participated" => "abgestimmt",
+	"Yourself" => "Dir",
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";
