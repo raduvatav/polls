@@ -1,6 +1,7 @@
 <?php
 use \OCP\DB;
 use \OCP\User;
+use \OCP\Util;
 
 function sort_dates($a, $b) {
 	$arra = explode('.', $a->date);
@@ -39,8 +40,13 @@ if (isset ($_POST) && isset ($_POST['j'])) {
     //$json = json_decode($post_j);
     //echo '<pre>json: '; print_r($json); echo '</pre>';
 
-    //switch($json->q){
-	if($post_j != 'vote') OCP\User::checkLoggedIn();
+	//oclog("postj: " . $post_j);
+
+	// vote: build vote page; finish: save "vote" - both available w/o login
+	if(($post_j != 'vote') && ($post_j != 'finish')) OCP\User::checkLoggedIn();
+
+
+
 	switch($post_j){
         case 'start':
             include 'start.php';
@@ -184,7 +190,6 @@ if (isset ($_POST) && isset ($_POST['j'])) {
             else {
                 $user = htmlspecialchars($options->ac_user);
             }
-
             // remove row (if exist, else doesn't matter)
             $query = DB::prepare('delete from *PREFIX*polls_particip where id=? and user=?');
             $result = $query->execute(array($poll_id, $user));
@@ -194,7 +199,6 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 
             // insert
             foreach ($sel_yes as $dt){
-
                 $query->execute(array('yes', $poll_id, $user, $dt));
             }
             foreach ($sel_no as $dt){
@@ -307,3 +311,7 @@ $query = DB::prepare('delete from *PREFIX*polls_events where created is null and
 $query->execute(array(User::getUser()));
 
 include 'poll_summary.php';
+
+function oclog($str) {
+	Util::writeLog("_____________polls", $str, \OCP\Util::ERROR);
+}
