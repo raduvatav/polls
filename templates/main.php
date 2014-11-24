@@ -318,7 +318,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 $query = DB::prepare('delete from *PREFIX*polls_events where created is null and owner=?');
 $query->execute(array(User::getUser()));
 
-$result = hasParticipated();
+$partic_polls = hasParticipated();
 include 'poll_summary.php';
 
 // ---- helper functions ----
@@ -361,6 +361,6 @@ function oclog($str) {
 }
 
 function hasParticipated(){    
-    $query = DB::prepare('select id, user from *PREFIX*polls_particip where user=? order by id');
+    $query = DB::prepare('select id from *PREFIX*polls_particip where user=? order by id');
     return $query->execute(array(User::getUser()))->fetchAll();
 }
