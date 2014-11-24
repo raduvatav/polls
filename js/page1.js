@@ -318,6 +318,16 @@ function removeTimeColumn(){
         // todo: -2?? (textnode -> th -> textnode -> x
         row.deleteCell(ch_ind - 2);
     }
+	removeByTime(this.innerHTML);
+}
 
+function removeByTime(time) {
+	for (var i = 0; i < g_chosen_datetimes.length; i++) {
+		var currTime = g_chosen_datetimes[i].time;
+		if (currTime == time){
+			g_chosen_datetimes.splice(i, 1);
+			i--; //one step back, because we deleted an element
+		}
+	}
 }
 
