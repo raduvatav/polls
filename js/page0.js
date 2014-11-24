@@ -47,7 +47,10 @@ function deletePoll(e) {
 		child = child.previousSibling;
 	}
 	str += '\'' + child.innerHTML.split('<')[0] + '\'' + '?';
-	//str += '\n\n    ' + child.innerHTML.split('<')[0];
+
+	// reformat: delete '\n   name'? -> delete \n'   name'?
+	str = str.replace(/\'\n\s+/, '\n              \'');
+
 	if (confirm(str)) {
 		var form = document.new_poll;
 		form.elements['j'].value = 'delete';
