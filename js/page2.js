@@ -49,7 +49,7 @@ $(document).ready(function () {
         var ac = document.getElementById('user_name');
         if (ac != null) {
             //ac_user = ac.innerHTML;
-			if(ac.length > 3){
+			if(ac.value.length >= 3){
 				ac_user = ac.value;
 			} else {
 				alert("You are not registered.\nPlease enter your name to vote\n(at least 3 characters!)");
