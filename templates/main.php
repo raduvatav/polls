@@ -318,6 +318,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 $query = DB::prepare('delete from *PREFIX*polls_events where created is null and owner=?');
 $query->execute(array(User::getUser()));
 
+$result = hasParticipated();
 include 'poll_summary.php';
 
 // ---- helper functions ----
