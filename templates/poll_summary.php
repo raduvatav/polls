@@ -4,33 +4,25 @@
 OCP\User::checkLoggedIn();
 ?>
 
+<h1><?php p($l->t('Summary')); ?></h1>
 <form name="new_poll" method="POST">
 	<input type="hidden" name="j" value="start"/>
 	<input type="hidden" name="delete_id" value=""/>
 	<input type="hidden" name="poll_id" value="" />
 	<div class="goto_poll">
 		<table class="cl_create_form">
-			<!--<tr>
-				<td colspan="4">-->
-				<h1><?php p($l->t('Summary')); ?></h1>
-				<!--</td>
-			</tr>-->
 			<tr>
 				<th><?php p($l->t('Title')); ?></th>
 				<th id="id_th_descr"><?php p($l->t('Description')); ?></th>
 				<th class="cl_cell_width"><?php p($l->t('Created')); ?></th>
 				<th><?php p($l->t('By')); ?></th>
+				<th><?php p($l->t('participated')); ?></th>
 				<th id="id_th_descr"><?php p($l->t('Access (click for link)')); ?></th>
 			</tr>
 
 			<?php
-			$query = OCP\DB::prepare('select * from *PREFIX*polls_events');
-			$result = $query->execute();
-			
-			//print_r($result);
-			//$rowfoo = $result->fetchRow();
-			//echo count($rowfoo);
-			//echo $rowfoo['title'];
+				$query = OCP\DB::prepare('select * from *PREFIX*polls_events');
+				$result = $query->execute();
 			?>
 
 			<?php while ($row = $result->fetchRow()) : ?>
@@ -48,8 +40,26 @@ OCP\User::checkLoggedIn();
 					<td><div class="wordwrap"><?php echo $row['description']; ?></div></td>
 					<?php //echo '<td>' . str_replace("_", " ", $row['created']) . '</td>'; ?>
 					<td><?php echo date('d.m.Y H:i', $row['created']); ?></td>
-					<td><?php echo OCP\User::getDisplayName($row['owner']); ?></td>
-
+					<td>
+						<?php
+							if($row['owner'] == OCP\User::getUser()) p($l->t('Yourself'));
+							else echo OCP\User::getDisplayName($row['owner']); //echo OCP\User::getDisplayName($row['owner']);
+						?>
+					</td>
+                    <td>
+						<?php
+							$partic_class = 'partic_no';
+							for($i = 0; $i < count($partic_polls); $i++){
+								if($row['id'] == $partic_polls[$i]['id']){
+									$partic_class = 'partic_yes';
+									array_splice($partic_polls, $i, 1);
+									break;
+								}
+							}
+						?>
+						<div class="partic_all <?php echo $partic_class; ?>">
+						</div>
+                    </td>
 					<?php 
 						// direct url to poll
 						$url = \OCP\Util::linkToRoute('polls_index');

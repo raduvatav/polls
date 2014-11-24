@@ -19,6 +19,19 @@ div.goto_poll {
     /*background-color: green;*/
 }
 
+div.partic_all {
+	width: 10px;
+	height: 10px;
+}
+
+div.partic_yes {
+	background-color: green;
+}
+
+div.partic_no {
+	background-color: red;
+}
+
 th {
     padding: 3px;
     background-color: aliceblue;

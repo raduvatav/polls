@@ -90,6 +90,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
             $query = DB::prepare('delete from *PREFIX*polls_comments where id=?');
             $query->execute(array($id));
 
+            $result = hasParticipated();
             include 'poll_summary.php';
             return;
 
@@ -358,3 +359,7 @@ function oclog($str) {
 	Util::writeLog("_____________polls", $str, \OCP\Util::ERROR);
 }
 
+function hasParticipated(){    
+    $query = DB::prepare('select id, user from *PREFIX*polls_particip where user=? order by id');
+    return $query->execute(array(User::getUser()))->fetchAll();
+}
