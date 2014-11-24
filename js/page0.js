@@ -26,6 +26,21 @@ $(document).ready(function () {
         }
     }
 
+	// prevent poll creation without title
+	var submit_create_poll = document.getElementById('submit_create_poll');
+	if (submit_create_poll != null) {
+		submit_create_poll.onclick = function() {
+			var title = document.getElementById('text_title');
+			if (title == null || title.value.length < 1) {
+				alert('You must enter at least a title for the new poll.');
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
+	}
+
 });
 
 // open an existing poll
