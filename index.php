@@ -5,6 +5,10 @@
 OCP\App::setActiveNavigationEntry( 'polls' );
 
 //echo '<pre>r_uri: '; print_r($_SERVER); '</pre>';
-
-$tmpl = new OCP\Template( 'polls', 'main', 'user' );
+if (OCP\User::isLoggedIn()) {
+	$tmpl = new OCP\Template('polls', 'main', 'user');
+}
+else {
+	$tmpl = new OCP\Template('polls', 'main', 'base');
+}
 $tmpl->printPage();
