@@ -24,7 +24,7 @@
 		<input type="radio" name="radio_pub" id="select" value="select">
 		<label for="select"><?php p($l->t('Select')); ?></label>
 
-		<input type="hidden" name="access_group_ids" value="" />
+		<input type="hidden" name="access_ids" value="" />
         <br/>
 		<input type="submit" id="submit_create_poll" value="<?php p($l->t('Next')); ?>" />
 	</div>
@@ -52,6 +52,12 @@
 						<tr>
 							<th><?php p($l->t('Users')); ?></th>
 						</tr>
+						<?php $users = OC_User::getUsers(); ?>
+						<?php foreach ($users as $uid) : ?>
+							<tr>
+								<td class="cl_user_item"><?php echo $uid; ?></td>
+							</tr>
+						<?php endforeach; ?>
 					</table>
 				</td>
 			</tr>

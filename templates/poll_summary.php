@@ -17,7 +17,7 @@ OCP\User::checkLoggedIn();
 				<th class="cl_cell_width"><?php p($l->t('Created')); ?></th>
 				<th><?php p($l->t('By')); ?></th>
 				<th><?php p($l->t('participated')); ?></th>
-				<th id="id_th_descr"><?php p($l->t('Access (click for link)')); ?></th>
+				<th id="id_th_descr"><?php p($l->t('Access')); ?></th>
 			</tr>
 
 			<?php
@@ -26,8 +26,9 @@ OCP\User::checkLoggedIn();
 			?>
 
 			<?php while ($row = $result->fetchRow()) : ?>
+				<?php  if (!userHasAccess($row['id'])) continue; ?>
 				<tr>
-					<td class="cl_link">
+					<td class="cl_link" title="Go to">
 						<?php echo $row['title']; ?><input type="hidden" value="<?php echo $row['id']; ?>" />
 					</td>
 					<?php
@@ -39,11 +40,20 @@ OCP\User::checkLoggedIn();
 					?>
 					<td><div class="wordwrap"><?php echo $row['description']; ?></div></td>
 					<?php //echo '<td>' . str_replace("_", " ", $row['created']) . '</td>'; ?>
-					<td><?php echo date('d.m.Y H:i', $row['created']); ?></td>
+
+					<?php
+					// direct url to poll
+					$url = \OCP\Util::linkToRoute('polls_index');
+					$url = \OC_Helper::makeURLAbsolute($url);
+					$url .= 'goto/' . $row['id'];
+					?>
+
+					<td class="cl_poll_url" title="Click to get link"><input type="hidden" value="<?php echo $url; ?>" /><?php echo date('d.m.Y H:i', $row['created']); ?></td>
 					<td>
 						<?php
 							if($row['owner'] == OCP\User::getUser()) p($l->t('Yourself'));
 							else echo OCP\User::getDisplayName($row['owner']); //echo OCP\User::getDisplayName($row['owner']);
+
 						?>
 					</td>
                     <td>
@@ -60,15 +70,8 @@ OCP\User::checkLoggedIn();
 						<div class="partic_all <?php echo $partic_class; ?>">
 						</div>
                     </td>
-					<?php 
-						// direct url to poll
-						$url = \OCP\Util::linkToRoute('polls_index');
-						$url = \OC_Helper::makeURLAbsolute($url);
-						$url .= 'goto/' . $row['id'];
-					?>
-					<td class="cl_poll_url">
+					<td <?php if (strcmp($row['owner'], OCP\User::getUser()) == 0) echo 'class="cl_poll_access" title="Edit access"' ?> >
 						<?php p($l->t($row['access'])); ?>
-						<input type="hidden" value="<?php echo $url; ?>" />
 					</td>
 					<?php if (strcmp($row['owner'], OCP\User::getUser()) == 0) : ?>
 						<td id="id_del_<?php echo $row['id']; ?>" class="cl_delete"><?php p($l->t('delete')); ?></td>
@@ -79,3 +82,38 @@ OCP\User::checkLoggedIn();
 	</div>
 	<input type="submit" id="submit_new_poll" value="<?php p($l->t('Create new poll')); ?>" />
 </form>
+
+<div id="dialog-box">
+	<div id="dialog-message"></div>
+	<table id="table_access">
+		<tr>
+			<td>
+				<table id="table_groups">
+					<tr>
+						<th><?php p($l->t('Groups')); ?></th>
+					</tr>
+					<?php $groups = OC_Group::getUserGroups(OC_User::getUser()); ?>
+					<?php foreach($groups as $gid) : ?>
+						<tr>
+							<td class="cl_group_item"><?php echo $gid; ?></td>
+						</tr>
+					<?php endforeach; ?>
+				</table>
+			</td>
+			<td>
+				<table id="table_users">
+					<tr>
+						<th><?php p($l->t('Users')); ?></th>
+					</tr>
+					<?php $users = OC_User::getUsers(); ?>
+					<?php foreach ($users as $uid) : ?>
+						<tr>
+							<td class="cl_user_item"><?php echo $uid; ?></td>
+						</tr>
+					<?php endforeach; ?>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<a id="button_close_access"><?php p($l->t('Close')); ?></a>
+</div>

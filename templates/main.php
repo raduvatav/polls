@@ -3,14 +3,6 @@ use \OCP\DB;
 use \OCP\User;
 use \OCP\Util;
 
-function sort_dates($a, $b) {
-	$arra = explode('.', $a->date);
-	$dta = $arra[2] . $arra[1] . $arra[0] . '_' . $a->time;
-	$arrb = explode('.', $b->date);
-	$dtb = $arrb[2] . $arrb[1] . $arrb[0] . '_' . $b->time;
-
-	return strcmp($dta, $dtb);
-}
 
 // coming directly to vote (link)
 if (isset ($_GET) && isset ($_GET['poll_id'])){
@@ -20,13 +12,23 @@ if (isset ($_GET) && isset ($_GET['poll_id'])){
     $result = $query->execute(array($_GET['poll_id']));
     $row = $result->fetchRow();
     $access = $row['access'];
+
     // if !public and !loggedIn go to login page
     if (strcmp($access, 'public') && !OCP\User::isLoggedIn()){
         OCP\User::checkLoggedIn();
     }
+	// if !registered check access (groups/users)
+	else if (strcmp($access, 'registered')) {
+		// check if user has access to this poll
+		if (!userHasAccess($_GET['poll_id'])) {
+			echo '<h1>You are not allowed to view this poll</h1>';
+			return;
+		}
+	}
+
 
     unset ($_POST);
-    //$_POST['j'] = '{"q":"vote","poll_id":"' . $_GET['poll_id'] . '"}';
+
 	$_POST['j'] = "vote";
 	$_POST['poll_id'] = $_GET['poll_id'];
     unset ($_GET);
@@ -59,21 +61,24 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 
 			if ($access === 'select') {
 
-				$groups = json_decode($_POST['access_group_ids'])->groups;
+				$groups = json_decode($_POST['access_ids'])->groups;
+				$users = json_decode($_POST['access_ids'])->users;
 
 				$access = '';
-				foreach($groups as $group) {
-					$access .= 'group_' . $group . ';';
+				foreach($groups as $gid) {
+					$access .= 'group_' . $gid . ';';
+				}
+				foreach($users as $uid) {
+					$access .= 'user_' . $uid . ';';
 				}
 			}
 
             // add entry to db; don't set 'created' yet!
-			$poll_id = substr(uniqid(), 0, 8);
+			$poll_id = substr(md5(uniqid('', true)), 0, 16);
+
             $query = DB::prepare('insert into *PREFIX*polls_events(id, title, description, owner, access) values (?,?,?,?,?)');
             $result = $query->execute(array($poll_id, $title, $desc, User::getUser(), $access));
 
-            //$poll_id = DB::insertid();
-oclog("after insert efents, poll_id: " . $poll_id);
             // load next page
             include 'select_dates.php';
 
@@ -174,7 +179,7 @@ oclog("after insert efents, poll_id: " . $poll_id);
             $title = $row['title'];
             $desc = $row['description'];
 
-oclog("insert dts; id: " . $poll_id);
+
             $query = DB::prepare('insert into *PREFIX*polls_dts(id, dt) values(?,?)');
             foreach($chosen as $el) {
                 $query->execute(array($poll_id, $el->date . '_' . $el->time));
@@ -322,6 +327,7 @@ $query->execute(array(User::getUser()));
 $partic_polls = hasParticipated();
 include 'poll_summary.php';
 
+
 // ---- helper functions ----
 
 function userHasAccess($poll_id) {
@@ -351,10 +357,13 @@ function userHasAccess($poll_id) {
 				if ($user_group === $grp) return true;
 			}
 		}
+		else if (strpos($item, 'user_') === 0) {
+			$usr = substr($item, 5);
+			if ($usr === User::getUser()) return true;
+		}
 	}
 
 	return false;
-
 }
 
 function oclog($str) {
@@ -364,4 +373,13 @@ function oclog($str) {
 function hasParticipated(){    
     $query = DB::prepare('select id from *PREFIX*polls_particip where user=? order by id');
     return $query->execute(array(User::getUser()))->fetchAll();
+}
+
+function sort_dates($a, $b) {
+	$arra = explode('.', $a->date);
+	$dta = $arra[2] . $arra[1] . $arra[0] . '_' . $a->time;
+	$arrb = explode('.', $b->date);
+	$dtb = $arrb[2] . $arrb[1] . $arrb[0] . '_' . $b->time;
+
+	return strcmp($dta, $dtb);
 }

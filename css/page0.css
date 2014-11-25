@@ -107,7 +107,9 @@ th {
 .cl_poll_url {
     cursor: pointer;
 }
-
+.cl_poll_access {
+    cursor: pointer;
+}
 
 /*  users, groups...   */
 #dialog-overlay {
@@ -161,7 +163,17 @@ th {
 }
 .cl_group_item {
     background-color: white;
+    color: #000000;
+}
+.cl_user_item {
+    background-color: white;
+    color: #000000;
 }
 .cl_group_item_selected {
-    background-color: #0000ff;
+    background-color: #1d2d44;
+    color: #8e96a1;
+}
+.cl_user_item_selected {
+    background-color: #1d2d44;
+    color: #8e96a1;
 }
