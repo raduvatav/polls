@@ -18,7 +18,7 @@ if (isset ($_GET) && isset ($_GET['poll_id'])){
         OCP\User::checkLoggedIn();
     }
 	// if !registered check access (groups/users)
-	else if (strcmp($access, 'registered')) {
+	else if (strcmp($access, 'registered') || strcmp($access, 'public')) {
 		// check if user has access to this poll
 		if (!userHasAccess($_GET['poll_id'])) {
 			echo '<h1>You are not allowed to view this poll</h1>';
