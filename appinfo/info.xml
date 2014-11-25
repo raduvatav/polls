@@ -3,7 +3,7 @@
 	<id>polls</id>
 	<name>Polls</name>
 	<description>event schedule polls</description>
-	<version>0.3.1</version>
+	<version>0.3.3</version>
 	<licence>AGPL</licence>
 	<author>Radu Vatav</author>
 	<requiremin>7</requiremin>

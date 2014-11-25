@@ -68,11 +68,12 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 			}
 
             // add entry to db; don't set 'created' yet!
-            $query = DB::prepare('insert into *PREFIX*polls_events(id, title, description, owner, access) values (uuid(),?,?,?,?)');
-            $result = $query->execute(array($title, $desc, User::getUser(), $access));
+			$poll_id = substr(uniqid(), 0, 8);
+            $query = DB::prepare('insert into *PREFIX*polls_events(id, title, description, owner, access) values (?,?,?,?,?)');
+            $result = $query->execute(array($poll_id, $title, $desc, User::getUser(), $access));
 
-            $poll_id = DB::insertid();
-
+            //$poll_id = DB::insertid();
+oclog("after insert efents, poll_id: " . $poll_id);
             // load next page
             include 'select_dates.php';
 
@@ -173,7 +174,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
             $title = $row['title'];
             $desc = $row['description'];
 
-
+oclog("insert dts; id: " . $poll_id);
             $query = DB::prepare('insert into *PREFIX*polls_dts(id, dt) values(?,?)');
             foreach($chosen as $el) {
                 $query->execute(array($poll_id, $el->date . '_' . $el->time));
