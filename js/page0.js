@@ -46,7 +46,7 @@ $(document).ready(function () {
 				var users = [];
 				cells = document.getElementsByClassName('cl_user_item_selected');
 				for (var i = 0; i < cells.length; i++) {
-					users.push(cells[i].innerHTML);
+					users.push(cells[i].id.split('_')[1]);
 				}
 
 				var form = document.create_poll;

@@ -146,7 +146,7 @@ th {
 
     background:#eee;
     /* styling of the dialog box, i have a fixed dimension for this demo */
-    width:328px;
+    width:400px;
 
     /* make sure it has the highest z-index */
     position:absolute;
@@ -155,13 +155,30 @@ th {
     display:none;
 }
 
+div#dialog-message {
+	padding: 0 0 20px 0;
+}
+
+div.scroll_div {
+	width: 100%;
+	height: 250px;
+	overflow-y: auto;
+}
+
 #table_groups {
+	width: 100%;
 	padding: 20px 5px 10px 5px;
+    table-layout: fixed;
+	overflow-y: auto;
 }
 
 #table_users {
+	width: 100%;
 	padding: 20px 5px 10px 10px;
+    table-layout: fixed;
+	overflow-y: auto;
 }
+
 .cl_group_item {
     background-color: white;
     color: #000000;
