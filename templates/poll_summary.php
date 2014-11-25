@@ -1,7 +1,7 @@
 <?php
-\OCP\Util::addStyle('polls', 'page0');
-\OCP\Util::addScript('polls', 'page0');
-OCP\User::checkLoggedIn();
+	\OCP\Util::addStyle('polls', 'page0');
+	\OCP\Util::addScript('polls', 'page0');
+	OCP\User::checkLoggedIn();
 ?>
 
 <h1><?php p($l->t('Summary')); ?></h1>
@@ -69,7 +69,7 @@ OCP\User::checkLoggedIn();
 						?>
 						<div class="partic_all <?php echo $partic_class; ?>">
 						</div>
-						/
+						|
 						<?php
 							$partic_class = 'partic_no';
 							for($i = 0; $i < count($partic_comm); $i++){
