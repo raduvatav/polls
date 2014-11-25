@@ -34,5 +34,9 @@ $TRANSLATIONS = array(
 	"Home" => "Startseite",
 	"participated" => "abgestimmt",
 	"Yourself" => "Dir",
+	"Select" => "Wählen",
+	"Close" => "Schließen",
+	"Users" => "Benutzer",
+	"Groups" => "Gruppen",
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";
