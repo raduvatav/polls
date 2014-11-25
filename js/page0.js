@@ -122,7 +122,9 @@ function showAccessDialog(e) {
 	var maskWidth = $(window).width();
 
 	// calculate the values for center alignment
-	var dialogTop = (maskHeight / 3) - ($('#dialog-box').height());
+	//var dialogTop = (maskHeight / 3) - ($('#dialog-box').height());
+	// todo: height doesn't work
+	var dialogTop = 100;
 	var dialogLeft = (maskWidth / 2) - ($('#dialog-box').width() / 2);
 
 	// assign values to the overlay and dialog box
@@ -170,22 +172,32 @@ function showAccessDialog(e) {
 function closeAccessDialog() {
 	if (edit_access_id) {
 		var html = '';
-		cells = document.getElementsByClassName('cl_user_item_selected');
-		for (var i = 0; i < cells.length; i++) {
-			//users.push(cells[i].innerHTML);
-			html += 'user_' + cells[i].innerHTML + ';';
+		if (document.getElementById('private').checked) {
+			html = 'registered';
 		}
+		else if (document.getElementById('public').checked) {
+			html = 'public';
+		}
+		else {
+			cells = document.getElementsByClassName('cl_user_item_selected');
+			for (var i = 0; i < cells.length; i++) {
+				//users.push(cells[i].innerHTML);
+				html += 'user_' + cells[i].innerHTML + ';';
+			}
 
-		cells = document.getElementsByClassName('cl_group_item_selected');
-		for (var i = 0; i < cells.length; i++) {
-			//groups.push(cells[i].innerHTML);
-			html += 'group_' + cells[i].innerHTML + ';';
+			cells = document.getElementsByClassName('cl_group_item_selected');
+			for (var i = 0; i < cells.length; i++) {
+				//groups.push(cells[i].innerHTML);
+				html += 'group_' + cells[i].innerHTML + ';';
+			}
+
+			if (html.length == 0) html = 'registered';
 		}
 
 		// search cell with this id
 		cells = document.getElementsByClassName('cl_link');
 		var id_cell = null;
-		for (var i = 0; i < cells.length; i++){
+		for (var i = 0; i < cells.length; i++) {
 			var input = cells[i].getElementsByTagName('input');
 			if (input) {
 				if (input[0].value == edit_access_id) {
@@ -194,16 +206,15 @@ function closeAccessDialog() {
 				}
 			}
 		}
-		if (id_cell) {
-			// get access cell and replace content
-			var parent = id_cell.parentNode;
-			var access_cell = parent.getElementsByClassName('cl_poll_access')[0];
-			access_cell.innerHTML = html;
-		}
+
+		// get access cell and replace content
+		var parent = id_cell.parentNode;
+		var access_cell = parent.getElementsByClassName('cl_poll_access')[0];
+		access_cell.innerHTML = html;
+
+		$.post("ajax/access.php", { access: html, poll_id: edit_access_id });
 
 	}
-
-	$.post("ajax/access.php", { access: html, poll_id: edit_access_id });
 
 	$('#dialog-box').hide();
 	return false;
