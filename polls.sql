@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `oc_polls_events`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc_polls_events` (
-  `id` varchar(8) COLLATE utf8_bin NOT NULL,
+  `id` varchar(32) COLLATE utf8_bin NOT NULL,
   `title` varchar(128) COLLATE utf8_bin NOT NULL,
   `description` varchar(1024) COLLATE utf8_bin NOT NULL,
   `owner` varchar(64) COLLATE utf8_bin NOT NULL,
@@ -50,7 +50,7 @@ DROP TABLE IF EXISTS `oc_polls_dts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc_polls_dts` (
-  `id` varchar(8) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `id` varchar(32) COLLATE utf8_bin NOT NULL DEFAULT '',
   `dt` varchar(32) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -66,31 +66,6 @@ INSERT INTO `oc_polls_dts` VALUES ('0','22.11.2014_00:00'),('0','22.11.2014_00:2
 UNLOCK TABLES;
 
 --
--- Table structure for table `oc_polls_comments`
---
-
-DROP TABLE IF EXISTS `oc_polls_comments`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `oc_polls_comments` (
-  `id` varchar(8) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `user` varchar(64) COLLATE utf8_bin NOT NULL,
-  `dt` varchar(32) COLLATE utf8_bin NOT NULL,
-  `comment` varchar(1024) COLLATE utf8_bin DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `oc_polls_comments`
---
-
-LOCK TABLES `oc_polls_comments` WRITE;
-/*!40000 ALTER TABLE `oc_polls_comments` DISABLE KEYS */;
-INSERT INTO `oc_polls_comments` VALUES ('0','rr','1416905272','asdf');
-/*!40000 ALTER TABLE `oc_polls_comments` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `oc_polls_particip`
 --
 
@@ -98,7 +73,7 @@ DROP TABLE IF EXISTS `oc_polls_particip`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc_polls_particip` (
-  `id` varchar(8) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `id` varchar(32) COLLATE utf8_bin NOT NULL DEFAULT '',
   `dt` varchar(32) COLLATE utf8_bin NOT NULL,
   `user` varchar(64) COLLATE utf8_bin NOT NULL,
   `ok` varchar(8) COLLATE utf8_bin DEFAULT NULL
@@ -114,6 +89,31 @@ LOCK TABLES `oc_polls_particip` WRITE;
 INSERT INTO `oc_polls_particip` VALUES ('0','28.11.2014_00:25','rr','yes'),('0','28.11.2014_00:00','rr','yes');
 /*!40000 ALTER TABLE `oc_polls_particip` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `oc_polls_comments`
+--
+
+DROP TABLE IF EXISTS `oc_polls_comments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `oc_polls_comments` (
+  `id` varchar(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `user` varchar(64) COLLATE utf8_bin NOT NULL,
+  `dt` varchar(32) COLLATE utf8_bin NOT NULL,
+  `comment` varchar(1024) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `oc_polls_comments`
+--
+
+LOCK TABLES `oc_polls_comments` WRITE;
+/*!40000 ALTER TABLE `oc_polls_comments` DISABLE KEYS */;
+INSERT INTO `oc_polls_comments` VALUES ('0','rr','1416905272','asdf');
+/*!40000 ALTER TABLE `oc_polls_comments` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -124,4 +124,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-25  9:48:28
+-- Dump completed on 2014-11-25 14:30:18
