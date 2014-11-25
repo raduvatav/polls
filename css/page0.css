@@ -7,6 +7,9 @@ h1 {
     margin-bottom: 15px;
 }
 
+.new_poll input.input_field {
+	width: 20%;
+}
 .label_h1 {
 	display:block;
 }
@@ -126,14 +129,17 @@ th {
     display:none;
 }
 #dialog-box {
+	padding: 10px;
 
     /* css3 drop shadow */
     -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 
     /* css3 border radius */
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+	border-radius: 5px;
 
     background:#eee;
     /* styling of the dialog box, i have a fixed dimension for this demo */
@@ -146,6 +152,13 @@ th {
     display:none;
 }
 
+#table_groups {
+	padding: 20px 5px 10px 5px;
+}
+
+#table_users {
+	padding: 20px 5px 10px 10px;
+}
 .cl_group_item {
     background-color: white;
 }
