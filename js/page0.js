@@ -78,7 +78,7 @@ function groupItemClicked() {
 
 //Popup dialog
 function showAccessDialog() {
-	var message = 'asdf';
+	var message = 'Please choose the groups or users you want to add to your poll.';
 
 	// get the screen height and width
 	var maskHeight = $(document).height();
@@ -115,15 +115,15 @@ function pollClicked(e) {
 }
 
 function deletePoll(e) {
-	var str = 'Are you sure you want to delete the poll ';
+	var str = 'Are you sure you want to delete this poll:\n\n';
 	var child = this;
 	while( child.className != 'cl_link' && child.previousSibling != null ) {
 		child = child.previousSibling;
 	}
-	str += '\'' + child.innerHTML.split('<')[0] + '\'' + '?';
+	str += '\'' + child.innerHTML.split('<')[0].trim() + '\'' + '?';
 
 	// reformat: delete '\n   name'? -> delete \n'   name'?
-	str = str.replace(/\'\n\s+/, '\n              \'');
+	//str = str.replace(/\'\n\s+/, '\n              \'');
 
 	if (confirm(str)) {
 		var form = document.new_poll;
