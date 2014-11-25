@@ -96,37 +96,5 @@
 	<input type="submit" id="submit_new_poll" value="<?php p($l->t('Create new poll')); ?>" />
 </form>
 
-<div id="dialog-box">
-	<div id="dialog-message"></div>
-	<table id="table_access">
-		<tr>
-			<td>
-				<table id="table_groups">
-					<tr>
-						<th><?php p($l->t('Groups')); ?></th>
-					</tr>
-					<?php $groups = OC_Group::getUserGroups(OC_User::getUser()); ?>
-					<?php foreach($groups as $gid) : ?>
-						<tr>
-							<td class="cl_group_item"><?php echo $gid; ?></td>
-						</tr>
-					<?php endforeach; ?>
-				</table>
-			</td>
-			<td>
-				<table id="table_users">
-					<tr>
-						<th><?php p($l->t('Users')); ?></th>
-					</tr>
-					<?php $users = OC_User::getUsers(); ?>
-					<?php foreach ($users as $uid) : ?>
-						<tr>
-							<td class="cl_user_item"><?php echo $uid; ?></td>
-						</tr>
-					<?php endforeach; ?>
-				</table>
-			</td>
-		</tr>
-	</table>
-	<a id="button_close_access"><?php p($l->t('Close')); ?></a>
-</div>
+<?php include 'access_dialog.php'; ?>
+
