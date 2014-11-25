@@ -97,6 +97,8 @@ if (isset ($_POST) && isset ($_POST['j'])) {
             $query->execute(array($id));
 
             $result = hasParticipated();
+			$partic_polls = $partic['partic_polls'];
+			$partic_comm = $partic['partic_comments'];
             include 'poll_summary.php';
             return;
 
@@ -324,7 +326,9 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 $query = DB::prepare('delete from *PREFIX*polls_events where created is null and owner=?');
 $query->execute(array(User::getUser()));
 
-$partic_polls = hasParticipated();
+$partic = hasParticipated();
+$partic_polls = $partic['partic_polls'];
+$partic_comm = $partic['partic_comments'];
 include 'poll_summary.php';
 
 
@@ -372,7 +376,11 @@ function oclog($str) {
 
 function hasParticipated(){    
     $query = DB::prepare('select id from *PREFIX*polls_particip where user=? order by id');
-    return $query->execute(array(User::getUser()))->fetchAll();
+    $polls = $query->execute(array(User::getUser()))->fetchAll();
+
+	$query = DB::prepare('select distinct id from *PREFIX*polls_comments where user=? order by id');
+	$comm = $query->execute(array(User::getUser()))->fetchAll();
+	return array('partic_polls' => $polls, 'partic_comments' => $comm);
 }
 
 function sort_dates($a, $b) {

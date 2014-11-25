@@ -21,7 +21,7 @@ OCP\User::checkLoggedIn();
 			</tr>
 
 			<?php
-				$query = OCP\DB::prepare('select * from *PREFIX*polls_events');
+				$query = OCP\DB::prepare('select * from *PREFIX*polls_events order by created');
 				$result = $query->execute();
 			?>
 
@@ -63,6 +63,19 @@ OCP\User::checkLoggedIn();
 								if($row['id'] == $partic_polls[$i]['id']){
 									$partic_class = 'partic_yes';
 									array_splice($partic_polls, $i, 1);
+									break;
+								}
+							}
+						?>
+						<div class="partic_all <?php echo $partic_class; ?>">
+						</div>
+						/
+						<?php
+							$partic_class = 'partic_no';
+							for($i = 0; $i < count($partic_comm); $i++){
+								if($row['id'] == $partic_comm[$i]['id']){
+									$partic_class = 'partic_yes';
+									array_splice($partic_comm, $i, 1);
 									break;
 								}
 							}
