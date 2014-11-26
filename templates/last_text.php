@@ -197,7 +197,7 @@ $line = str_replace("\n", '<br>', $desc);
 		<tr>
 			<th>
 				<div id="id_user_name"><?php echo \OCP\User::getDisplayName($obj->user); ?>:</div>
-				<div id="id_user_dt"><?php echo date('d.m.Y_H:i', $obj->dt); ?></div>
+				<div id="id_user_dt"><?php echo date('d.m.Y H:i', $obj->dt); ?></div>
 			</th>
 			<td>
 				<div class="wordwrap">

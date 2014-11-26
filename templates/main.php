@@ -87,7 +87,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 
 				// add entry to db; don't set 'created' yet!
 				$query = DB::prepare('INSERT INTO *PREFIX*polls_events(id, type, title, description, OWNER, access) VALUES (?,?,?,?,?,?)');
-				$query->execute(array($poll_id, 'event', $title, $desc, User::getUser(), $access));
+				$query->execute(array($poll_id, 'datetime', $title, $desc, User::getUser(), $access));
 
 				// load next page
 				include 'select_dates.php';
@@ -107,7 +107,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 			$query = DB::prepare('DELETE FROM *PREFIX*polls_comments WHERE id=?');
 			$query->execute(array($id));
 
-			$result = hasParticipated();
+			$partic = hasParticipated();
 			$partic_polls = $partic['partic_polls'];
 			$partic_comm = $partic['partic_comments'];
 			include 'poll_summary.php';
