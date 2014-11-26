@@ -73,7 +73,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 				}
 			}
 
-			$poll_id = substr(md5(uniqid('', true)), 0, 16);
+			$poll_id = UTIL::generateRandomBytes(16);
 
 			if ($_POST['radio_type'] === 'text') {
 				// --- text based poll ---
