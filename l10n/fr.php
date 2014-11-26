@@ -39,6 +39,5 @@ $TRANSLATIONS = array(
         "Users" => "Utilisateurs",
         "Groups" => "Groupes",
         "registered" => "Enregistré",
-        "Please choose the groups or users you want to add to your poll." => "Choisissez les groupes ou utilisateurs que vous souhaitez ajouter.",
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";
