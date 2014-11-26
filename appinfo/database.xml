@@ -16,6 +16,12 @@
 				<length>32</length>
 			</field>
             <field>
+                <name>type</name>
+                <type>text</type>
+                <notnull>false</notnull>
+                <length>16</length>
+            </field>
+            <field>
                 <name>title</name>
                 <type>text</type>
                 <notnull>true</notnull>
@@ -63,6 +69,12 @@
                 <type>text</type>
                 <notnull>true</notnull>
                 <length>32</length>
+            </field>
+            <field>
+                <name>description</name>
+                <type>text</type>
+                <notnull>true</notnull>
+                <length>256</length>
             </field>
         </declaration>
     </table>

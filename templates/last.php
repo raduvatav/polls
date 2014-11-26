@@ -111,8 +111,10 @@ $line = str_replace("\n", '<br>', $desc);
 		<?php
 		// init array for counting 'yes'-votes for each dt
 		$total_y = array();
+		$total_n = array();
 		for ($i = 0; $i < count($chosen); $i++){
 			$total_y[$i] = 0;
+			$total_n[$i] = 0;
 		}
 		$user_voted = null;
 		// -------------- other users ---------------
@@ -230,6 +232,7 @@ $line = str_replace("\n", '<br>', $desc);
 		<?php // linkToRoute is to remove "/goto" if user came here directly ?>
 		<form name="finish_poll" action="<?php echo \OCP\Util::linkToRoute('polls_index'); ?>" method="POST">
 			<input type="hidden" name="j" id="j" value="finish" />
+			<input type="hidden" name="poll_type" value="datetime" />
 			<input type="hidden" name="poll_id" value="<?php echo $poll_id; ?>" />
 			<input type="hidden" name="options" />
 			<td colspan="2" style "background-color: white">

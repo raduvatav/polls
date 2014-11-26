@@ -37,6 +37,6 @@ $TRANSLATIONS = array(
 	"Select" => "Wählen",
 	"Close" => "Schließen",
 	"Users" => "Benutzer",
-	"Groups" => "Gruppen",
+	"Groups" => "Gruppen"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

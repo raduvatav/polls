@@ -29,6 +29,7 @@ CREATE TABLE `oc_polls_events` (
   `owner` varchar(64) COLLATE utf8_bin NOT NULL,
   `created` varchar(32) COLLATE utf8_bin DEFAULT NULL,
   `access` varchar(1024) COLLATE utf8_bin DEFAULT NULL,
+  `type` varchar(16) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -39,6 +40,7 @@ CREATE TABLE `oc_polls_events` (
 
 LOCK TABLES `oc_polls_events` WRITE;
 /*!40000 ALTER TABLE `oc_polls_events` DISABLE KEYS */;
+INSERT INTO `oc_polls_events` VALUES ('288141c784a6580a','aa','asdf','rr','1417008111','registered',NULL);
 /*!40000 ALTER TABLE `oc_polls_events` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -51,7 +53,8 @@ DROP TABLE IF EXISTS `oc_polls_dts`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oc_polls_dts` (
   `id` varchar(32) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `dt` varchar(32) COLLATE utf8_bin NOT NULL
+  `dt` varchar(32) COLLATE utf8_bin NOT NULL,
+  `description` varchar(256) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -61,7 +64,7 @@ CREATE TABLE `oc_polls_dts` (
 
 LOCK TABLES `oc_polls_dts` WRITE;
 /*!40000 ALTER TABLE `oc_polls_dts` DISABLE KEYS */;
-INSERT INTO `oc_polls_dts` VALUES ('0','22.11.2014_00:00'),('0','22.11.2014_00:25'),('0','28.11.2014_00:00'),('0','28.11.2014_00:25');
+INSERT INTO `oc_polls_dts` VALUES ('0','22.11.2014_00:00',''),('0','22.11.2014_00:25',''),('0','28.11.2014_00:00',''),('0','28.11.2014_00:25',''),('288141c784a6580a','13.11.2014_00:00',''),('288141c784a6580a','13.11.2014_00:30',''),('288141c784a6580a','21.11.2014_00:00',''),('288141c784a6580a','21.11.2014_00:30','');
 /*!40000 ALTER TABLE `oc_polls_dts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,7 +89,7 @@ CREATE TABLE `oc_polls_particip` (
 
 LOCK TABLES `oc_polls_particip` WRITE;
 /*!40000 ALTER TABLE `oc_polls_particip` DISABLE KEYS */;
-INSERT INTO `oc_polls_particip` VALUES ('0','28.11.2014_00:25','rr','yes'),('0','28.11.2014_00:00','rr','yes');
+INSERT INTO `oc_polls_particip` VALUES ('0','28.11.2014_00:25','rr','yes'),('0','28.11.2014_00:00','rr','yes'),('288141c784a6580a','13.11.2014_00:00','rr','yes'),('288141c784a6580a','13.11.2014_00:30','rr','yes'),('288141c784a6580a','21.11.2014_00:00','rr','yes');
 /*!40000 ALTER TABLE `oc_polls_particip` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,7 +114,7 @@ CREATE TABLE `oc_polls_comments` (
 
 LOCK TABLES `oc_polls_comments` WRITE;
 /*!40000 ALTER TABLE `oc_polls_comments` DISABLE KEYS */;
-INSERT INTO `oc_polls_comments` VALUES ('0','rr','1416905272','asdf');
+INSERT INTO `oc_polls_comments` VALUES ('0','rr','1416905272','asdf'),('288141c784a6580a','rr','1417008111','joil');
 /*!40000 ALTER TABLE `oc_polls_comments` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -124,4 +127,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-25 14:30:18
+-- Dump completed on 2014-11-26 16:23:14

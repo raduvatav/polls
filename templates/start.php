@@ -25,6 +25,16 @@
 		<label for="select"><?php p($l->t('Select')); ?></label>
 
 		<input type="hidden" name="access_ids" value="" />
+
+
+		<div class="input_title"><?php p($l->t('Type')); ?></div>
+
+		<input type="radio" name="radio_type" id="event" value="event" checked />
+		<label for="event"><?php p($l->t('Event schedule')); ?></label>
+
+		<input type="radio" name="radio_type" id="text" value="text">
+		<label for="text"><?php p($l->t('Text based')); ?></label>
+
         <br/>
 		<input type="submit" id="submit_create_poll" value="<?php p($l->t('Next')); ?>" />
 	</div>
