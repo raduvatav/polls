@@ -1,6 +1,6 @@
 <?php
 \OCP\Util::addStyle('polls', 'page2');
-\OCP\Util::addScript('polls', 'page2');
+\OCP\Util::addScript('polls', 'last');
 
 use \OCP\DB;
 use \OCP\User;

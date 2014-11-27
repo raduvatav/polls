@@ -1,6 +1,6 @@
 <?php
 	\OCP\Util::addStyle('polls', 'page0');
-	\OCP\Util::addScript('polls', 'page0');
+	\OCP\Util::addScript('polls', 'start');
 ?>
 
 <form name="create_poll" method="POST">
