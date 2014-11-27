@@ -56,9 +56,20 @@ $line = str_replace("\n", '<br>', $desc);
 
 <p>
 	<?php if(!User::isLoggedIn()) : ?>
-		<?php p($l->t('Already have an account?')); ?>
-		<?php $url = OC_Helper::linkToAbsolute( '', 'index.php' ).'?redirect_url='.OCP\Util::linkToRoute('polls_goto', array('poll_id' => $poll_id)); ?>
-		<a href="<?php echo $url; ?>"><?php p($l->t('Login')); ?></a>
+		<header>
+		        <div id="header">
+				<a href="<?php print_unescaped(link_to('', 'index.php')); ?>"
+        	                	title="" id="owncloud">
+					<div class="logo-wide svg"></div>
+				</a>
+	                	<div id="logo-claim" style="display:none;"><?php p($theme->getLogoClaim()); ?></div>
+        	        	<div class="header-right">
+					<?php p($l->t('Already have an account?')); ?>
+					<?php $url = OC_Helper::linkToAbsolute( '', 'index.php' ).'?redirect_url='.OCP\Util::linkToRoute('polls_goto', array('poll_id' => $poll_id)); ?>
+					<a href="<?php echo $url; ?>"><?php p($l->t('Login')); ?></a>
+				</div>
+			</div>
+		</header>
 	<?php endif; ?>
 </p>
 
@@ -264,4 +275,9 @@ $line = str_replace("\n", '<br>', $desc);
 //if (!User::isLoggedIn()) {
 //    echo '<input id="id_ac_detected" type="hidden" />';
 //}
+	echo '<footer>
+        	<p class="info">';
+                	print_unescaped($theme->getLongFooter());
+        	echo '</p>
+	</footer>';
 ?>
