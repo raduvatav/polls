@@ -28,7 +28,7 @@ function addItem(){
 	// check if text is duplicate
 	for (var i = 0; i < g_items.length; i++) {
 		if (g_items[i].dt == text) {
-			alert ('You already have an item with the same text');
+			alert (t('You already have an item with the same text'));
 			return;
 		}
 	}

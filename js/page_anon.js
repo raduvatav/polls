@@ -1,3 +1,3 @@
 $(document).ready(function () {
-    alert("ok, thanks. you voted. you can close the page now.");
+    alert(t('Thanks that you\'ve voted. You can close the page now.');
 });

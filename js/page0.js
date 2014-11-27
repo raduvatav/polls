@@ -24,7 +24,7 @@ $(document).ready(function () {
             // td has inner 'input'; value is poll url
             var cell = e.target;
             var url = cell.getElementsByTagName('input')[0].value;
-            window.prompt("Copy to clipboard: Ctrl+C, Enter", url);
+            window.prompt(t('Copy to clipboard: Ctrl+C, Enter'), url);
         }
     }
 
@@ -34,7 +34,7 @@ $(document).ready(function () {
 		submit_create_poll.onclick = function() {
 			var title = document.getElementById('text_title');
 			if (title == null || title.value.length < 1) {
-				alert('You must enter at least a title for the new poll.');
+				alert(t('polls', 'You must enter at least a title for the new poll.'));
 				return false;
 			}
 			else {
@@ -234,7 +234,8 @@ function pollClicked(e) {
 }
 
 function deletePoll(e) {
-	var str = 'Are you sure you want to delete this poll:\n\n';
+	var str = t('polls', 'Are you sure you want to delete this poll');
+	str + ':\n\n';
 	var child = this;
 	while( child.className != 'cl_link' && child.previousSibling != null ) {
 		child = child.previousSibling;
