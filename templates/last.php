@@ -182,8 +182,9 @@ $line = str_replace("\n", '<br>', $desc);
 				echo '<input type="hidden" value="' . $str .   '" />';
 				echo '</td>';
 				}
+				echo '</tr>';
 			}
-			echo '</tr>';
+
 		}
 		
 		// -------------- current user --------------
