@@ -113,8 +113,20 @@ function userItemClicked() {
 		this.className = 'cl_user_item';
 	}
 }
+
+function showSelectTable() {
+       document.getElementById("table_access").style.display = "table";
+}
+
+function hideSelectTable() {
+	document.getElementById("table_access").style.display = "none";
+}
+
 //Popup dialog
 function showAccessDialog(e) {
+	document.getElementById('private').onclick = hideSelectTable;
+	document.getElementById('public').onclick = hideSelectTable;
+	document.getElementById('select').onclick = showSelectTable;
 	var message = t('polls', 'Please choose the groups or users you want to add to your poll.');
 
 	// get the screen height and width
