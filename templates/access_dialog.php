@@ -1,28 +1,20 @@
 
 <div id="dialog-box">
 	<div id="dialog-message"></div>
+	
+	<?php if (isset($url)) : ?>
+		<input type="radio" name="radio_pub" id="private" value="registered" checked />
+		<label for="private"><?php p($l->t('Registered users only')); ?></label>
+		<br/>
+		<input type="radio" name="radio_pub" id="public" value="public">
+		<label for="public"><?php p($l->t('Public access')); ?></label>
+		<br/>
+		<input type="radio" name="radio_pub" id="select" value="select">
+		<label for="select"><?php p($l->t('Select')); ?></label>
+		<br/>
+	<?php endif; ?>
+	
 	<table id="table_access">
-
-		<?php if (isset($url)) : ?>
-			<tr><td>asdf</td></tr>
-			<tr><td>
-				<input type="radio" name="radio_pub" id="private" value="registered" checked />
-				<label for="private"><?php p($l->t('Registered users only')); ?></label>
-			</td></tr>
-
-			<tr><td>
-				<input type="radio" name="radio_pub" id="public" value="public">
-				<label for="public"><?php p($l->t('Public access')); ?></label>
-
-			</td></tr>
-
-			<tr><td>
-				<input type="radio" name="radio_pub" id="select" value="select">
-				<label for="select"><?php p($l->t('Select')); ?></label>
-			</td></tr>
-
-		<?php endif; ?>
-
 		<tr>
 			<td>
 				<div class="scroll_div">
