@@ -293,7 +293,7 @@ oclog("descr: <" . $desc . ">");
 
 				$query = DB::prepare('INSERT INTO *PREFIX*polls_comments(id,USER,dt,COMMENT) VALUES(?,?,?,?)');
 				//$query->execute(array($poll_id, $user, date('d.m.Y_H:i'), $json->comment));
-				$query->execute(array($poll_id, $user, date('U'), $options->comment));
+				$query->execute(array($poll_id, $user, date('U'), htmlspecialchars($options->comment)));
 
 			}
 
