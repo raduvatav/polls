@@ -115,7 +115,7 @@ function userItemClicked() {
 }
 //Popup dialog
 function showAccessDialog(e) {
-	var message = 'Please choose the groups or users you want to add to your poll.';
+	var message = t('polls', 'Please choose the groups or users you want to add to your poll.');
 
 	// get the screen height and width
 	var maskHeight = $(document).height();
