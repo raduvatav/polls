@@ -222,7 +222,7 @@ function closeAccessDialog() {
 		// get access cell and replace content
 		var parent = id_cell.parentNode;
 		var access_cell = parent.getElementsByClassName('cl_poll_access')[0];
-		access_cell.innerHTML = html;
+		access_cell.innerHTML = t('polls', html);
 
 		$.post("ajax/access.php", { access: html, poll_id: edit_access_id });
 

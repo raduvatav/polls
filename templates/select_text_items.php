@@ -36,9 +36,9 @@ $arr = explode("\n", $desc);
 		<td class="cl_pad_left">
 			<table id="id_table_text_items">
 				<tr>
-					<th>&nbsp</th>
-					<th><em>Text item</em></th>
-					<th><em>Description (will be shown as tooltip on the summary page)</em></th>
+					<th>&nbsp;</th>
+					<th><em><?php p($l->t('Text item')); ?></em></th>
+					<th><em><?php p($l->t('Description (will be shown as tooltip on the summary page)')); ?></em></th>
 				</tr>
 
 			</table>

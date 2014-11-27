@@ -26,7 +26,7 @@ $(document).ready(function () {
 
     $('#submit_finish_poll').click(function() {
         if (g_chosen_datetimes.length === 0) {
-            alert(t('Nothing selected!\nClick on cells to turn them green.'));
+            alert(t('polls', 'Nothing selected!\nClick on cells to turn them green.'));
             return;
         }
 

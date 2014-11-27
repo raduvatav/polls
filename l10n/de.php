@@ -50,6 +50,8 @@ $TRANSLATIONS = array(
 	"Edit access" => "Zugriff ändern",
 	"Type" => "Art",
 	"Event schedule" => "Datumsangabe",
-	"Text based" => "Eigene Texte"
+	"Text based" => "Eigene Texte",
+	"Text item" => "Text",
+	"Description (will be shown as tooltip on the summary page)" => "Beschreibung (wird als Tooltip in der Übersicht angezeigt)"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";
