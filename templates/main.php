@@ -149,7 +149,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 			}
 			else {
 				// next page (last_text.php) needs json->items
-				$items = array();
+				$chosen = array();
 
 				$query = DB::prepare('SELECT dt, description FROM *PREFIX*polls_dts WHERE id=?');
 				$result = $query->execute(array($poll_id));
@@ -157,7 +157,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 					$obj = new stdClass();
 					$obj->dt = $row['dt'];
 					$obj->desc = $row['description'];
-					array_push($items, $obj);
+					array_push($chosen, $obj);
 				}
 
 			}
@@ -188,16 +188,13 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 				array_push($comments, $obj);
 			}
 
-			if ($poll_type === 'datetime') {
-				include 'last.php';
-			}
-			else {
-				include 'last_text.php';
-			}
+			include 'last.php';
+
 			return;
 
 		// coming from p1 to p2 (date/time poll)
 		case 'page2':
+			$poll_type = 'datetime';
 			$chosen = json_decode($_POST['chosen_dates'])->chosen;
 			$poll_id = $_POST['poll_id'];
 
@@ -221,7 +218,8 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 			return;
 		// coming from p1 to p2 (text poll)
 		case 'page2_text':
-			$items = json_decode($_POST['items'])->items;
+			$poll_type = 'text';
+			$chosen = json_decode($_POST['items'])->items;
 			$poll_id = $_POST['poll_id'];
 
 			// get title and description from DB, needed for next page
@@ -234,11 +232,11 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 
 			$query = DB::prepare('INSERT INTO *PREFIX*polls_dts(id, dt, description) VALUES(?,?,?)');
 
-			foreach ($items as $el) {
+			foreach ($chosen as $el) {
 				$query->execute(array($poll_id, $el->dt, $el->desc));
 			}
 
-			include 'last_text.php';
+			include 'last.php';
 			return;
 
 		// from p2 -> finish
@@ -339,7 +337,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 			}
 			else { //text
 				// next page (last_text.php) needs json->items
-				$items = array();
+				$chosen = array();
 
 				$query = DB::prepare('SELECT dt, description FROM *PREFIX*polls_dts WHERE id=?');
 				$result = $query->execute(array($poll_id));
@@ -347,7 +345,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 					$obj = new stdClass();
 					$obj->dt = $row['dt'];
 					$obj->desc = $row['description'];
-					array_push($items, $obj);
+					array_push($chosen, $obj);
 				}
 
 			}
@@ -383,7 +381,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 				include 'last.php';
 			}
 			else {
-				include 'last_text.php';
+				include 'last.php';
 			}
 			
             return;

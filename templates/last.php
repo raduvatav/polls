@@ -5,53 +5,48 @@
 use \OCP\DB;
 use \OCP\User;
 
+if ($poll_type === 'datetime') {
 // count how many times in each date
-$arr_dates = null;  // will be like: [21.02] => 3
-$arr_years = null;  // [1992] => 6
+	$arr_dates = null;  // will be like: [21.02] => 3
+	$arr_years = null;  // [1992] => 6
 
-for ($i = 0; $i < count($chosen); $i++){
-    //$ch_obj = $chosen[$i];
-    $arr = explode('.', $chosen[$i]->date);
-    $day_month = $arr[0] . '.' . $arr[1] . '.'; // 21.02
-    $year = $arr[2];                      // 1992
+	for ($i = 0; $i < count($chosen); $i++) {
+		//$ch_obj = $chosen[$i];
+		$arr = explode('.', $chosen[$i]->date);
+		$day_month = $arr[0] . '.' . $arr[1] . '.'; // 21.02
+		$year = $arr[2];                      // 1992
 
-    if (isset($arr_dates[$day_month])) {
-        $arr_dates[$day_month] += 1;
-    }
-    else {
-        $arr_dates[$day_month] = 1;
-    }
+		if (isset($arr_dates[$day_month])) {
+			$arr_dates[$day_month] += 1;
+		} else {
+			$arr_dates[$day_month] = 1;
+		}
 
-    // -----
-    if (isset($arr_years[$year])) {
-        $arr_years[$year] += 1;
-    }
-    else {
-        $arr_years[$year] = 1;
-    }
+		// -----
+		if (isset($arr_years[$year])) {
+			$arr_years[$year] += 1;
+		} else {
+			$arr_years[$year] = 1;
+		}
+
+	}
+
+	$for_string_dates = '';
+	foreach (array_keys($arr_dates) as $dt) {                           // date (13.09)
+		$for_string_dates .= '<th colspan="' . $arr_dates[$dt] . '">' . $dt . '</th>';
+	}
+
+	$for_string_years = '';
+	foreach (array_keys($arr_years) as $year) {                         // year (1992)
+		$for_string_years .= '<th colspan="' . $arr_years[$year] . '">' . $year . '</th>';
+	}
 
 }
 
-$for_string_dates = '';
-foreach (array_keys($arr_dates) as $dt){                           // date (13.09)
-    $for_string_dates .= '<th colspan="' . $arr_dates[$dt] . '">' . $dt . '</th>';
-}
-
-$for_string_years = '';
-foreach (array_keys($arr_years) as $year) {                         // year (1992)
-    $for_string_years .= '<th colspan="' . $arr_years[$year] . '">' . $year . '</th>';
-}
-
-
-//echo '<table class="cl_table_1" id="id_table_1">';
 
 $line = str_replace("\n", '<br>', $desc);
 
-
-
 // ----------- title / descr --------
-//echo '<tr>';
-//echo '<th><div id="id_title">' . $title . '</div></th>';
 ?>
 
 <p>
@@ -75,16 +70,12 @@ $line = str_replace("\n", '<br>', $desc);
 
 <h1><?php echo $title; ?></h1>
 
-<?php
-//echo '<td colspan="' . (count($json->chosen)+1) . '" class="cl_desc_header"><div id="id_descr">' . $line . '</div></th>';
-//echo '</tr>';
-?>
 <h2><?php p($l->t('Description')); ?></h2>
-<div class="wordwrap desc"><?php echo $line; //wordwrap($line, 100, "<br/>", true); ?></div>
+<div class="wordwrap desc"><?php echo $line; ?></div>
 
 <?
 // -------------- url ---------------
-//echo '<tr><th>poll url:</th><td colspan="' . (count($json->chosen)+1) . '">';
+
 ?>
 <h2><?php p($l->t('poll URL')); ?></h2>
 <p class="url">
@@ -97,29 +88,38 @@ $line = str_replace("\n", '<br>', $desc);
 	<?php //echo '</td></tr>'; ?>
 </p>
 
-<?php
 
-// empty row
-//echo '<tr><td>&nbsp</td></tr>';
-
-// ---------- main table --------------
-?>
 <div class="scroll_div">
 	<table class="cl_table_1" id="id_table_1"> <?php //from above title ?>
+
 		<tr>
-			<th rowspan="3">&nbsp;</th> <?php // upper left header rectangle ?>
-		<?php echo $for_string_years; ?>
-		</tr>
-		<tr>
-			<?php echo $for_string_dates; ?>
-		</tr>
-		<tr>
-			<?php for ($i = 0; $i < count($chosen); $i++) : ?>
-				<?php $ch_obj = $chosen[$i]; ?>
-				<th><?php echo $ch_obj->time; ?></th>
-			<?php endfor; ?>
+			<th <?php if ($poll_type === 'datetime') echo 'rowspan="3"'; ?>>&nbsp;</th> <?php // upper left header rectangle ?>
+
+		<?php
+		if ($poll_type === 'datetime') {
+			echo $for_string_years;
+		}
+		else {
+			foreach ($chosen as $el) {
+				echo '<th title="' . $el->desc . '">' . $el->dt . '</th>';
+			}
+		}
+		?>
+
+
 		</tr>
 		<?php
+		if ($poll_type === 'datetime'){
+			echo '<tr>' .  $for_string_dates . '</tr>';
+
+			echo '<tr>';
+			for ($i = 0; $i < count($chosen); $i++) {
+				$ch_obj = $chosen[$i];
+				echo '<th>' . $ch_obj->time . '</th>';
+			}
+			echo '</tr>';
+		}
+
 		// init array for counting 'yes'-votes for each dt
 		$total_y = array();
 		$total_n = array();
@@ -131,8 +131,12 @@ $line = str_replace("\n", '<br>', $desc);
 		// -------------- other users ---------------
 		// loop over users
 		?>
-		<tr>
-			<?php foreach (array_keys($others) as $usr) :
+		<?php
+
+		if (isset($others)) {
+			echo '<tr>';
+
+			foreach (array_keys($others) as $usr) {
 				if ($usr === User::getUser()) {
 					$user_voted = $others[$usr];
 					continue;
@@ -140,23 +144,27 @@ $line = str_replace("\n", '<br>', $desc);
 				echo '<th>' . User::getDisplayName($usr) . '</th>';
 				$i_tot = -1;
 				// loop over dts
-				foreach($chosen as $dt):
+				foreach($chosen as $dt) {
 					$i_tot++;
-		
+
 					$cl = 'cl_maybe';
-		
+
 					$arr = $others[$usr];
-		
-					$str = $dt->date . '_' . $dt->time;
-		
+					if ($poll_type === 'datetime') {
+						$str = $dt->date . '_' . $dt->time;
+					}
+					else {
+						$str = $el->dt;
+					}
+
 					// look what user voted for this dts
-					foreach ($others[$usr] as $obj){
+					foreach ($others[$usr] as $obj) {
 						if ($str === $obj->dt) {
-							if ($obj->ok === 'yes'){
+							if ($obj->ok === 'yes') {
 								$cl = 'cl_yes';
 								$total_y[$i_tot]++;
 							}
-							else if ($obj->ok === 'no'){
+							else if ($obj->ok === 'no') {
 								$total_n[$i_tot]++;
 								$cl = 'cl_no';
 							}
@@ -164,13 +172,19 @@ $line = str_replace("\n", '<br>', $desc);
 						}
 					}
 
-				//echo '<td class="' . $cl . '">&nbsp';
-				echo '<td class="' . $cl . '">' . $obj->date;
+
+					if ($poll_type === 'datetime') {
+						echo '<td class="' . $cl . '">' . $obj->date;
+					}
+					else {
+						echo '<td class="' . $cl . '">' . $obj->dt;
+					}
 				echo '<input type="hidden" value="' . $str .   '" />';
 				echo '</td>';
-			endforeach; ?>
-		</tr>
-		<?php endforeach;
+				}
+			}
+			echo '</tr>';
+		}
 		
 		// -------------- current user --------------
 		?>
@@ -187,7 +201,12 @@ $line = str_replace("\n", '<br>', $desc);
 		$i_tot = -1;
 		foreach ($chosen as $dt) {
 			$i_tot++;
-			$str = $dt->date . '_' . $dt->time;
+			if ($poll_type === 'datetime') {
+				$str = $dt->date . '_' . $dt->time;
+			}
+			else {
+				$str = $dt->dt;
+			}
 
 			// see if user already has data for this event
 			$cl = 'cl_maybe';
@@ -223,8 +242,10 @@ $line = str_replace("\n", '<br>', $desc);
 				echo '</tr></table></td>';
 			endfor; ?>
 		</tr>
+
 	</table>
 </div>
+
 
 <table class="cl_comment">
 	<?php // -------- leave comment ---------- ?>
@@ -243,7 +264,7 @@ $line = str_replace("\n", '<br>', $desc);
 		<?php // linkToRoute is to remove "/goto" if user came here directly ?>
 		<form name="finish_poll" action="<?php echo \OCP\Util::linkToRoute('polls_index'); ?>" method="POST">
 			<input type="hidden" name="j" id="j" value="finish" />
-			<input type="hidden" name="poll_type" value="datetime" />
+			<input type="hidden" name="poll_type" value="<?php echo $poll_type; ?>" />
 			<input type="hidden" name="poll_id" value="<?php echo $poll_id; ?>" />
 			<input type="hidden" name="options" />
 			<td colspan="2" style "background-color: white">
@@ -256,11 +277,12 @@ $line = str_replace("\n", '<br>', $desc);
 <?php // -------- comments ---------- ?>
 <h2><?php p($l->t('Comments')); ?></h2>
 <table class="cl_user_comments">
+	<?php if (isset($comments)) : ?>
 	<?php foreach ($comments as $obj) : ?>
 		<tr>
 			<th>
 				<div id="id_user_name"><?php echo \OCP\User::getDisplayName($obj->user); ?>:</div>
-				<div id="id_user_dt"><?php echo date('d.m.Y_H:i', $obj->dt); ?></div>
+				<div id="id_user_dt"><?php echo date('d.m.Y H:i', $obj->dt); ?></div>
 			</th>
 			<td>
 				<div class="wordwrap">
@@ -269,6 +291,7 @@ $line = str_replace("\n", '<br>', $desc);
 			</td>
 		</tr>
 	<?php endforeach; ?>
+	<?php endif; ?>
 </table>
 
 <?php
@@ -281,3 +304,4 @@ $line = str_replace("\n", '<br>', $desc);
         	echo '</p>
 	</footer>';
 ?>
+
