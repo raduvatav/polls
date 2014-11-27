@@ -48,7 +48,7 @@
 					$url .= 'goto/' . $row['id'];
 					?>
 
-					<td class="cl_poll_url" title="Click to get link"><input type="hidden" value="<?php echo $url; ?>" /><?php echo date('d.m.Y H:i', $row['created']); ?></td>
+					<td class="cl_poll_url" title="<?php p($l->t('Click to get link')); ?>"><input type="hidden" value="<?php echo $url; ?>" /><?php echo date('d.m.Y H:i', $row['created']); ?></td>
 					<td>
 						<?php
 							if($row['owner'] == OCP\User::getUser()) p($l->t('Yourself'));
@@ -83,7 +83,7 @@
 						<div class="partic_all <?php echo $partic_class; ?>">
 						</div>
                     </td>
-					<td <?php if (strcmp($row['owner'], OCP\User::getUser()) == 0) echo 'class="cl_poll_access" title="Edit access"' ?> >
+					<td <?php if (strcmp($row['owner'], OCP\User::getUser()) == 0) echo 'class="cl_poll_access" title="'.$l->t('Edit access').'"' ?> >
 						<?php p($l->t($row['access'])); ?>
 					</td>
 					<?php if (strcmp($row['owner'], OCP\User::getUser()) == 0) : ?>
