@@ -1,4 +1,4 @@
-var edit_access_id = null;
+var edit_access_id = null; // set if called from the summary page
 
 $(document).ready(function () {
 	edit_access_id = null;
@@ -124,9 +124,12 @@ function hideSelectTable() {
 
 //Popup dialog
 function showAccessDialog(e) {
-	document.getElementById('private').onclick = hideSelectTable;
-	document.getElementById('public').onclick = hideSelectTable;
-	document.getElementById('select').onclick = showSelectTable;
+	if (edit_access_id) {
+		// only on edit; otherwise on create, it only works once
+		document.getElementById('private').onclick = hideSelectTable;
+		document.getElementById('public').onclick = hideSelectTable;
+		document.getElementById('select').onclick = showSelectTable;
+	}
 	var message = t('polls', 'Please choose the groups or users you want to add to your poll.');
 
 	// get the screen height and width
@@ -182,29 +185,30 @@ function showAccessDialog(e) {
 
 }
 function closeAccessDialog() {
+	var html = '';
+	if (document.getElementById('private').checked) {
+		html = 'registered';
+	}
+	else if (document.getElementById('public').checked) {
+		html = 'public';
+	}
+	else {
+		cells = document.getElementsByClassName('cl_user_item_selected');
+		for (var i = 0; i < cells.length; i++) {
+			//users.push(cells[i].innerHTML);
+			html += 'user_' + cells[i].innerHTML + ';';
+		}
+
+		cells = document.getElementsByClassName('cl_group_item_selected');
+		for (var i = 0; i < cells.length; i++) {
+			//groups.push(cells[i].innerHTML);
+			html += 'group_' + cells[i].innerHTML + ';';
+		}
+
+		if (html.length == 0) html = 'registered';
+	}
+
 	if (edit_access_id) {
-		var html = '';
-		if (document.getElementById('private').checked) {
-			html = 'registered';
-		}
-		else if (document.getElementById('public').checked) {
-			html = 'public';
-		}
-		else {
-			cells = document.getElementsByClassName('cl_user_item_selected');
-			for (var i = 0; i < cells.length; i++) {
-				//users.push(cells[i].innerHTML);
-				html += 'user_' + cells[i].innerHTML + ';';
-			}
-
-			cells = document.getElementsByClassName('cl_group_item_selected');
-			for (var i = 0; i < cells.length; i++) {
-				//groups.push(cells[i].innerHTML);
-				html += 'group_' + cells[i].innerHTML + ';';
-			}
-
-			if (html.length == 0) html = 'registered';
-		}
 
 		// search cell with this id
 		cells = document.getElementsByClassName('cl_link');
@@ -226,6 +230,9 @@ function closeAccessDialog() {
 
 		$.post("ajax/access.php", { access: html, poll_id: edit_access_id });
 
+	}
+	else {
+		document.getElementById('id_label_select').innerHTML = ': ' + html;
 	}
 
 	$('#dialog-box').hide();

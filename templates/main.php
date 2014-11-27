@@ -38,11 +38,6 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 
     $post_j = $_POST['j'];
 
-    //$json = json_decode($post_j);
-    //echo '<pre>json: '; print_r($json); echo '</pre>';
-
-	//oclog("postj: " . $post_j);
-
 	// vote: build vote page; finish: save "vote" - both available w/o login
 	if(($post_j != 'vote') && ($post_j != 'finish')) OCP\User::checkLoggedIn();
 
@@ -57,6 +52,8 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 
 			$title = htmlspecialchars($_POST['text_title']);
 			$desc = htmlspecialchars($_POST['text_desc']);
+
+			if (!isset($desc) || !strlen($desc)) $desc = '<none>';
 			$access = $_POST['radio_pub'];
 
 			if ($access === 'select') {
@@ -125,6 +122,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 
 			$title = $row['title'];
 			$desc = $row['description'];
+			if (!isset($desc) || !strlen($desc)) $desc = '_none_';
 			$poll_type = $row['type'];
 
 			if ($poll_type === 'datetime') {
@@ -208,6 +206,8 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 			$title = $row['title'];
 			$desc = $row['description'];
 
+			if (!isset($desc) || !strlen($desc)) $desc = '<_none_>';
+
 			$query = DB::prepare('INSERT INTO *PREFIX*polls_dts(id, dt) VALUES(?,?)');
 			foreach ($chosen as $el) {
 				$query->execute(array($poll_id, $el->date . '_' . $el->time));
@@ -229,6 +229,8 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 
 			$title = $row['title'];
 			$desc = $row['description'];
+
+			if (!isset($desc) || !strlen($desc)) $desc = '<_none_>';
 
 			$query = DB::prepare('INSERT INTO *PREFIX*polls_dts(id, dt, description) VALUES(?,?,?)');
 
@@ -314,6 +316,8 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 
 			$title = $row['title'];
 			$desc = $row['description'];
+
+			if (!isset($desc) || !strlen($desc)) $desc = '<_none_>';
 
 			if ($poll_type === 'datetime') {
 				// next page (last.php) needs json->chosen
@@ -411,6 +415,7 @@ function userHasAccess($poll_id) {
 	$row = $result->fetchRow();
 	if ($row) {
 		$access = $row['access'];
+		$owner = $row['owner'];
 	}
 	else {
 		return false;
@@ -422,6 +427,7 @@ function userHasAccess($poll_id) {
 
 	if ($access === 'registered') return true;
 
+	if ($owner === User::getUser()) return true;
 
 	$user_groups = OC_Group::getUserGroups(User::getUser());
 

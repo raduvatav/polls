@@ -23,6 +23,7 @@
 
 		<input type="radio" name="radio_pub" id="select" value="select">
 		<label for="select"><?php p($l->t('Select')); ?></label>
+		<span id="id_label_select">...</span>
 
 		<input type="hidden" name="access_ids" value="" />
 
