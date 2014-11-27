@@ -56,7 +56,7 @@
 
 						?>
 					</td>
-                    <td>
+                    <td class="column_center">
 						<?php
 							$partic_class = 'partic_no';
 							for($i = 0; $i < count($partic_polls); $i++){

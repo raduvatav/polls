@@ -22,6 +22,10 @@ div.goto_poll {
     /*background-color: green;*/
 }
 
+td.column_center {
+	text-align: center;
+}
+
 div.partic_all {
 	width: 10px;
 	height: 10px;
