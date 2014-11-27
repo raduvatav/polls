@@ -37,6 +37,13 @@ $TRANSLATIONS = array(
 	"Select" => "Wählen",
 	"Close" => "Schließen",
 	"Users" => "Benutzer",
-	"Groups" => "Gruppen"
+	"Groups" => "Gruppen",
+	"Are you sure you want to delete this poll" => "Sind Sie sicher, dass sie diese Umfrage löschen wollen"
+	"You must enter at least a title for the new poll." => "Sie müssen zumindest einen Namen für die Umfrage angeben.",
+	"Copy to clipboard: Ctrl+C, Enter" => "In die Zwischenablage kopieren: Strg+C, Enter",
+	"Thanks that you've voted. You can close the page now." => "Danke, dass sie abgestimmt haben. Sie können die Seite jetzt schließen.",
+	"Nothing selected!\nClick on cells to turn them green." => "Nichts ausgewählt!\nKlicke auf die Elemente um sie auszuwählen (grün).",
+	"You are not registered.\nPlease enter your name to vote\n(at least 3 characters!)" => "Sie sind nicht registriert.\nBitte geben Sie ihren Namen ein um abzustimmen\n(mindestens 3 Zeichen!)",
+	"You already have an item with the same text" => "Sie haben bereits ein Element mit dem gleichen Text."
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";
