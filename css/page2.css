@@ -135,3 +135,7 @@ th {
 	position: relative;
 	top: 10px;
 }
+footer {
+        text-align: center;
+        color: #777;
+}
