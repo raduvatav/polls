@@ -53,7 +53,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 			$title = htmlspecialchars($_POST['text_title']);
 			$desc = htmlspecialchars($_POST['text_desc']);
 
-			if (!isset($desc) || !strlen($desc)) $desc = '<none>';
+			if (!isset($desc) || !strlen($desc)) $desc = '_none_';
 			$access = $_POST['radio_pub'];
 
 			if ($access === 'select') {
@@ -122,6 +122,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 
 			$title = $row['title'];
 			$desc = $row['description'];
+oclog("descr: <" . $desc . ">");
 			if (!isset($desc) || !strlen($desc)) $desc = '_none_';
 			$poll_type = $row['type'];
 
