@@ -44,7 +44,7 @@ function addItem(){
 
 	// column delete
 	var tdata = document.createElement('td');
-	tdata.innerHTML = '✖';
+	tdata.innerHTML = '\u2716';
 	tdata.className = 'cl_del_item';
 	tdata.onclick = deleteItem;
 	trow.appendChild(tdata);
