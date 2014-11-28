@@ -28,7 +28,7 @@
 			<?php while ($row = $result->fetchRow()) : ?>
 				<?php  if (!userHasAccess($row['id'])) continue; ?>
 				<tr>
-					<td class="cl_link" title="Go to">
+					<td class="cl_link" title="<?php p($l->t('Go to')); ?>">
 						<?php echo $row['title']; ?><input type="hidden" value="<?php echo $row['id']; ?>" />
 					</td>
 					<?php
