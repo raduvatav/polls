@@ -24,7 +24,7 @@ $(document).ready(function () {
             // td has inner 'input'; value is poll url
             var cell = e.target;
             var url = cell.getElementsByTagName('input')[0].value;
-            window.prompt(t('Copy to clipboard: Ctrl+C, Enter'), url);
+            window.prompt(t('polls','Copy to clipboard: Ctrl+C, Enter'), url);
         }
     }
 
@@ -254,7 +254,7 @@ function pollClicked(e) {
 
 function deletePoll(e) {
 	var str = t('polls', 'Are you sure you want to delete this poll');
-	str + ':\n\n';
+	str += ':\n\n';
 	var child = this;
 	while( child.className != 'cl_link' && child.previousSibling != null ) {
 		child = child.previousSibling;
