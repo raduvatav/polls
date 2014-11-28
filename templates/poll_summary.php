@@ -28,7 +28,7 @@
 			<?php while ($row = $result->fetchRow()) : ?>
 				<?php  if (!userHasAccess($row['id'])) continue; ?>
 				<tr>
-					<td class="cl_link" title="Go to">
+					<td class="cl_link" title="<?php p($l->t('Go to')); ?>">
 						<?php echo $row['title']; ?><input type="hidden" value="<?php echo $row['id']; ?>" />
 					</td>
 					<?php
@@ -87,7 +87,7 @@
 						<?php p($l->t($row['access'])); ?>
 					</td>
 					<?php if (strcmp($row['owner'], OCP\User::getUser()) == 0) : ?>
-						<td id="id_del_<?php echo $row['id']; ?>" class="cl_delete"><?php p($l->t('delete')); ?></td>
+						<td id="id_del_<?php echo $row['id']; ?>" class="cl_delete"><!--<?php p($l->t('delete')); ?>-->&#x2716;</td>
 					<?php endif; ?>
 				</tr>
 			<?php endwhile; ?>
