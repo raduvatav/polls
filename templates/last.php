@@ -234,6 +234,7 @@ $line = str_replace("\n", '<br>', $desc);
 		?>
 		</tr>
 		<?php // --------------- total -------------------- ?>
+
 		<?php $max_votes = max($total_y); ?>
 		<tr>
 			<th><?php p($l->t('Total')); ?>:</th>
@@ -254,6 +255,20 @@ $line = str_replace("\n", '<br>', $desc);
 				echo '</tr></table></td>';
 			endfor; ?>
 		</tr>
+
+		<?php // ------------ winner ----------------------- ?>
+		<tr>
+			<th><?php p($l->t('Win:')); ?>:</th>
+			<?php for ($i = 0; $i < count($chosen); $i++) :
+
+				$style = '';
+				if ($total_y[$i] == $max_votes) $style = 'style="background-color: green;font-size: 2em;"';
+
+				echo '<td ' . $style . ' id="id_total_' . $i . '">' . ($total_y[$i] - $total_n[$i]) . '</td>';
+
+			endfor; ?>
+		</tr>
+
 
 	</table>
 </div>
