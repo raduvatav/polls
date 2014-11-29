@@ -111,6 +111,7 @@ th {
     white-space: -o-pre-wrap;   /* Opera 7 */
     word-wrap: break-word;
 	word-break: break-all;
+
 }
 #id_user_name {
     font-size: 1.1em;
@@ -133,7 +134,7 @@ th {
 	height: 2em;
 	width: 100%;
 	position: relative;
-	top: 10px;
+	top: 1px;
 }
 footer {
         text-align: center;
