@@ -1,6 +1,8 @@
-
 var g_selected_yes = [];
 var g_selected_no = [];
+
+var strong_cnt_regex = /([^\d]*)(\d+)([^\d]*)/;
+var max_votes = 0;
 
 $(document).ready(function () {
 
@@ -91,7 +93,11 @@ function possClicked(e) {
         g_selected_yes.push(dt);
 
         cell.className = cell.className.replace('cl_maybe', 'cl_yes');
-		cell_tot_y.innerHTML = ('' + (Number(cell_tot_y.innerHTML) + 1));
+		strong_cnt_regex.exec(cell_tot_y.innerHTML);
+		var cnt_value = Number(RegExp.$2) + 1;
+		if(cnt_value > max_votes) max_votes = cnt_value;
+		cell_tot_y.innerHTML = (RegExp.$1 + cnt_value + RegExp.$3);
+		updateStrongCounts();
     }
     else if (cell.className.indexOf('cl_yes') >= 0) {
         g_selected_no.push(dt);
@@ -101,8 +107,11 @@ function possClicked(e) {
                 break;
             }
         }
-		cell_tot_y.innerHTML = ('' + (Number(cell_tot_y.innerHTML) - 1));
+		strong_cnt_regex.exec(cell_tot_y.innerHTML);
+		cell_tot_y.innerHTML = (RegExp.$1 + (Number(RegExp.$2) - 1) + RegExp.$3);
 		cell_tot_n.innerHTML = ('' + (Number(cell_tot_n.innerHTML) + 1));
+		findNewMaxCount();
+		updateStrongCounts();
 
         cell.className = cell.className.replace('cl_yes', 'cl_no');
     }
@@ -117,4 +126,28 @@ function possClicked(e) {
 
         cell.className = cell.className.replace('cl_no', 'cl_maybe');
     }
+}
+
+function findNewMaxCount(){
+	var i = 0;
+	var cell_tot_y = document.getElementById('id_y_' + i);
+	max_votes = 0;
+	while(cell_tot_y != null){
+		strong_cnt_regex.exec(cell_tot_y.innerHTML);
+		var curr = Number(RegExp.$2);
+		if(curr > max_votes) max_votes = curr;
+		cell_tot_y = document.getElementById('id_y_' + (++i));
+	}
+}
+
+function updateStrongCounts(){
+	var i = 0;
+	var cell_tot_y = document.getElementById('id_y_' + i);
+	while(cell_tot_y != null){
+		strong_cnt_regex.exec(cell_tot_y.innerHTML);
+		var curr = Number(RegExp.$2);
+		if(curr < max_votes) cell_tot_y.innerHTML = curr;
+		else cell_tot_y.innerHTML = ('<strong>' + curr + '</strong>');
+		cell_tot_y = document.getElementById('id_y_' + (++i));
+	}
 }

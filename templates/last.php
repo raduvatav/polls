@@ -234,11 +234,22 @@ $line = str_replace("\n", '<br>', $desc);
 		?>
 		</tr>
 		<?php // --------------- total -------------------- ?>
+		<?php $max_votes = max($total_y); ?>
 		<tr>
 			<th><?php p($l->t('Total')); ?>:</th>
 			<?php for ($i = 0; $i < count($chosen); $i++) :
 				echo '<td><table id="id_tab_total"><tr>';
-				echo '<td id="id_y_' . $i . '" class="cl_total_y">' . (isset($total_y[$i]) ? $total_y[$i] : '0') . '</td>';
+				echo '<td id="id_y_' . $i . '" class="cl_total_y">';
+				if(isset($total_y[$i])){
+					if( $total_y[$i] == $max_votes){
+						echo '<strong>' . $total_y[$i] . '</strong>';
+					} else {
+						echo $total_y[$i];
+					}
+				} else {
+					echo '0';
+				}
+				echo '</td>';
 				echo '<td id="id_n_' . $i . '" class="cl_total_n">' . (isset($total_n[$i]) ? $total_n[$i] : '0') . '</td>';
 				echo '</tr></table></td>';
 			endfor; ?>
@@ -255,7 +266,7 @@ $line = str_replace("\n", '<br>', $desc);
 	</tr>
 	<tr>
 		<th><?php p($l->t('Comment')); ?></th>
-		<td><textarea cols="50" rows="5" id="comment_box"></textarea></td>
+		<td><textarea style="width: 200px;" cols="50" rows="5" id="comment_box"></textarea></td>
 	</tr>
 	<?php // -------- submit ----------- ?>
 	<tr>
@@ -287,7 +298,7 @@ $line = str_replace("\n", '<br>', $desc);
 			</th>
 			<td>
 				<div class="wordwrap">
-					<?php echo $obj->comment; //wordwrap(str_replace("\n", "<br>", $obj->comment), 100, "<br/>", true); ?>
+					<?php echo $obj->comment; ?>
 				</div>
 			</td>
 		</tr>

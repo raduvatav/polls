@@ -79,9 +79,17 @@ th {
     padding: 3px;
     text-align: left;
     vertical-align: center;
-    border-left: 1px solid #cccccc;
+   /* border-left: 1px solid #cccccc;*/
     border-top: 2px solid gray;
-    /*border-left: 15px solid white;*/
+	border-right: 1px dotted gray;
+}
+
+.cl_create_form  tr:last-child  td {
+	border-bottom: 2px solid gray;
+}
+
+.cl_create_form tr td:last-child {
+	border-right: none;
 }
 
 
