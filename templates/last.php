@@ -49,8 +49,8 @@ $line = str_replace("\n", '<br>', $desc);
 // ----------- title / descr --------
 ?>
 
-<p>
 	<?php if(!User::isLoggedIn()) : ?>
+<p>
 		<header>
 		        <div id="header">
 				<a href="<?php print_unescaped(link_to('', 'index.php')); ?>"
@@ -65,8 +65,10 @@ $line = str_replace("\n", '<br>', $desc);
 				</div>
 			</div>
 		</header>
-	<?php endif; ?>
 </p>
+		<p>&nbsp</p><p>&nbsp</p> <?php // for some reason the header covers the title otherwise ?>
+	<?php endif; ?>
+
 
 <h1><?php echo $title; ?></h1>
 
@@ -258,7 +260,7 @@ $line = str_replace("\n", '<br>', $desc);
 
 		<?php // ------------ winner ----------------------- ?>
 		<tr>
-			<th><?php p($l->t('Win:')); ?>:</th>
+			<th><?php p($l->t('Win:')); ?></th>
 			<?php for ($i = 0; $i < count($chosen); $i++) :
 
 				$style = '';
