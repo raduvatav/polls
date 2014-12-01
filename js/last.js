@@ -109,9 +109,6 @@ function possClicked(e) {
 		strong_cnt_regex.exec(cell_tot_y.innerHTML);
 		cell_tot_y.innerHTML = (RegExp.$1 + (Number(RegExp.$2) - 1) + RegExp.$3);
 		cell_tot_n.innerHTML = ('' + (Number(cell_tot_n.innerHTML) + 1));
-		findNewMaxCount();
-
-
         cell.className = cell.className.replace('cl_yes', 'cl_no');
     }
     else if (cell.className.indexOf('cl_no') >= 0) {
@@ -125,6 +122,7 @@ function possClicked(e) {
 
         cell.className = cell.className.replace('cl_no', 'cl_maybe');
     }
+	findNewMaxCount();
 	updateStrongCounts();
 
 }

@@ -122,7 +122,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 
 			$title = $row['title'];
 			$desc = $row['description'];
-oclog("descr: <" . $desc . ">");
+
 			if (!isset($desc) || !strlen($desc)) $desc = '_none_';
 			$poll_type = $row['type'];
 
