@@ -144,28 +144,30 @@ function updateStrongCounts(){
 	var cell_tot_y = document.getElementById('id_y_' + i);
 	var cell_tot_n = document.getElementById('id_n_' + i);
 
-	var cel_win_y = document.getElementById('id_total_' + i);
+	var cel_win = document.getElementById('id_total_' + i);
 
 	while(cell_tot_y != null) {
 
 		strong_cnt_regex.exec(cell_tot_y.innerHTML);
 		var curr = Number(RegExp.$2);
+		var win = '' + Number(curr) - Number(cell_tot_n.innerHTML);
 
-		if(curr < max_votes) {
+		if(win < max_votes) {
 			cell_tot_y.innerHTML = curr;
-			cel_win_y.style = "background-color: white; font-size: 1em;";
+			cel_win.style = "background-color: white; font-size: 1em;";
 
 		}
 		else {
 			cell_tot_y.innerHTML = ('<strong>' + curr + '</strong>');
-			cel_win_y.style = "background-color: green;font-size: 2em;";
-			cel_win_y.innerHTML = curr;
+			cel_win.style = "background-color: green;font-size: 2em;";
+			cel_win.innerHTML = curr;
 		}
 
-		cel_win_y.innerHTML = '' + Number(curr) - Number(cell_tot_n.innerHTML);
+		cel_win.innerHTML = win;
 
 		cell_tot_y = document.getElementById('id_y_' + (++i));
-		cel_win_y = document.getElementById('id_total_' + i);
 		cell_tot_n = document.getElementById('id_n_' + i);
+
+		cel_win = document.getElementById('id_total_' + i);
 	}
 }
