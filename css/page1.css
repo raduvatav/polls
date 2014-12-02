@@ -20,7 +20,7 @@ a {
 }
 
 .td_selected {
-	background-color: green;
+	background-color: #00dd00;
 }
 .td_hidden {
     visibility: hidden;
@@ -86,10 +86,10 @@ th {
     background-color: white;
 }
 .cl_hour_selected {
-    background-color: green;
+    background-color: #00dd00;
 }
 .cl_min_selected {
-    background-color: green;
+    background-color: #00dd00;
 }
 
 td {

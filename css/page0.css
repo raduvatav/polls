@@ -19,7 +19,7 @@ div.new_poll {
 }
 
 div.goto_poll {
-    /*background-color: green;*/
+    /*background-color: #00dd00;*/
 }
 
 td.column_center {
@@ -33,7 +33,7 @@ div.partic_all {
 }
 
 div.partic_yes {
-	background-color: green;
+	background-color: #00dd00;
 }
 
 div.partic_no {
