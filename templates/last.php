@@ -278,10 +278,13 @@ $line = str_replace("\n", '<br>', $desc);
 			<th><?php p($l->t('Win:')); ?></th>
 			<?php for ($i = 0; $i < count($chosen); $i++) :
 
-				$style = '';
-				if ($total_y[$i] == $max_votes) $style = 'style="background-color: #00dd00;font-size: 2em;"';
+				$str = '';
 
-				echo '<td ' . $style . ' id="id_total_' . $i . '">' . ($total_y[$i] - $total_n[$i]) . '</td>';
+				if ($total_y[$i] == $max_votes){
+					$str = '&#10004;';
+				}
+
+				echo '<td style="color: green;font-size: 2em;" id="id_total_' . $i . '">' . $str . '</td>';
 
 			endfor; ?>
 		</tr>

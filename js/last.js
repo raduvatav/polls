@@ -157,16 +157,14 @@ function updateStrongCounts(){
 
 		if(win < max_votes) {
 			cell_tot_y.innerHTML = curr;
-			cel_win.style = "background-color: white; font-size: 1em;";
-
+			cel_win.innerHTML = '';
 		}
 		else {
 			cell_tot_y.innerHTML = ('<strong>' + curr + '</strong>');
-			cel_win.style = "background-color: #00dd00;font-size: 2em;";
-			cel_win.innerHTML = curr;
+			cel_win.innerHTML = '&#10004;';
 		}
 
-		cel_win.innerHTML = win;
+
 
 		cell_tot_y = document.getElementById('id_y_' + (++i));
 		cell_tot_n = document.getElementById('id_n_' + i);
