@@ -439,6 +439,8 @@ function userHasAccess($poll_id) {
 	}
 
 	if ($access === 'public') return true;
+	
+	if ($access === 'hidden') return true;
 
 	if (!User::isLoggedIn()) return false;
 
