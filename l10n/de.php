@@ -54,6 +54,8 @@ $TRANSLATIONS = array(
 	"Event schedule" => "Datumsangabe",
 	"Text based" => "Eigene Texte",
 	"Text item" => "Text",
-	"Description (will be shown as tooltip on the summary page)" => "Beschreibung (wird als Tooltip in der Übersicht angezeigt)"
+	"Description (will be shown as tooltip on the summary page)" => "Beschreibung (wird als Tooltip in der Übersicht angezeigt)",
+	"Poll expired" => "Umfrage abgelaufen",
+	"The poll expired on %s. Voting is disabled, but you can still comment." => "Die Umfrage lief am %s ab. Die Abstimmung ist geschlossen, aber es kann weiterhin kommentiert werden."
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

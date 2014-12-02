@@ -54,6 +54,8 @@ $TRANSLATIONS = array(
         "Event schedule" => "Event schedule",
         "Text based" => "Text based",
         "Text item" => "Text item",
-        "Description (will be shown as tooltip on the summary page)" => "Description (will be shown as tooltip on the summary page)"
+        "Description (will be shown as tooltip on the summary page)" => "Description (will be shown as tooltip on the summary page)",
+		"Poll expired" => "Poll expired",
+		"The poll expired on %s. Voting is disabled, but you can still comment." => "The poll expired on %s. Voting is disabled, but you can still comment."
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";
