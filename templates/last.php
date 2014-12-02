@@ -142,8 +142,12 @@ $line = str_replace("\n", '<br>', $desc);
 
 			foreach (array_keys($others) as $usr) {
 				if ($usr === User::getUser()) {
-					$user_voted = $others[$usr];
-					continue;
+					// if poll expired, just puth current user among the others;
+					// otherwise skip here to add current user as last row (to vote)
+					if (!$expired) {
+						$user_voted = $others[$usr];
+						continue;
+					}
 				}
 				echo '<th>' . User::getDisplayName($usr) . '</th>';
 				$i_tot = -1;
@@ -199,45 +203,44 @@ $line = str_replace("\n", '<br>', $desc);
 		<tr>
 
 		<?php
-		if (User::isLoggedIn()) {
-			echo '<th>' . User::getDisplayName() . '</th>';
-		}
-		else {
-			echo '<th id="id_ac_detected" ><input type="text" name="user_name" id="user_name" /></th>';
-		}
-		$i_tot = -1;
-		foreach ($chosen as $dt) {
-			$i_tot++;
-			if ($poll_type === 'datetime') {
-				$str = $dt->date . '_' . $dt->time;
+		if (!$expired) {
+			if (User::isLoggedIn()) {
+				echo '<th>' . User::getDisplayName() . '</th>';
+			} else {
+				echo '<th id="id_ac_detected" ><input type="text" name="user_name" id="user_name" /></th>';
 			}
-			else {
-				$str = $dt->dt;
-			}
+			$i_tot = -1;
+			foreach ($chosen as $dt) {
+				$i_tot++;
+				if ($poll_type === 'datetime') {
+					$str = $dt->date . '_' . $dt->time;
+				} else {
+					$str = $dt->dt;
+				}
 
-			// see if user already has data for this event
-			$cl = 'cl_maybe';
-			if (isset($user_voted)){
-				foreach ($user_voted as $obj) {
-					if ($obj->dt === $str) {
-						if ($obj->ok === 'yes'){
-							$cl = 'cl_yes';
-							$total_y[$i_tot]++;
-						}
-						else if ($obj->ok === 'no'){
-							$cl = 'cl_no';
-							$total_n[$i_tot]++;
-						}/* else {
+				// see if user already has data for this event
+				$cl = 'cl_maybe';
+				if (isset($user_voted)) {
+					foreach ($user_voted as $obj) {
+						if ($obj->dt === $str) {
+							if ($obj->ok === 'yes') {
+								$cl = 'cl_yes';
+								$total_y[$i_tot]++;
+							} else if ($obj->ok === 'no') {
+								$cl = 'cl_no';
+								$total_n[$i_tot]++;
+							}/* else {
 							$total_m[$i_tot]++;
 						}*/
+						}
 					}
 				}
+
+				echo '<td class="cl_click ' . $cl . '">&nbsp;';
+
+				echo '<input type="hidden" value="' . $str . '" />';
+				echo '</td>';
 			}
-
-			echo '<td class="cl_click ' . $cl . '">&nbsp;';
-
-			echo '<input type="hidden" value="' . $str .   '" />';
-			echo '</td>';
 		}
 		?>
 		</tr>

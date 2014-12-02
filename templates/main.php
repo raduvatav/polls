@@ -125,12 +125,19 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 			$poll_id = $_POST['poll_id'];
 
 			// get title and description from DB, needed for next page
-			$query = DB::prepare('SELECT title, description, type FROM *PREFIX*polls_events WHERE id=?');
+			$query = DB::prepare('SELECT title, description, type, expire FROM *PREFIX*polls_events WHERE id=?');
 			$result = $query->execute(array($poll_id));
 			$row = $result->fetchRow();
 
 			$title = $row['title'];
 			$desc = $row['description'];
+
+			// is expired?
+			$exp = $row['expire'];
+			$expired = false;
+			if (isset($exp)) {
+				$expired = date('U') > $exp ? true : false;
+			}
 
 			if (!isset($desc) || !strlen($desc)) $desc = '_none_';
 			$poll_type = $row['type'];
