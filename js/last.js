@@ -81,6 +81,7 @@ function possClicked(e) {
     }*/
 	var cell_tot_y = document.getElementById('id_y_' + (ch_ind - 1));
 	var cell_tot_n = document.getElementById('id_n_' + (ch_ind - 1));
+	//var cell_tot_m = document.getElementById('id_m_' + (ch_ind - 1));
 
 	//alert('col: ' + ch_ind);
 
@@ -97,6 +98,7 @@ function possClicked(e) {
 		var cnt_value = Number(RegExp.$2) + 1;
 		if(cnt_value > max_votes) max_votes = cnt_value;
 		cell_tot_y.innerHTML = (RegExp.$1 + cnt_value + RegExp.$3);
+		//cell_tot_m.innerHTML = ('' + (Number(cell_tot_m.innerHTML) - 1));
     }
     else if (cell.className.indexOf('cl_yes') >= 0) {
         g_selected_no.push(dt);
@@ -119,6 +121,7 @@ function possClicked(e) {
             }
         }
 		cell_tot_n.innerHTML = ('' + (Number(cell_tot_n.innerHTML) - 1));
+		//cell_tot_m.innerHTML = ('' + (Number(cell_tot_m.innerHTML) + 1));
 
         cell.className = cell.className.replace('cl_no', 'cl_maybe');
     }
@@ -159,7 +162,7 @@ function updateStrongCounts(){
 		}
 		else {
 			cell_tot_y.innerHTML = ('<strong>' + curr + '</strong>');
-			cel_win.style = "background-color: green;font-size: 2em;";
+			cel_win.style = "background-color: #00dd00;font-size: 2em;";
 			cel_win.innerHTML = curr;
 		}
 

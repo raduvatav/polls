@@ -66,7 +66,7 @@ $line = str_replace("\n", '<br>', $desc);
 			</div>
 		</header>
 </p>
-		<p>&nbsp</p><p>&nbsp</p> <?php // for some reason the header covers the title otherwise ?>
+		<p>&nbsp;</p><p>&nbsp;</p> <?php // for some reason the header covers the title otherwise ?>
 	<?php endif; ?>
 
 
@@ -125,9 +125,11 @@ $line = str_replace("\n", '<br>', $desc);
 		// init array for counting 'yes'-votes for each dt
 		$total_y = array();
 		$total_n = array();
+		//$total_m = array();
 		for ($i = 0; $i < count($chosen); $i++){
 			$total_y[$i] = 0;
 			$total_n[$i] = 0;
+			//$total_m[$i] = 1;
 		}
 		$user_voted = null;
 		// -------------- other users ---------------
@@ -169,7 +171,9 @@ $line = str_replace("\n", '<br>', $desc);
 							else if ($obj->ok === 'no') {
 								$total_n[$i_tot]++;
 								$cl = 'cl_no';
-							}
+							}/* else {
+								$total_m[$i_tot]++;
+							}*/
 							break;
 						}
 					}
@@ -223,12 +227,14 @@ $line = str_replace("\n", '<br>', $desc);
 						else if ($obj->ok === 'no'){
 							$cl = 'cl_no';
 							$total_n[$i_tot]++;
-						}
+						}/* else {
+							$total_m[$i_tot]++;
+						}*/
 					}
 				}
 			}
 
-			echo '<td class="cl_click ' . $cl . '">&nbsp';
+			echo '<td class="cl_click ' . $cl . '">&nbsp;';
 
 			echo '<input type="hidden" value="' . $str .   '" />';
 			echo '</td>';
@@ -240,22 +246,31 @@ $line = str_replace("\n", '<br>', $desc);
 		<?php $max_votes = max($total_y); ?>
 		<tr>
 			<th><?php p($l->t('Total')); ?>:</th>
-			<?php for ($i = 0; $i < count($chosen); $i++) :
-				echo '<td><table id="id_tab_total"><tr>';
-				echo '<td id="id_y_' . $i . '" class="cl_total_y">';
-				if(isset($total_y[$i])){
-					if( $total_y[$i] == $max_votes){
-						echo '<strong>' . $total_y[$i] . '</strong>';
-					} else {
-						echo $total_y[$i];
-					}
-				} else {
-					echo '0';
-				}
-				echo '</td>';
-				echo '<td id="id_n_' . $i . '" class="cl_total_n">' . (isset($total_n[$i]) ? $total_n[$i] : '0') . '</td>';
-				echo '</tr></table></td>';
-			endfor; ?>
+			<?php for ($i = 0; $i < count($chosen); $i++) : ?>
+				<td>
+					<table id="id_tab_total">
+						<tr>
+							<td id="id_y_<?php echo $i; ?>" class="cl_total_y">
+								<?php if(isset($total_y[$i])) : ?>
+									<?php if( $total_y[$i] == $max_votes) : ?>
+											<?php echo '<strong>' . $total_y[$i] . '</strong>'; ?>
+									<?php else : ?>
+										<?php echo $total_y[$i]; ?>
+									<?php endif; ?>
+								<?php else : ?>
+									0
+								<?php endif; ?>
+							</td>
+						</tr>
+						<!--<tr>
+							<td id="id_m_<?php echo $i; ?>" class="cl_total_m"><?php echo isset($total_m[$i]) ? $total_m[$i] : '0'; ?></td>
+						</tr>-->
+						<tr>
+							<td id="id_n_<?php echo $i; ?>" class="cl_total_n"><?php echo isset($total_n[$i]) ? $total_n[$i] : '0'; ?></td>
+						</tr>
+					</table>
+				</td>
+			<?php endfor; ?>
 		</tr>
 
 		<?php // ------------ winner ----------------------- ?>
@@ -264,7 +279,7 @@ $line = str_replace("\n", '<br>', $desc);
 			<?php for ($i = 0; $i < count($chosen); $i++) :
 
 				$style = '';
-				if ($total_y[$i] == $max_votes) $style = 'style="background-color: green;font-size: 2em;"';
+				if ($total_y[$i] == $max_votes) $style = 'style="background-color: #00dd00;font-size: 2em;"';
 
 				echo '<td ' . $style . ' id="id_total_' . $i . '">' . ($total_y[$i] - $total_n[$i]) . '</td>';
 
