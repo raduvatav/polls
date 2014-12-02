@@ -22,8 +22,8 @@
 			</tr>
 
 			<?php
-				$query = OCP\DB::prepare('select * from *PREFIX*polls_events order by created');
-				$result = $query->execute();
+				$query = OCP\DB::prepare('select * from *PREFIX*polls_events where (access =? and owner =?) or access !=? order by created');
+				$result = $query->execute(array('hidden', OCP\User::getUser(), 'hidden'));
 			?>
 
 			<?php while ($row = $result->fetchRow()) : ?>
@@ -88,7 +88,7 @@
 						<div class="partic_all <?php echo $partic_class; ?>">
 						</div>
                     </td>
-					<td <?php if (strcmp($row['owner'], OCP\User::getUser()) == 0) echo 'class="cl_poll_access" title="'.$l->t('Edit access').'"' ?> >
+					<td <?php if ($row['owner'] == OCP\User::getUser()) echo 'class="cl_poll_access" title="'.$l->t('Edit access').'"' ?> >
 						<?php p($l->t($row['access'])); ?>
 					</td>
 					<?php if (strcmp($row['owner'], OCP\User::getUser()) == 0) : ?>

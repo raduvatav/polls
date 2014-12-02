@@ -17,6 +17,9 @@
 
 		<input type="radio" name="radio_pub" id="private" value="registered" checked />
 		<label for="private"><?php p($l->t('Registered users only')); ?></label>
+		
+		<input type="radio" name="radio_pub" id="hidden" value="hidden" />
+		<label for="hidden"><?php p($l->t('hidden')); ?></label>
 
 		<input type="radio" name="radio_pub" id="public" value="public">
 		<label for="public"><?php p($l->t('Public access')); ?></label>
