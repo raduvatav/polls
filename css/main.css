@@ -1,0 +1,340 @@
+body {
+    margin: 10px;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin: 10px 0 5px 0;
+}
+
+footer {
+        text-align: center;
+        color: #777;
+}
+
+th {
+    padding: 7px;
+    background-color: aliceblue;
+}
+
+td {
+	vertical-align: center;
+	text-align: center;
+}
+
+table {
+	padding: 10px 10px 10px 10px;
+}
+
+th {
+    text-align: center;
+    border-width: 3px;
+    border-style: solid;
+    border-color: white;
+}
+
+input.input_field {
+	width: 20%;
+}
+
+.label_h1 {
+	display:block;
+}
+
+div.new_poll {
+	width: 100%;
+}
+
+div.goto_poll {
+    /*background-color: #00dd00;*/
+}
+
+td.column_center {
+	text-align: center;
+}
+
+div.partic_all {
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+}
+
+div.partic_yes {
+	background-color: #00dd00;
+}
+
+div.partic_no {
+	background-color: red;
+}
+
+div.scroll_div {
+	width: 100%;
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+td.td_shown {
+    visibility: visible;
+}
+
+.td_hidden {
+    visibility: hidden;
+    visibility: collapse;
+}
+
+.td_selected {
+	background-color: #00dd00;
+}
+
+.cl_with_border td {
+    padding-right: 15px;
+    padding: 1px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: gray;
+    -moz-border-radius: initial;
+    text-align: center;
+    vertical-align: bottom;
+	cursor: pointer;
+}
+.scrollable_table {
+	table-layout: fixed;
+}
+
+.desc {
+    color: #333333;
+}
+
+.wordwrap {
+	width: 75%;
+    white-space: pre-wrap;      /* CSS3 */
+    white-space: -moz-pre-wrap; /* Firefox */
+    white-space: -pre-wrap;     /* Opera <7 */
+    white-space: -o-pre-wrap;   /* Opera 7 */
+    word-wrap: break-word;
+	word-break: break-all;
+}
+
+.cl_title {
+    font-size: 2em;
+}
+
+.input_title{
+    font-size: 1.2em;
+}
+.padded td {
+    padding: 10px;
+}
+
+.cl_create_form td {
+    padding: 3px;
+    text-align: left;
+    vertical-align: center;
+   /* border-left: 1px solid #cccccc;*/
+    border-top: 2px solid gray;
+}
+
+.cl_create_form  tr:last-child  td{
+	border-bottom: 2px solid gray;
+}
+
+.cl_time_display {
+	background-color: aqua;
+	cursor: pointer;
+}
+.cl_date_time_header:hover {
+	background-color: red;
+}
+.cl_hour, .cl_min {
+    cursor: pointer;
+    background-color: white;
+}
+.cl_hour_selected, .cl_min_selected {
+    background-color: #00dd00;
+}
+
+.cl_link, .cl_delete, .cl_poll_access, .cl_poll_url, .cl_click, .cl_delete, .cl_date_time_header {
+    cursor: pointer;
+}
+
+.cl_pad_left {
+    padding-left: 30px;
+}
+
+.cl_del_item {
+    cursor: pointer;
+	padding: 0px 5px 0px 5px;
+
+}
+.cl_del_item:hover {
+    background-color: red;
+}
+.cl_maybe, .cl_yes, .cl_no {
+    border-width: 1px solid gray;
+}
+.cl_maybe {
+    background-color: white;
+}
+
+.cl_yes, .cl_total_y {
+    background-color: #00dd00;
+}
+
+.cl_no, .cl_total_n {
+    background-color: red;
+}
+
+.cl_user_comments {
+    table-layout: fixed;
+}
+
+.cl_user_comments td {
+    text-align: left;
+}
+
+.cl_user_comments th {
+    word-wrap: break-word;
+    vertical-align: top;
+    text-align: center;
+}
+
+#id_user_name {
+    font-size: 1.1em;
+    text-align: left;
+}
+#id_user_dt {
+    font-size: 0.6em;
+    text-align: left;
+}
+
+#id_tab_total {
+	height: 2em;
+	width: 100%;
+	text-align: center;
+	/*position: relative;*/
+	/*top: 10px;*/
+}
+
+#id_poss_table td {
+    padding: 2px;
+}
+
+/* date names */
+#id_header_month_1:before {
+    content: 'Jan';
+}
+#id_header_month_2:before {
+    content: 'Feb';
+}
+#id_header_month_3:before {
+    content: 'Mar';
+}
+#id_header_month_4:before {
+    content: 'Apr';
+}
+#id_header_month_5:before {
+    content: 'May';
+}
+#id_header_month_6:before {
+    content: 'Jun';
+}
+#id_header_month_7:before {
+    content: 'Jul';
+}
+#id_header_month_8:before {
+    content: 'Aug';
+}
+#id_header_month_9:before {
+    content: 'Sep';
+}
+#id_header_month_10:before {
+    content: 'Oct';
+}
+#id_header_month_11:before {
+    content: 'Nov';
+}
+#id_header_month_12:before {
+    content: 'Dec';
+}
+
+/*  users, groups...   */
+#dialog-overlay {
+    /* set it to fill the whil screen */
+    width:100%;
+    height:100%;
+
+    /* transparency for different browsers */
+    filter:alpha(opacity=50);
+    -moz-opacity:0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+    background:#000;
+    /* make sure it appear behind the dialog box but above everything else */
+    position:absolute;
+    top:0; left:0;
+    z-index:3000;
+    /* hide it by default */
+    display:none;
+}
+#dialog-box {
+	padding: 10px;
+
+    /* css3 drop shadow */
+    -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+
+    /* css3 border radius */
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+	border-radius: 5px;
+
+    background:#eee;
+    /* styling of the dialog box, i have a fixed dimension for this demo */
+    width:400px;
+
+    /* make sure it has the highest z-index */
+    position:absolute;
+    z-index:5000;
+    /* hide it by default */
+    display:none;
+}
+
+div#dialog-message {
+	padding: 0 0 20px 0;
+}
+
+div.scroll_div {
+	width: 100%;
+	height: 250px;
+	overflow-y: auto;
+}
+
+#table_groups, #table_users {
+	width: 100%;
+	padding: 20px 5px 10px 5px;
+    table-layout: fixed;
+	overflow-y: auto;
+}
+
+#table_users {
+	/*width: 100%;
+	padding: 20px 5px 10px 10px;
+    table-layout: fixed;
+	overflow-y: auto;*/
+	padding-left: 10px;
+}
+
+.cl_group_item, .cl_user_item {
+    background-color: white;
+    color: #000000;
+}
+.cl_group_item_selected, .cl_user_item_selected {
+    background-color: #1d2d44;
+    color: #8e96a1;
+}
