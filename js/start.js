@@ -216,7 +216,8 @@ function closeAccessDialog() {
 		cells = document.getElementsByClassName('cl_user_item_selected');
 		for (var i = 0; i < cells.length; i++) {
 			//users.push(cells[i].innerHTML);
-			html += 'user_' + cells[i].innerHTML + ';';
+			//html += 'user_' + cells[i].innerHTML + ';';
+			html += cells[i].id + ';';
 		}
 
 		cells = document.getElementsByClassName('cl_group_item_selected');
