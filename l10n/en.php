@@ -11,6 +11,7 @@ $TRANSLATIONS = array(
         "Access" => "Access",
         "Registered users only" => "Registered users only",
         "Public access" => "Public access",
+		"hidden" => "hidden",
         "public" => "public",
         "registered" => "registered",
         "delete" => "delete",
