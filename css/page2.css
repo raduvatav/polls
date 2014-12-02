@@ -124,11 +124,13 @@ th {
 
 .cl_total_y {
 	background-color: #00dd00;
-	border-left: 2px solid;
+	border-left: 1px solid;
 	border-color: white;
 }
 .cl_total_n {
 	background-color: red;
+    border-left: 1px solid;
+    border-color: white;
 }
 #id_tab_total {
 	height: 2em;
