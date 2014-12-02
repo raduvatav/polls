@@ -296,6 +296,14 @@ $line = str_replace("\n", '<br>', $desc);
 	</table>
 </div>
 
+<?php if($expired) : ?>
+<div id="expired_info">
+	<h2><?php p($l->t('Poll expired')); ?></h2>
+	<p>
+		<?php p($l->t('The poll expired on %s. Voting is disabled, but you can still comment.', array(date('d.m.Y H:i',$expire)))); ?>
+	</p>
+</div>
+<?php endif; ?>
 
 <table class="cl_comment">
 	<?php // -------- leave comment ---------- ?>

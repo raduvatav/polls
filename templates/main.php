@@ -77,7 +77,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 				$expire = $_POST['expire_date'];
 
 				if (isset($expire)) {
-					$expire = '' . strtotime($expire);
+					$expire = '' . (strtotime($expire) + 60*60*24); //add one day, so it expires at the end of a day
 				}
 			}
 
@@ -133,10 +133,10 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 			$desc = $row['description'];
 
 			// is expired?
-			$exp = $row['expire'];
+			$expire = $row['expire'];
 			$expired = false;
-			if (isset($exp)) {
-				$expired = date('U') > $exp ? true : false;
+			if (isset($expire)) {
+				$expired = date('U') > $expire ? true : false;
 			}
 
 			if (!isset($desc) || !strlen($desc)) $desc = '_none_';
@@ -216,12 +216,13 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 			usort($chosen, 'sort_dates');
 
 			// get title and description from DB, needed for next page
-			$query = DB::prepare('SELECT title, description FROM *PREFIX*polls_events WHERE id=?');
+			$query = DB::prepare('SELECT title, description, expire FROM *PREFIX*polls_events WHERE id=?');
 			$result = $query->execute(array($poll_id));
 			$row = $result->fetchRow();
 
 			$title = $row['title'];
 			$desc = $row['description'];
+			$expire = $row['expire'];
 
 			if (!isset($desc) || !strlen($desc)) $desc = '<_none_>';
 
