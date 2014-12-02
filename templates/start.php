@@ -42,7 +42,7 @@
 
 		<br />
 		<input id="id_expire_set" name="check_expire" type="checkbox" value="false">
-		<label for="id_expire_set">Expires</label>
+		<label for="id_expire_set"><?php p($l->t('Expires')); ?></label>
 
 		<input id="id_expire_date" type="text" required="" value="" name="expire_date" disabled="true">
 
