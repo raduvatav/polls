@@ -72,19 +72,28 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 
 			$poll_id = UTIL::generateRandomBytes(16);
 
+			$expire = '';
+			if(isset($_POST['check_expire'])) {
+				$expire = $_POST['expire_date'];
+
+				if (isset($expire)) {
+					$expire = '' . strtotime($expire);
+				}
+			}
+
 			if ($_POST['radio_type'] === 'text') {
 				// --- text based poll ---
 				// add entry to db; don't set 'created' yet!
-				$query = DB::prepare('INSERT INTO *PREFIX*polls_events(id, type, title, description, OWNER, access) VALUES (?,?,?,?,?,?)');
-				$query->execute(array($poll_id, 'text', $title, $desc, User::getUser(), $access));
+				$query = DB::prepare('INSERT INTO *PREFIX*polls_events(id, type, title, description, OWNER, access, expire) VALUES (?,?,?,?,?,?,?)');
+				$query->execute(array($poll_id, 'text', $title, $desc, User::getUser(), $access, $expire));
 
 				include 'select_text_items.php';
 			} else {
 				// --- event schedule poll (dates/times) ---
 
 				// add entry to db; don't set 'created' yet!
-				$query = DB::prepare('INSERT INTO *PREFIX*polls_events(id, type, title, description, OWNER, access) VALUES (?,?,?,?,?,?)');
-				$query->execute(array($poll_id, 'datetime', $title, $desc, User::getUser(), $access));
+				$query = DB::prepare('INSERT INTO *PREFIX*polls_events(id, type, title, description, OWNER, access, expire) VALUES (?,?,?,?,?,?,?)');
+				$query->execute(array($poll_id, 'datetime', $title, $desc, User::getUser(), $access, $expire));
 
 				// load next page
 				include 'select_dates.php';

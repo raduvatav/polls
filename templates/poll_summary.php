@@ -16,6 +16,7 @@
 				<th id="id_th_descr"><?php p($l->t('Description')); ?></th>
 				<th class="cl_cell_width"><?php p($l->t('Created')); ?></th>
 				<th><?php p($l->t('By')); ?></th>
+				<th class="cl_cell_width"><?php p($l->t('Expires')); ?></th>
 				<th><?php p($l->t('participated')); ?></th>
 				<th id="id_th_descr"><?php p($l->t('Access')); ?></th>
 			</tr>
@@ -53,7 +54,11 @@
 						<?php
 							if($row['owner'] == OCP\User::getUser()) p($l->t('Yourself'));
 							else echo OCP\User::getDisplayName($row['owner']); //echo OCP\User::getDisplayName($row['owner']);
-
+						?>
+					</td>
+					<td>
+						<?php
+							if (isset($row['expire']))	echo date('d.m.Y', $row['expire']);
 						?>
 					</td>
                     <td class="column_center">

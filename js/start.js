@@ -83,7 +83,28 @@ $(document).ready(function () {
 		cells[i].onclick = editAccess;
 	}
 
+	// enable / disable date picker
+	$('#id_expire_set').click(function(){
+		$('#id_expire_date').prop("disabled", !this.checked);
+
+		// todo: this would be nice, for some reason it doesn't work
+		//if (this.checked) {
+		//	$("id_expire_date").focus();
+		//}
+	});
+
+	// date picker for expire
+	var today = new Date();
+	$('#id_expire_date').datepicker({
+		dateFormat : 'dd.mm.yy',
+		changeMonth: true,
+		changeYear: true,
+		minDate : today,
+		maxDate : new Date(today.getFullYear() + 1, today.getMonth() + 1, today.getDay() + 1)
+	});
+
 });
+
 
 function editAccess(e){
 
@@ -179,9 +200,8 @@ function showAccessDialog(e) {
 				}
 			}
 		}
-
-
 	}
+
 
 }
 function closeAccessDialog() {

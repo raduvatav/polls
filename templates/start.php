@@ -36,6 +36,13 @@
 		<input type="radio" name="radio_type" id="text" value="text">
 		<label for="text"><?php p($l->t('Text based')); ?></label>
 
+
+		<br />
+		<input id="id_expire_set" name="check_expire" type="checkbox" value="false">
+		<label for="id_expire_set">Expires</label>
+
+		<input id="id_expire_date" type="text" required="" value="" name="expire_date" disabled="true">
+
         <br/>
 		<input type="submit" id="submit_create_poll" value="<?php p($l->t('Next')); ?>" />
 	</div>
