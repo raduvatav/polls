@@ -76,7 +76,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 			if(isset($_POST['check_expire'])) {
 				$expire = $_POST['expire_date'];
 
-				if (isset($expire)) {
+				if (isset($expire) && (strlen($expire) > 0)) {
 					$expire = '' . (strtotime($expire) + 60*60*24); //add one day, so it expires at the end of a day
 				}
 			}
@@ -135,7 +135,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 			// is expired?
 			$expire = $row['expire'];
 			$expired = false;
-			if (isset($expire)) {
+			if (isset($expire) && (strlen($expire) > 0)) {
 				$expired = date('U') > $expire ? true : false;
 			}
 

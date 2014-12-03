@@ -25,6 +25,10 @@ th {
 td {
 	vertical-align: center;
 	text-align: center;
+
+    border-width: 1px;
+    border-style: solid;
+    border-color: white;
 }
 
 table {
