@@ -22,8 +22,23 @@
 			</tr>
 
 			<?php
-				$query = OCP\DB::prepare('select * from *PREFIX*polls_events where (access =? and owner =?) or access !=? order by created');
-				$result = $query->execute(array('hidden', OCP\User::getUser(), 'hidden'));
+				$query = OCP\DB::prepare('
+				    select *
+				    from *PREFIX*polls_events
+				    left join *PREFIX*polls_particip
+				    on *PREFIX*polls_events.id = *PREFIX*polls_particip.id
+				    left join *PREFIX*polls_comments
+				    on *PREFIX*polls_events.id = *PREFIX*polls_comments.id
+				    where
+				    (*PREFIX*polls_events.access =? and *PREFIX*polls_events.owner =?)
+				    or
+				    *PREFIX*polls_events.access !=?
+				    or
+				    *PREFIX*polls_particip.user =?
+				    or
+				    *PREFIX*polls_comments.user =?
+				    order by created');
+				$result = $query->execute(array('hidden', OCP\User::getUser(), 'hidden', OCP\User::getUser(), OCP\User::getUser()));
 			?>
 
 			<?php while ($row = $result->fetchRow()) : ?>
