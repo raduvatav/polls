@@ -20,7 +20,7 @@
 	<table id="table_access">
 		<tr>
 			<td>
-				<div class="scroll_div">
+				<div class="scroll_div_dialog">
 					<table id="table_groups">
 							<tr>
 								<th><?php p($l->t('Groups')); ?></th>
@@ -35,7 +35,7 @@
 				</div>
 			</td>
 			<td>
-				<div class="scroll_div">
+				<div class="scroll_div_dialog">
 					<table id="table_users">
 						<tr>
 							<th><?php p($l->t('Users')); ?></th>

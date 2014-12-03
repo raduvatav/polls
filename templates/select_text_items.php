@@ -1,5 +1,5 @@
 <?php
-\OCP\Util::addStyle('polls', 'select_text_items');
+\OCP\Util::addStyle('polls', 'main');
 \OCP\Util::addScript('polls', 'select_text_items');
 
 $arr = explode("\n", $desc);

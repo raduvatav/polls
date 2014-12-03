@@ -1,5 +1,5 @@
 <?php
-	\OCP\Util::addStyle('polls', 'page1');
+	\OCP\Util::addStyle('polls', 'main');
 	\OCP\Util::addScript('polls', 'select_dates');
 
 	$arr = explode("\n", $desc);

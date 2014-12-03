@@ -1,5 +1,5 @@
 <?php
-	\OCP\Util::addStyle('polls', 'page0');
+	\OCP\Util::addStyle('polls', 'main');
 	\OCP\Util::addScript('polls', 'start');
 	OCP\User::checkLoggedIn();
 ?>
