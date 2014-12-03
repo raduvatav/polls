@@ -21,7 +21,7 @@ if (isset ($_GET) && isset ($_GET['poll_id'])){
 //	else if (($access !== 'registered') || strcmp($access, 'public')) {
 		// check if user has access to this poll
 		if (!userHasAccess($_GET['poll_id'])) {
-			echo '<h1>You are not allowed to view this poll or the poll does not exist.</h1>';
+			include 'error_no_poll.php';
 			return;
 		}
 //	}
