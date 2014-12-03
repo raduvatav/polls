@@ -111,3 +111,5 @@
 		</form>
 	</tr>
 </table>
+
+<?php include 'footer.php'; ?>

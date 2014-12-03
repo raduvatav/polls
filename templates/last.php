@@ -352,14 +352,4 @@ $line = str_replace("\n", '<br>', $desc);
 	<?php endif; ?>
 </table>
 
-<?php
-//if (!User::isLoggedIn()) {
-//    echo '<input id="id_ac_detected" type="hidden" />';
-//}
-	echo '<footer>
-        	<p class="info">';
-                	print_unescaped($theme->getLongFooter());
-        	echo '</p>
-	</footer>';
-?>
-
+<?php include 'footer.php'; ?>
