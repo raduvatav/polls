@@ -57,6 +57,7 @@ $TRANSLATIONS = array(
 	"Description (will be shown as tooltip on the summary page)" => "Beschreibung (wird als Tooltip in der Übersicht angezeigt)",
 	"Poll expired" => "Umfrage abgelaufen",
 	"The poll expired on %s. Voting is disabled, but you can still comment." => "Die Umfrage lief am %s ab. Die Abstimmung ist geschlossen, aber es kann weiterhin kommentiert werden.",
-	"You are not allowed to view this poll or the poll does not exist." => "Ihnen fehlt die Berechtigung zur Anzeige dieser Abstimmung oder diese Abstimmung existiert nicht."
+	"You are not allowed to view this poll or the poll does not exist." => "Ihnen fehlt die Berechtigung zur Anzeige dieser Abstimmung oder diese Abstimmung existiert nicht.",
+	"Error" => "Fehler"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

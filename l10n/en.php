@@ -57,6 +57,7 @@ $TRANSLATIONS = array(
         "Description (will be shown as tooltip on the summary page)" => "Description (will be shown as tooltip on the summary page)",
         "Poll expired" => "Poll expired",
         "The poll expired on %s. Voting is disabled, but you can still comment." => "The poll expired on %s. Voting is disabled, but you can still comment.",
-        "You are not allowed to view this poll or the poll does not exist." => "You are not allowed to view this poll or the poll does not exist."
+        "You are not allowed to view this poll or the poll does not exist." => "You are not allowed to view this poll or the poll does not exist.",
+        "Error" => "Error"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";
