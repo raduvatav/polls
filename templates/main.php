@@ -415,8 +415,14 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 }
 
 // delete unfinished polls
-$query = DB::prepare('delete from *PREFIX*polls_events where created is null and owner=?');
-$query->execute(array(User::getUser()));
+$query = DB::prepare('select id from *PREFIX*polls_events where created is null and owner=?');
+$ids = $query->execute(array(User::getUser()));
+while($row = $ids->fetchRow()){
+    $query = DB::prepare('delete from *PREFIX*polls_events where created is null and id=?');
+    $query->execute(array($row['id']));
+    $query = DB::prepare('delete from *PREFIX*polls_dts where id=?');
+    $query->execute(array($row['id']));
+}
 
 $partic = hasParticipated();
 $partic_polls = $partic['partic_polls'];
