@@ -220,7 +220,7 @@ function selectPoss(e){
     var time = header_row.getElementsByTagName('th')[cell.cellIndex].innerHTML;
     var date = cell.parentNode.getElementsByTagName('th')[0].innerHTML;
 
-    if (cell.style.backgroundColor == '#00dd00') {
+    if (cell.style.backgroundColor == '#82de82') {
         cell.style.backgroundColor = 'white';
         // remove from array
         for (var i = 0; i < g_chosen_datetimes.length; i++){
@@ -231,7 +231,7 @@ function selectPoss(e){
         }
     }
     else {
-        cell.style.backgroundColor = '#00dd00';
+        cell.style.backgroundColor = '#82de82';
         // add to array
         g_chosen_datetimes.push({date: date, time: time});
     }

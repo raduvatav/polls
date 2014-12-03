@@ -287,7 +287,7 @@ $line = str_replace("\n", '<br>', $desc);
 					$str = '&#10004;';
 				}
 
-				echo '<td style="color: #00dd00;font-size: 2em;" id="id_total_' . $i . '">' . $str . '</td>';
+				echo '<td style="color: #82de82;font-size: 2em;" id="id_total_' . $i . '">' . $str . '</td>';
 
 			endfor; ?>
 		</tr>
