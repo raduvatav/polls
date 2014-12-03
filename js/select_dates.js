@@ -175,6 +175,7 @@ function addDateRow(obj) {
 
 
     var theader = document.createElement('th');
+	theader.setAttribute('title', t('polls', 'remove this date'));
 
     theader.className = 'cl_date_time_header';
     theader.onclick = removeDateRow;
@@ -251,6 +252,7 @@ function addTimeColumn() {
     var header_row = document.getElementById('id_poss_table_header_row');
 
     var theader = document.createElement('th');
+	theader.setAttribute('title', t('polls', 'remove this time'));
     theader.className = 'cl_date_time_header';
     theader.onclick = removeTimeColumn;
 

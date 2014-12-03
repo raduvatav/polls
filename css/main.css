@@ -158,7 +158,7 @@ td.td_shown {
 	cursor: pointer;
 }
 .cl_date_time_header:hover {
-	background-color: #ffccca;
+	background-color: red;
 }
 .cl_hour, .cl_min {
     cursor: pointer;
@@ -168,8 +168,11 @@ td.td_shown {
     background-color: #82de82;
 }
 
-.cl_link, .cl_delete, .cl_poll_access, .cl_poll_url, .cl_click, .cl_delete, .cl_date_time_header {
+.cl_link, .cl_poll_access, .cl_poll_url, .cl_click, .cl_delete, .cl_date_time_header {
     cursor: pointer;
+}
+.cl_delete:hover {
+    background-color: red;
 }
 
 .cl_pad_left {

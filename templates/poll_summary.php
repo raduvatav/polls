@@ -100,7 +100,7 @@
 						<?php p($l->t($row['access'])); ?>
 					</td>
 					<?php if (strcmp($row['owner'], OCP\User::getUser()) == 0) : ?>
-						<td id="id_del_<?php echo $row['id']; ?>" class="cl_delete"><!--<?php p($l->t('delete')); ?>-->&#x2716;</td>
+						<td title="delete poll" id="id_del_<?php echo $row['id']; ?>" class="cl_delete"><!--<?php p($l->t('delete')); ?>-->&#x2716;</td>
 					<?php endif; ?>
 				</tr>
 			<?php endwhile; ?>
