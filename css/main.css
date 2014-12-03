@@ -51,7 +51,7 @@ div.new_poll {
 }
 
 div.goto_poll {
-    /*background-color: #00dd00;*/
+    /*background-color: #82de82;*/
 }
 
 td.column_center {
@@ -65,11 +65,11 @@ div.partic_all {
 }
 
 div.partic_yes {
-	background-color: #00dd00;
+	background-color: #82de82;
 }
 
 div.partic_no {
-	background-color: red;
+	background-color: #ffccca;
 }
 
 div.scroll_div {
@@ -94,7 +94,7 @@ td.td_shown {
 }
 
 .td_selected {
-	background-color: #00dd00;
+	background-color: #82de82;
 }
 
 .cl_with_border td {
@@ -154,14 +154,14 @@ td.td_shown {
 	cursor: pointer;
 }
 .cl_date_time_header:hover {
-	background-color: red;
+	background-color: #ffccca;
 }
 .cl_hour, .cl_min {
     cursor: pointer;
     background-color: white;
 }
 .cl_hour_selected, .cl_min_selected {
-    background-color: #00dd00;
+    background-color: #82de82;
 }
 
 .cl_link, .cl_delete, .cl_poll_access, .cl_poll_url, .cl_click, .cl_delete, .cl_date_time_header {
@@ -178,7 +178,7 @@ td.td_shown {
 
 }
 .cl_del_item:hover {
-    background-color: red;
+    background-color: #ffccca;
 }
 .cl_maybe, .cl_yes, .cl_no {
     border-width: 1px solid gray;
@@ -188,11 +188,11 @@ td.td_shown {
 }
 
 .cl_yes, .cl_total_y {
-    background-color: #00dd00;
+    background-color: #82de82;
 }
 
 .cl_no, .cl_total_n {
-    background-color: red;
+    background-color: #ffccca;
 }
 
 .cl_user_comments {
