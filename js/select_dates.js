@@ -220,8 +220,10 @@ function selectPoss(e){
     var time = header_row.getElementsByTagName('th')[cell.cellIndex].innerHTML;
     var date = cell.parentNode.getElementsByTagName('th')[0].innerHTML;
 
-    if (cell.style.backgroundColor == '#82de82') {
-        cell.style.backgroundColor = 'white';
+    //if (cell.style.backgroundColor == '#82de82') {
+    if (cell.className == 'td_selected') {
+        //cell.style.backgroundColor = 'white';
+        cell.className = 'td_deselected';
         // remove from array
         for (var i = 0; i < g_chosen_datetimes.length; i++){
             if ((g_chosen_datetimes[i].date) === date && (g_chosen_datetimes[i].time === time)){
@@ -231,7 +233,7 @@ function selectPoss(e){
         }
     }
     else {
-        cell.style.backgroundColor = '#82de82';
+        cell.className = 'td_selected';
         // add to array
         g_chosen_datetimes.push({date: date, time: time});
     }

@@ -101,6 +101,10 @@ td.td_shown {
 	background-color: #82de82;
 }
 
+.td_deselected {
+    background-color: white;
+}
+
 .cl_with_border td {
     padding-right: 15px;
     padding: 1px;
@@ -200,6 +204,11 @@ td.td_shown {
 
 .cl_no, .cl_total_n {
     background-color: #ffccca;
+}
+
+.win_row {
+    color: #82de82;
+    font-size: 2em;
 }
 
 .cl_user_comments {
