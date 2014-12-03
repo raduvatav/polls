@@ -56,11 +56,19 @@
 							else echo OCP\User::getDisplayName($row['owner']); //echo OCP\User::getDisplayName($row['owner']);
 						?>
 					</td>
-					<td>
 						<?php
-							if (isset($row['expire']))	echo date('d.m.Y', $row['expire']);
+						$style = '';
+						if (isset($row['expire'])) {
+							if (date('U') > $row['expire']) {
+								$style = ' style="color: red"';
+							}
+							echo '<td' . $style . '>' . date('d.m.Y', $row['expire']) . '</td>';
+						}
+						else {
+							echo '<td />';
+						}
 						?>
-					</td>
+
                     <td class="column_center">
 						<?php
 							$partic_class = 'partic_no';
