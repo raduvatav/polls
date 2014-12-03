@@ -57,3 +57,5 @@ $arr = explode("\n", $desc);
 	</tr>
 
 </table>
+
+<?php include 'footer.php'; ?>

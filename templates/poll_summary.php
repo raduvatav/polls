@@ -110,4 +110,4 @@
 </form>
 
 <?php include 'access_dialog.php'; ?>
-
+<?php include 'footer.php'; ?>
