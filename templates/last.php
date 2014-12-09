@@ -246,7 +246,14 @@ $line = str_replace("\n", '<br>', $desc);
 		</tr>
 		<?php // --------------- total -------------------- ?>
 
-		<?php $max_votes = max($total_y); ?>
+		<?php
+			$diff_array = $total_y;
+			for($i = 0; $i < count($diff_array); $i++){
+				$diff_array[$i] = ($total_y[$i] - $total_n[$i]);
+			}
+			$max_votes = max($diff_array);
+			//$max_votes = max($total_y);
+		?>
 		<tr>
 			<th><?php p($l->t('Total')); ?>:</th>
 			<?php for ($i = 0; $i < count($chosen); $i++) : ?>
@@ -255,7 +262,7 @@ $line = str_replace("\n", '<br>', $desc);
 						<tr>
 							<td id="id_y_<?php echo $i; ?>" class="cl_total_y">
 								<?php if(isset($total_y[$i])) : ?>
-									<?php if( $total_y[$i] == $max_votes) : ?>
+									<?php if( $total_y[$i] - $total_n[$i] == $max_votes) : ?>
 											<?php echo '<strong>' . $total_y[$i] . '</strong>'; ?>
 									<?php else : ?>
 										<?php echo $total_y[$i]; ?>
@@ -283,7 +290,7 @@ $line = str_replace("\n", '<br>', $desc);
 
 				$str = '';
 
-				if ($total_y[$i] == $max_votes){
+				if ($total_y[$i] - $total_n[$i] == $max_votes){
 					$str = '&#10004;';
 				}
 

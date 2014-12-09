@@ -133,12 +133,17 @@ function possClicked(e) {
 function findNewMaxCount(){
 	var i = 0;
 	var cell_tot_y = document.getElementById('id_y_' + i);
+	var cell_tot_n = document.getElementById('id_n_' + i);
 	max_votes = 0;
 	while(cell_tot_y != null){
 		strong_cnt_regex.exec(cell_tot_y.innerHTML);
-		var curr = Number(RegExp.$2);
+		var y = Number(RegExp.$2);
+		strong_cnt_regex.exec(cell_tot_n.innerHTML);
+		var n = Number(RegExp.$2);
+		var curr = y - n;
 		if(curr > max_votes) max_votes = curr;
 		cell_tot_y = document.getElementById('id_y_' + (++i));
+		cell_tot_n = document.getElementById('id_n_' + i);
 	}
 }
 
