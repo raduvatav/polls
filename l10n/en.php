@@ -1,11 +1,13 @@
 <?php
 $TRANSLATIONS = array(
+    	"Polls" => "Polls",
         "Summary" => "Summary",
         "Title" => "Title",
         "Description" => "Description",
         "Created" => "Created",
 		"Expires" => "Expires",
         "By" => "By",
+		"Go to" => "Go to",
         "Create new poll" => "Create new poll",
         "Access (click for link)" => "Access (click for link)",
         "Access" => "Access",
@@ -31,7 +33,6 @@ $TRANSLATIONS = array(
         "Total" => "Total",
         "Comment" => "Comment",
         "Comments" => "Comments",
-        "UTC" => "UTC",
         "Send" => "Send",
         "Home" => "Home",
         "participated" => "participated",

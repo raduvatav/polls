@@ -25,6 +25,6 @@ OCP\App::addNavigationEntry( array(
 	'order' => 77,
 	'href' => OCP\Util::linkTo( 'polls', 'index.php' ),
 	'icon' => OCP\Util::imagePath( 'polls', 'polls.png' ),
-	'name' => 'Polls'
+	'name' => OCP\Util::getL10N('polls')->t('Polls')
 ));
 
