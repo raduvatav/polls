@@ -4,6 +4,7 @@ $TRANSLATIONS = array(
         "Title" => "Titre",
         "Description" => "Déscription",
         "Created" => "Créé",
+        "Expires" => "Expire",
         "By" => "Par",
         "Create new poll" => "Créer un nouveau sondage",
         "Access (click for link)" => "Accés (Cliquer pour le lien)",
