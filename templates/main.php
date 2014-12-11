@@ -314,6 +314,14 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 
 			}
 
+            /* SEND EMAIL
+            foreach($users as $currUser){
+                $msg = $l->t('Hi %s, <br/><br/>%s created a new poll or participated/commented in an existing poll. Check out this link %s to see the news.<br/><br/>- ownCloud Polls App', array($currUser, $user, $url));
+                $mail = getUserEmail($currUser);
+                if($mail == null) continue;
+                sendEmail($msg, $l->t('ownCloud -- Polls App'), $mail);
+            }
+            */
 
 			// delete not finished polls
 			$query = DB::prepare('DELETE FROM *PREFIX*polls_events WHERE created IS NULL');
@@ -479,7 +487,7 @@ function oclog($str) {
 	Util::writeLog("_____________polls", $str, \OCP\Util::ERROR);
 }
 
-function hasParticipated(){    
+function hasParticipated(){
     $query = DB::prepare('select id from *PREFIX*polls_particip where user=? order by id');
     $polls = $query->execute(array(User::getUser()))->fetchAll();
 
@@ -495,4 +503,17 @@ function sort_dates($a, $b) {
 	$dtb = $arrb[2] . $arrb[1] . $arrb[0] . '_' . $b->time;
 
 	return strcmp($dta, $dtb);
+}
+
+function getUserEmail($uid){
+    $key = 'email';
+    $query = OC_DB::prepare('SELECT `configvalue` FROM `*PREFIX*preferences` WHERE `configkey` = ? AND `userid`=?');
+    $result = $query->execute(array($key, $uid));
+    if(count($result) !== 1) return null;
+    else return $result->fetchRow()['configvalue'];
+}
+
+//TODO
+function sendEmail($msg, $from, $to){
+    //send mail
 }
