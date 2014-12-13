@@ -3,7 +3,6 @@ use \OCP\DB;
 use \OCP\User;
 use \OCP\Util;
 
-
 // coming directly to vote (link)
 if (isset ($_GET) && isset ($_GET['poll_id'])){
 
@@ -289,9 +288,8 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 				$query->execute(array('no', $poll_id, $user, $dt));
 			}
 
-
 			// set 'created' timestamp if this user is the owner
-			$query = DB::prepare('SELECT owner, created FROM *PREFIX*polls_events WHERE id=?');
+			$query = DB::prepare('SELECT owner, created, access, title FROM *PREFIX*polls_events WHERE id=?');
 			$result = $query->execute(array($poll_id));
 			$row = $result->fetchRow();
 
@@ -302,26 +300,88 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 				// set creation date
 				$query = DB::prepare('UPDATE *PREFIX*polls_events SET created=? WHERE id=?');
 				//$query->execute(array(date('d.m.Y_H:i'), $poll_id));
-				$query->execute(array(date('U'), $poll_id)); //TODO change time format to date('U')
+				$query->execute(array(date('U'), $poll_id));
+				$access = $row['access'];
+				if($access !== 'hidden'){
+					$users = array();
+					if($access === 'public' || $access === 'registered'){
+						$users = OC_User::getUsers();
+					} else if(strpos($access, ';') !== false){
+						$receivers = array();
+						$arr = explode(';', $access);
+						foreach ($arr as $item) {
+							if (strpos($item, 'group_') === 0) {
+								$grp = substr($item, 6);
+								$users = OC_Group::usersInGroup($grp);
+								foreach ($users as $uid) {
+									if($user === $uid) continue;
+									array_push($receivers, $uid);
+								}
+							}
+							else if (strpos($item, 'user_') === 0) {
+								$uid = substr($item, 5);
+								array_push($receivers, $uid);
+							}
+						}
+						$users = array_unique($receivers);
+					}
+					foreach($users as $uid){
+						if($user === $uid) continue;
+						$email = \OCP\Config::getUserValue($uid, 'settings', 'email');
+						if(strlen($email) === 0 || !isset($email)) continue;
+						$url = \OC_Helper::makeURLAbsolute(OCP\Util::linkToRoute('polls_goto', array('poll_id' => $poll_id)));
+						$msg = $l->t('Hello %s,\n\n<strong>%s</strong> shared the poll \'%s\' with you. To go directly to the poll, you can use this link: <a href="%s">%s</a>', array(
+							OCP\User::getDisplayName($uid), OCP\User::getDisplayName($user), $row['title'], $url, $url));
+						$toname = OCP\User::getDisplayName($uid);
+						$subject = $l->t('ownCloud Polls -- New Poll');
+						$fromaddress = "polls-noreply@getenv.net";
+						$fromname = $l->t("ownCloud Polls");
+						OC_Mail::send($email, $toname, $subject, $msg, $fromaddress, $fromname, 1);
+						//if(!$sent) oclog("Could not send email with the subject " . $subject . " to " . $to);
+					}
+				}
 			}
 
 			// save comment
 			if (isset($options->comment) && (strlen($options->comment) > 0)) {
-
+				$receivers = array();
+				//get owner
+				$query = DB::prepare('SELECT owner FROM *PREFIX*polls_events WHERE id=?');
+				$result = $query->execute(array($poll_id));
+				$row = $result->fetchRow();
+				array_push($receivers, $row['owner']);
+				//get participants
+				$query = DB::prepare('SELECT user FROM *PREFIX*polls_particip WHERE id=?');
+				$result = $query->execute(array($poll_id));
+				while ($row = $result->fetchRow()){
+					array_push($receivers, $row['user']);
+				}
+				//get comments
+				$query = DB::prepare('SELECT user FROM *PREFIX*polls_comments WHERE id=?');
+				$result = $query->execute(array($poll_id));
+				while ($row = $result->fetchRow()){
+					array_push($receivers, $row['user']);
+				}
+				$users = array_unique($receivers);
+				foreach($users as $uid){
+					if($user === $uid) continue;
+					$email = \OCP\Config::getUserValue($uid, 'settings', 'email');
+					if(strlen($email) === 0 || !isset($email)) continue;
+					$url = \OC_Helper::makeURLAbsolute(OCP\Util::linkToRoute('polls_goto', array('poll_id' => $poll_id)));
+					$msg = $l->t('Hello %s,\n\n<strong>%s</strong> commented on the poll \'%s\'.\n\n<i>%s</i>\n\nTo go directly to the poll, you can use this link: <a href="%s">%s</a>', array(
+						OCP\User::getDisplayName($uid), OCP\User::getDisplayName($user), $row['title'], htmlspecialchars($options->comment), $url, $url));
+					
+					$toname = OCP\User::getDisplayName($uid);
+					$subject = $l->t('ownCloud Polls -- New Comment');
+					$fromaddress = "polls-noreply@getenv.net";
+					$fromname = $l->t("ownCloud Polls");
+					OC_Mail::send($email, $toname, $subject, $msg, $fromaddress, $fromname, 1);
+				}
+				
 				$query = DB::prepare('INSERT INTO *PREFIX*polls_comments(id,USER,dt,COMMENT) VALUES(?,?,?,?)');
 				//$query->execute(array($poll_id, $user, date('d.m.Y_H:i'), $json->comment));
 				$query->execute(array($poll_id, $user, date('U'), htmlspecialchars($options->comment)));
-
 			}
-
-            /* SEND EMAIL
-            foreach($users as $currUser){
-                $msg = $l->t('Hi %s, <br/><br/>%s created a new poll or participated/commented in an existing poll. Check out this link %s to see the news.<br/><br/>- ownCloud Polls App', array($currUser, $user, $url));
-                $mail = getUserEmail($currUser);
-                if($mail == null) continue;
-                sendEmail($msg, $l->t('ownCloud -- Polls App'), $mail);
-            }
-            */
 
 			// delete not finished polls
 			$query = DB::prepare('DELETE FROM *PREFIX*polls_events WHERE created IS NULL');
@@ -503,17 +563,4 @@ function sort_dates($a, $b) {
 	$dtb = $arrb[2] . $arrb[1] . $arrb[0] . '_' . $b->time;
 
 	return strcmp($dta, $dtb);
-}
-
-function getUserEmail($uid){
-    $key = 'email';
-    $query = OC_DB::prepare('SELECT `configvalue` FROM `*PREFIX*preferences` WHERE `configkey` = ? AND `userid`=?');
-    $result = $query->execute(array($key, $uid));
-    if(count($result) !== 1) return null;
-    else return $result->fetchRow()['configvalue'];
-}
-
-//TODO
-function sendEmail($msg, $from, $to){
-    //send mail
 }

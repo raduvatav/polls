@@ -59,6 +59,14 @@ $TRANSLATIONS = array(
 	"Poll expired" => "Umfrage abgelaufen",
 	"The poll expired on %s. Voting is disabled, but you can still comment." => "Die Umfrage lief am %s ab. Die Abstimmung ist geschlossen, aber es kann weiterhin kommentiert werden.",
 	"You are not allowed to view this poll or the poll does not exist." => "Ihnen fehlt die Berechtigung zur Anzeige dieser Abstimmung oder diese Abstimmung existiert nicht.",
-	"Error" => "Fehler"
+	"Error" => "Fehler",
+	"d.m.Y H:i" => "d.m.Y H:i",
+	"d.m.Y" => "d.m.Y",
+	"Hello %s,\n\n<strong>%s</strong> shared the poll '%s' with you. To go directly to the poll, you can use this link: <a href=\"%s\">%s</a>" => "Hallo %s,\n\n<strong>%s</strong> hat die Umfrage '%s' mit dir geteilt. Um direkt zur Umfrage zu gelangen, kannst du diesen Link verwenden: <a href=\"%s\">%s</a>",
+	"Hello %s,\n\n<strong>%s</strong> commented on the poll '%s'.\n\n<i>%s</i>\n\nTo go directly to the poll, you can use this link: <a href=\"%s\">%s</a>" => "Hallo %s,\n\n<strong>%s</strong> hat die Umfrage '%s' kommentiert.\n\n<i>%s</i>\n\nUm direkt zur Umfrage zu gelangen, kannst du diesen Link verwenden: <a href=\"%s\">%s</a>",
+	"ownCloud Polls -- New Comment" => "ownCloud Umfragen -- Neuer Kommentar",
+	"ownCloud Polls -- New Participant" => "ownCloud Umfragen -- Neuer Teilnehmer",
+	"ownCloud Polls -- New Poll" => "ownCloud Umfragen -- Neue Umfrage",
+	"ownCloud Polls" => "ownCloud Umfragen"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";
