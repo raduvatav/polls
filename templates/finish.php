@@ -65,7 +65,7 @@ if(($options->values_changed === 'true') || (isset($options->comment) && (strlen
 		$msg .= "<br/><br/>";
 		$toname = OCP\User::getDisplayName($uid);
 		$subject = $l->t('ownCloud Polls -- New Comment');
-		$fromaddress = "polls-noreply@getenv.net";
+		$fromaddress = "polls-noreply@localhost";
 		$fromname = $l->t("ownCloud Polls");
 
 		OC_Mail::send($email, $toname, $subject, $msg, $fromaddress, $fromname, 1);
@@ -120,7 +120,7 @@ if (($user === $row['owner']) && (!isset($row['created']))) {
 			$msg .= "<br/><br/>";
 			$toname = OCP\User::getDisplayName($uid);
 			$subject = $l->t('ownCloud Polls -- New Poll');
-			$fromaddress = "polls-noreply@getenv.net";
+			$fromaddress = "polls-noreply@localhost";
 			$fromname = $l->t("ownCloud Polls");
 			OC_Mail::send($email, $toname, $subject, $msg, $fromaddress, $fromname, 1);
 			//if(!$sent) oclog("Could not send email with the subject " . $subject . " to " . $to);
@@ -160,7 +160,7 @@ if (isset($options->comment) && (strlen($options->comment) > 0)) {
 		$msg .= "<br/><br/>";
 		$toname = OCP\User::getDisplayName($uid);
 		$subject = $l->t('ownCloud Polls -- New Comment');
-		$fromaddress = "polls-noreply@getenv.net";
+		$fromaddress = "polls-noreply@localhost";
 		$fromname = $l->t("ownCloud Polls");
 		OC_Mail::send($email, $toname, $subject, $msg, $fromaddress, $fromname, 1);
 	}
