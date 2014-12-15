@@ -1,4 +1,6 @@
 <?php
+use \OCP\DB;
+use \OCP\User;
 
 $poll_id = $_POST['poll_id'];
 
