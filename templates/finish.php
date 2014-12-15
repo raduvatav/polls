@@ -1,6 +1,7 @@
 <?php
 use \OCP\DB;
 use \OCP\User;
+use \OC_L10N;
 
 $poll_id = $_POST['poll_id'];
 $poll_type = $_POST['poll_type'];
@@ -60,9 +61,15 @@ if(($options->values_changed === 'true') || (isset($options->comment) && (strlen
 		$email = \OCP\Config::getUserValue($uid, 'settings', 'email');
 		if(strlen($email) === 0 || !isset($email)) continue;
 		$url = \OC_Helper::makeURLAbsolute(OCP\Util::linkToRoute('polls_goto', array('poll_id' => $poll_id)));
+
+		// set translation language according to the user who receives the email
+		OC_L10N::forceLanguage($uid, 'core', 'lang', 'en');
+
 		$msg = $l->t('Hello %s,<br/><br/><strong>%s</strong> participated in the poll \'%s\'.<br/><br/>To go directly to the poll, you can use this link: <a href="%s">%s</a>', array(
 			OCP\User::getDisplayName($uid), OCP\User::getDisplayName($user), $title, $url, $url));
+
 		$msg .= "<br/><br/>";
+
 		$toname = OCP\User::getDisplayName($uid);
 		$subject = $l->t('ownCloud Polls -- New Comment');
 		$fromaddress = "polls-noreply@localhost";
@@ -70,6 +77,10 @@ if(($options->values_changed === 'true') || (isset($options->comment) && (strlen
 
 		OC_Mail::send($email, $toname, $subject, $msg, $fromaddress, $fromname, 1);
 	}
+
+	// set the language back (todo: really need this?)
+	OC_L10N::forceLanguage($user, 'core', 'lang', 'en');
+
 }
 
 // set 'created' timestamp if this user is the owner
