@@ -4,6 +4,8 @@ var g_selected_no = [];
 var strong_cnt_regex = /([^\d]*)(\d+)([^\d]*)/;
 var max_votes = 0;
 
+var values_changed = false;
+
 $(document).ready(function () {
 
     // check if ac
@@ -59,12 +61,16 @@ $(document).ready(function () {
 				return;
 			}
 		}
+		check_notif = document.getElementById('check_notif');
+
         form.elements['options'].value = JSON.stringify(
             {
                 sel_yes: g_selected_yes,
                 sel_no: g_selected_no,
                 comment: comm.value,
-                ac_user: ac_user
+                ac_user: ac_user,
+				check_notif: ((check_notif && check_notif.checked) ? 'true' : 'false'),
+				values_changed: (values_changed ? 'true' : 'false')
             });
         form.submit();
     });
@@ -72,6 +78,8 @@ $(document).ready(function () {
 });
 
 function possClicked(e) {
+	values_changed = true;
+
     // get column index
     var child = this;
     var ch_ind = child.cellIndex;

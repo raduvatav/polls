@@ -144,5 +144,23 @@
             </field>
         </declaration>
     </table>
+    <table>
+        <name>*dbprefix*polls_notif</name>
+        <declaration>
+            <field>
+                <name>id</name>
+                <type>text</type>
+                <default>0</default>
+                <notnull>true</notnull>
+                <length>32</length>
+            </field>
+            <field>
+                <name>user</name>
+                <type>text</type>
+                <notnull>true</notnull>
+                <length>64</length>
+            </field>
+        </declaration>
+    </table>
 
 </database>

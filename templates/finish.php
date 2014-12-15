@@ -6,10 +6,23 @@ $poll_id = $_POST['poll_id'];
 $poll_type = $_POST['poll_type'];
 $options = json_decode($_POST['options']);
 
+
 $sel_yes = $options->sel_yes;
 $sel_no = $options->sel_no;
 if (User::isLoggedIn()) {
 	$user = User::getUser();
+
+	// save if user wants to get email notifications or not
+	$check_notif = $options->check_notif === 'true';
+	$query = DB::prepare('DELETE FROM *PREFIX*polls_notif WHERE id=? AND user=?');
+	$query->execute(array($poll_id, $user));
+
+	if ($check_notif) {
+
+		$query = DB::prepare('INSERT INTO *PREFIX*polls_notif(id, user) values(?, ?)');
+		$query->execute(array($poll_id, $user));
+	}
+
 } else {
 	$user = htmlspecialchars($options->ac_user);
 }
@@ -21,52 +34,27 @@ $set_dts = $result->fetchAll();
 $query = DB::prepare('DELETE FROM *PREFIX*polls_particip WHERE id=? AND USER=?');
 $result = $query->execute(array($poll_id, $user));
 
-$sql = 'INSERT INTO *PREFIX*polls_particip(ok, id, USER, dt) VALUES(?,?,?,?)';
-$query = DB::prepare('INSERT INTO *PREFIX*polls_particip(ok, id, USER, dt) VALUES(?,?,?,?)');
 
-$hits = 0;
 
-// insert
-foreach ($sel_yes as $dt) {
-	foreach($set_dts as $set_dt){
-		if($set_dt['dt'] == $dt && $set_dt['ok'] == 'yes'){
-			$hits++;
-			break;
-		}
+// if current user made some input, notify all subscribed users
+if(($options->values_changed === 'true') || (isset($options->comment) && (strlen($options->comment) > 0))){
+
+	$users = array();
+	$query = DB::prepare('SELECT user FROM *PREFIX*polls_notif WHERE id=?');
+	$res = $query->execute(array($poll_id));
+	while ($row = $res->fetchRow()) {
+		array_push($users, $row['user']);
 	}
-	$query->execute(array('yes', $poll_id, $user, $dt));
-}
-foreach ($sel_no as $dt) {
-	foreach($set_dts as $set_dt){
-		if($set_dt['dt'] == $dt && $set_dt['ok'] == 'no'){
-			$hits++;
-			break;
-		}
+
+	$query = DB::prepare('INSERT INTO *PREFIX*polls_particip(ok, id, USER, dt) VALUES(?,?,?,?)');
+	// insert
+	foreach ($sel_yes as $dt) {
+		$query->execute(array('yes', $poll_id, $user, $dt));
 	}
-	$query->execute(array('no', $poll_id, $user, $dt));
-}
-//if one line has changed
-if( $hits != (count($sel_no) + count($sel_yes)) ){
-	$receivers = array();
-	//get owner
-	$query = DB::prepare('SELECT owner, title FROM *PREFIX*polls_events WHERE id=?');
-	$result = $query->execute(array($poll_id));
-	$row = $result->fetchRow();
-	$title = $row['title'];
-	array_push($receivers, $row['owner']);
-	//get participants
-	$query = DB::prepare('SELECT user FROM *PREFIX*polls_particip WHERE id=?');
-	$result = $query->execute(array($poll_id));
-	while ($row = $result->fetchRow()){
-		array_push($receivers, $row['user']);
+	foreach ($sel_no as $dt) {
+		$query->execute(array('no', $poll_id, $user, $dt));
 	}
-	//get comments
-	$query = DB::prepare('SELECT user FROM *PREFIX*polls_comments WHERE id=?');
-	$result = $query->execute(array($poll_id));
-	while ($row = $result->fetchRow()){
-		array_push($receivers, $row['user']);
-	}
-	$users = array_unique($receivers);
+
 	foreach($users as $uid){
 		if($user === $uid) continue;
 		$email = \OCP\Config::getUserValue($uid, 'settings', 'email');
@@ -79,6 +67,7 @@ if( $hits != (count($sel_no) + count($sel_yes)) ){
 		$subject = $l->t('ownCloud Polls -- New Comment');
 		$fromaddress = "polls-noreply@getenv.net";
 		$fromname = $l->t("ownCloud Polls");
+
 		OC_Mail::send($email, $toname, $subject, $msg, $fromaddress, $fromname, 1);
 	}
 }

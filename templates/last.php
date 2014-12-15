@@ -326,6 +326,30 @@ $line = str_replace("\n", '<br>', $desc);
 		<td>&nbsp;</td>
 	</tr>
 	<tr>
+		<?php // -------- email notification -----
+		// only display checkbox if user is logged in (not for public/anon)
+		if (User::isLoggedIn()) {
+			$notif_checked = false;
+			$query = DB::prepare('SELECT user FROM *PREFIX*polls_notif WHERE id=?');
+			$result = $query->execute(array($poll_id));
+			while($row = $result->fetchRow()) {
+				if ($row['user'] === User::getUser()){
+					$notif_checked = true;
+					break;
+				}
+			}
+		}
+		if (User::isLoggedIn()) :
+			// --- checkbox "receive notif" ---
+		?>
+		<td colspan="2" style "background-color: white">
+			<input type="checkbox" id="check_notif" <?php if($notif_checked) p(' checked'); ?> />
+			<label for="check_notif"><?php p($l->t('Receive notification email on activity')); ?></label>
+		</td>
+		<?php endif; ?>
+
+	</tr>
+	<tr>
 		<?php // linkToRoute is to remove "/goto" if user came here directly ?>
 		<form name="finish_poll" action="<?php echo \OCP\Util::linkToRoute('polls_index'); ?>" method="POST">
 			<input type="hidden" name="j" id="j" value="finish" />
@@ -339,6 +363,8 @@ $line = str_replace("\n", '<br>', $desc);
 		</form>
 	</tr>
 </table>
+
+
 <?php // -------- comments ---------- ?>
 <h2><?php p($l->t('Comments')); ?></h2>
 <table class="cl_user_comments">
