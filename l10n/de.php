@@ -68,6 +68,7 @@ $TRANSLATIONS = array(
 	"ownCloud Polls -- New Comment" => "ownCloud Umfragen -- Neuer Kommentar",
 	"ownCloud Polls -- New Participant" => "ownCloud Umfragen -- Neuer Teilnehmer",
 	"ownCloud Polls -- New Poll" => "ownCloud Umfragen -- Neue Umfrage",
-	"ownCloud Polls" => "ownCloud Umfragen"
+	"ownCloud Polls" => "ownCloud Umfragen",
+	"Receive notification email on activity" => "Erhalte Emails bei Änderungen"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

@@ -63,9 +63,10 @@ $TRANSLATIONS = array(
 	"Hello %s,<br/><br/><strong>%s</strong> shared the poll '%s' with you. To go directly to the poll, you can use this link: <a href=\"%s\">%s</a>" => "Hello %s,<br/><br/><strong>%s</strong> shared the poll '%s' with you. To go directly to the poll, you can use this link: <a href=\"%s\">%s</a>",
 	"Hello %s,<br/><br/><strong>%s</strong> commented on the poll '%s'.<br/><br/><i>%s</i><br/><br/>To go directly to the poll, you can use this link: <a href=\"%s\">%s</a>" => "Hello %s,<br/><br/><strong>%s</strong> commented on the poll '%s'.<br/><br/><i>%s</i><br/><br/>To go directly to the poll, you can use this link: <a href=\"%s\">%s</a>",
 	"Hello %s,<br/><br/><strong>%s</strong> participated in the poll '%s'.<br/><br/>To go directly to the poll, you can use this link: <a href=\"%s\">%s</a>" => "Hello %s,<br/><br/><strong>%s</strong> participated in the poll '%s'.<br/><br/>To go directly to the poll, you can use this link: <a href=\"%s\">%s</a>",
-	"ownCloud Polls -- New Comment" => "ownCloud Umfragen -- Neuer Kommentar",
-	"ownCloud Polls -- New Participant" => "ownCloud Umfragen -- Neuer Teilnehmer",
-	"ownCloud Polls -- New Poll" => "ownCloud Umfragen -- Neue Umfrage",
-	"ownCloud Polls" => "ownCloud Umfragen"
+	"ownCloud Polls -- New Comment" => "ownCloud Polls -- New Comment",
+	"ownCloud Polls -- New Participant" => "ownCloud Polls -- New Participant",
+	"ownCloud Polls -- New Poll" => "ownCloud Polls -- New Poll",
+	"ownCloud Polls" => "ownCloud Polls",
+	"Receive notification email on activity" => "Receive notification email on activity"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";
