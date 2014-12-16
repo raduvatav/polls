@@ -108,6 +108,8 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 			$query->execute(array($id));
 			$query = DB::prepare('DELETE FROM *PREFIX*polls_comments WHERE id=?');
 			$query->execute(array($id));
+			$query = DB::prepare('DELETE FROM *PREFIX*polls_notif WHERE id=?');
+			$query->execute(array($id));
 
 			$partic = hasParticipated();
 			$partic_polls = $partic['partic_polls'];
@@ -121,6 +123,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 		case 'vote':
 
 			include 'vote.php';
+
 			include 'last.php';
 
 			return;
@@ -182,6 +185,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 			//$poll_id = $json->poll_id;
 
 			include 'finish.php';
+
 			include 'last.php';
 
             return;

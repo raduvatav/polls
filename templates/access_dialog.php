@@ -3,16 +3,16 @@
 	<div id="dialog-message"></div>
 	
 	<?php if (isset($url)) : ?>
-		<input type="radio" name="radio_pub" id="private" value="registered" checked />
+		<input type="radio" name="radio_pub" id="private" value="registered"/>
 		<label for="private"><?php p($l->t('Registered users only')); ?></label>
 		<br/>
 		<input type="radio" name="radio_pub" id="hidden" value="hidden" />
 		<label for="hidden"><?php p($l->t('hidden')); ?></label>
 		<br/>
-		<input type="radio" name="radio_pub" id="public" value="public">
+		<input type="radio" name="radio_pub" id="public" value="public" />
 		<label for="public"><?php p($l->t('Public access')); ?></label>
 		<br/>
-		<input type="radio" name="radio_pub" id="select" value="select">
+		<input type="radio" name="radio_pub" id="select" value="select" checked />
 		<label for="select"><?php p($l->t('Select')); ?></label>
 		<br/>
 	<?php endif; ?>

@@ -5,6 +5,9 @@
 use \OCP\DB;
 use \OCP\User;
 
+// if this happens during poll creation, $expired doesn't exist
+if (!isset($expired)) $expired = false;
+
 if ($poll_type === 'datetime') {
 // count how many times in each date
 	$arr_dates = null;  // will be like: [21.02] => 3
@@ -151,8 +154,10 @@ $line = str_replace("\n", '<br>', $desc);
 				}
 				echo '<th>' . User::getDisplayName($usr) . '</th>';
 				$i_tot = -1;
+
 				// loop over dts
 				foreach($chosen as $dt) {
+
 					$i_tot++;
 
 					$cl = 'cl_maybe';
@@ -162,12 +167,14 @@ $line = str_replace("\n", '<br>', $desc);
 						$str = $dt->date . '_' . $dt->time;
 					}
 					else {
-						$str = $el->dt;
+						$str = $dt->dt;
 					}
+
 
 					// look what user voted for this dts
 					foreach ($others[$usr] as $obj) {
 						if ($str === $obj->dt) {
+
 							if ($obj->ok === 'yes') {
 								$cl = 'cl_yes';
 								$total_y[$i_tot]++;
@@ -182,15 +189,14 @@ $line = str_replace("\n", '<br>', $desc);
 						}
 					}
 
-
 					if ($poll_type === 'datetime') {
-						echo '<td class="' . $cl . '">' . $obj->date;
+						echo '<td class="' . $cl . '">';
 					}
 					else {
-						echo '<td class="' . $cl . '">' . $obj->dt;
+						echo '<td class="' . $cl . '">';
 					}
-				echo '<input type="hidden" value="' . $str .   '" />';
-				echo '</td>';
+					echo '<input type="hidden" value="' . $str .   '" />';
+					echo '</td>';
 				}
 				echo '</tr>';
 			}

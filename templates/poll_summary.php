@@ -75,7 +75,7 @@
 					</td>
 						<?php
 						$style = '';
-						if (isset($row['expire'])) {
+						if (isset($row['expire']) && $row['expire']) {
 							if (date('U') > $row['expire']) {
 								$style = ' style="color: red"';
 							}

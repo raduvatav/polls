@@ -57,6 +57,7 @@ if(($options->values_changed === 'true') || (isset($options->comment) && (strlen
 	}
 
 	foreach($users as $uid){
+
 		if($user === $uid) continue;
 		$email = \OCP\Config::getUserValue($uid, 'settings', 'email');
 		if(strlen($email) === 0 || !isset($email)) continue;
@@ -96,85 +97,11 @@ if (($user === $row['owner']) && (!isset($row['created']))) {
 	$query = DB::prepare('UPDATE *PREFIX*polls_events SET created=? WHERE id=?');
 	//$query->execute(array(date('d.m.Y_H:i'), $poll_id));
 	$query->execute(array(date('U'), $poll_id));
-	$access = $row['access'];
-	$title = $row['title'];
-	if($access !== 'hidden'){
-		$users = array();
-		if($access === 'public' || $access === 'registered'){
-			$users = OC_User::getUsers();
-		} else if(strpos($access, ';') !== false){
-			$receivers = array();
-			$arr = explode(';', $access);
-			foreach ($arr as $item) {
-				if (strpos($item, 'group_') === 0) {
-					$grp = substr($item, 6);
-					$users = OC_Group::usersInGroup($grp);
-					foreach ($users as $uid) {
-						if($user === $uid) continue;
-						array_push($receivers, $uid);
-					}
-				}
-				else if (strpos($item, 'user_') === 0) {
-					$uid = substr($item, 5);
-					array_push($receivers, $uid);
-				}
-			}
-			$users = array_unique($receivers);
-		}
-		foreach($users as $uid){
-			if($user === $uid) continue;
-			$email = \OCP\Config::getUserValue($uid, 'settings', 'email');
-			if(strlen($email) === 0 || !isset($email)) continue;
-			$url = \OC_Helper::makeURLAbsolute(OCP\Util::linkToRoute('polls_goto', array('poll_id' => $poll_id)));
-			$msg = $l->t('Hello %s,<br/><br/><strong>%s</strong> shared the poll \'%s\' with you. To go directly to the poll, you can use this link: <a href="%s">%s</a>', array(
-				OCP\User::getDisplayName($uid), OCP\User::getDisplayName($user), $title, $url, $url));
-			$msg .= "<br/><br/>";
-			$toname = OCP\User::getDisplayName($uid);
-			$subject = $l->t('ownCloud Polls -- New Poll');
-			$fromaddress = "polls-noreply@localhost";
-			$fromname = $l->t("ownCloud Polls");
-			OC_Mail::send($email, $toname, $subject, $msg, $fromaddress, $fromname, 1);
-			//if(!$sent) oclog("Could not send email with the subject " . $subject . " to " . $to);
-		}
-	}
+
 }
 
 // save comment
 if (isset($options->comment) && (strlen($options->comment) > 0)) {
-	$receivers = array();
-	//get owner
-	$query = DB::prepare('SELECT owner, title FROM *PREFIX*polls_events WHERE id=?');
-	$result = $query->execute(array($poll_id));
-	$row = $result->fetchRow();
-	$title = $row['title'];
-	array_push($receivers, $row['owner']);
-	//get participants
-	$query = DB::prepare('SELECT user FROM *PREFIX*polls_particip WHERE id=?');
-	$result = $query->execute(array($poll_id));
-	while ($row = $result->fetchRow()){
-		array_push($receivers, $row['user']);
-	}
-	//get comments
-	$query = DB::prepare('SELECT user FROM *PREFIX*polls_comments WHERE id=?');
-	$result = $query->execute(array($poll_id));
-	while ($row = $result->fetchRow()){
-		array_push($receivers, $row['user']);
-	}
-	$users = array_unique($receivers);
-	foreach($users as $uid){
-		if($user === $uid) continue;
-		$email = \OCP\Config::getUserValue($uid, 'settings', 'email');
-		if(strlen($email) === 0 || !isset($email)) continue;
-		$url = \OC_Helper::makeURLAbsolute(OCP\Util::linkToRoute('polls_goto', array('poll_id' => $poll_id)));
-		$msg = $l->t('Hello %s,<br/><br/><strong>%s</strong> commented on the poll \'%s\'.<br/><br/><i>%s</i><br/><br/>To go directly to the poll, you can use this link: <a href="%s">%s</a>', array(
-			OCP\User::getDisplayName($uid), OCP\User::getDisplayName($user), $title, htmlspecialchars($options->comment), $url, $url));
-		$msg .= "<br/><br/>";
-		$toname = OCP\User::getDisplayName($uid);
-		$subject = $l->t('ownCloud Polls -- New Comment');
-		$fromaddress = "polls-noreply@localhost";
-		$fromname = $l->t("ownCloud Polls");
-		OC_Mail::send($email, $toname, $subject, $msg, $fromaddress, $fromname, 1);
-	}
 
 	$query = DB::prepare('INSERT INTO *PREFIX*polls_comments(id,USER,dt,COMMENT) VALUES(?,?,?,?)');
 	//$query->execute(array($poll_id, $user, date('d.m.Y_H:i'), $json->comment));
@@ -184,12 +111,7 @@ if (isset($options->comment) && (strlen($options->comment) > 0)) {
 // delete not finished polls
 $query = DB::prepare('DELETE FROM *PREFIX*polls_events WHERE created IS NULL');
 $query->execute();
-/*if (User::isLoggedIn()) {
-	include 'poll_summary.php';
-}
-else {
-	\OCP\Util::addScript('polls', 'page_anon');
-}*/
+
 
 /* Load vote page (copy of case 'vote')*/
 unset($_POST);

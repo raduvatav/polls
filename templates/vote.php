@@ -60,6 +60,7 @@ else {
 $others = array();
 $query = DB::prepare('SELECT dt, user, ok FROM *PREFIX*polls_particip WHERE id=? ORDER BY USER');
 $result = $query->execute(array($poll_id));
+
 while ($row = $result->fetchRow()) {
 	$obj = new stdClass();
 
