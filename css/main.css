@@ -197,6 +197,9 @@ td.td_shown {
 .cl_maybe {
     background-color: white;
 }
+.cl_maybe:before, .cl_maybe:after{
+    content: "?";
+}
 
 .cl_yes, .cl_total_y {
     background-color: #82de82;
