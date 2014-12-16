@@ -27,10 +27,6 @@ if (User::isLoggedIn()) {
 } else {
 	$user = htmlspecialchars($options->ac_user);
 }
-//get current set dates
-$query = DB::prepare('SELECT ok, dt FROM *PREFIX*polls_particip WHERE id=? AND user=?');
-$result = $query->execute(array($poll_id, $user));
-$set_dts = $result->fetchAll();
 // remove row (if exist, else doesn't matter)
 $query = DB::prepare('DELETE FROM *PREFIX*polls_particip WHERE id=? AND USER=?');
 $result = $query->execute(array($poll_id, $user));
@@ -40,6 +36,7 @@ $result = $query->execute(array($poll_id, $user));
 // if current user made some input, notify all subscribed users
 if(($options->values_changed === 'true') || (isset($options->comment) && (strlen($options->comment) > 0))){
 
+    //add all users who want to be notified
 	$users = array();
 	$query = DB::prepare('SELECT user FROM *PREFIX*polls_notif WHERE id=?');
 	$res = $query->execute(array($poll_id));
@@ -56,6 +53,7 @@ if(($options->values_changed === 'true') || (isset($options->comment) && (strlen
 		$query->execute(array('no', $poll_id, $user, $dt));
 	}
 
+    //for each user who wants to be notified get email and send a notification
 	foreach($users as $uid){
 		if($user === $uid) continue;
 		$email = \OCP\Config::getUserValue($uid, 'settings', 'email');
@@ -98,14 +96,19 @@ if (($user === $row['owner']) && (!isset($row['created']))) {
 	$query->execute(array(date('U'), $poll_id));
 	$access = $row['access'];
 	$title = $row['title'];
+	//if the new poll is not a hidden poll, notify all users
 	if($access !== 'hidden'){
 		$users = array();
+		//if this is an open poll, notify all oc users
 		if($access === 'public' || $access === 'registered'){
 			$users = OC_User::getUsers();
 		} else if(strpos($access, ';') !== false){
+		    //if this poll is for specific users only, only notify them
 			$receivers = array();
+			//separate groups and users
 			$arr = explode(';', $access);
 			foreach ($arr as $item) {
+			    //if it is a group, get all users of that group
 				if (strpos($item, 'group_') === 0) {
 					$grp = substr($item, 6);
 					$users = OC_Group::usersInGroup($grp);
@@ -114,13 +117,16 @@ if (($user === $row['owner']) && (!isset($row['created']))) {
 						array_push($receivers, $uid);
 					}
 				}
+				//otherwise add this user
 				else if (strpos($item, 'user_') === 0) {
 					$uid = substr($item, 5);
 					array_push($receivers, $uid);
 				}
 			}
+			//remove duplicates (e.g. if one user is in a selected group and is selected, too)
 			$users = array_unique($receivers);
 		}
+		//for each user, send an email
 		foreach($users as $uid){
 			if($user === $uid) continue;
 			$email = \OCP\Config::getUserValue($uid, 'settings', 'email');
@@ -134,13 +140,13 @@ if (($user === $row['owner']) && (!isset($row['created']))) {
 			$fromaddress = "polls-noreply@localhost";
 			$fromname = $l->t("ownCloud Polls");
 			OC_Mail::send($email, $toname, $subject, $msg, $fromaddress, $fromname, 1);
-			//if(!$sent) oclog("Could not send email with the subject " . $subject . " to " . $to);
 		}
 	}
 }
 
 // save comment
 if (isset($options->comment) && (strlen($options->comment) > 0)) {
+    //send an email to all owner, participants and everyone who commented
 	$receivers = array();
 	//get owner
 	$query = DB::prepare('SELECT owner, title FROM *PREFIX*polls_events WHERE id=?');
@@ -160,7 +166,9 @@ if (isset($options->comment) && (strlen($options->comment) > 0)) {
 	while ($row = $result->fetchRow()){
 		array_push($receivers, $row['user']);
 	}
+	//remove duplicate users (e.g. participated and commented)
 	$users = array_unique($receivers);
+	//send the email
 	foreach($users as $uid){
 		if($user === $uid) continue;
 		$email = \OCP\Config::getUserValue($uid, 'settings', 'email');
@@ -177,19 +185,12 @@ if (isset($options->comment) && (strlen($options->comment) > 0)) {
 	}
 
 	$query = DB::prepare('INSERT INTO *PREFIX*polls_comments(id,USER,dt,COMMENT) VALUES(?,?,?,?)');
-	//$query->execute(array($poll_id, $user, date('d.m.Y_H:i'), $json->comment));
 	$query->execute(array($poll_id, $user, date('U'), htmlspecialchars($options->comment)));
 }
 
 // delete not finished polls
 $query = DB::prepare('DELETE FROM *PREFIX*polls_events WHERE created IS NULL');
 $query->execute();
-/*if (User::isLoggedIn()) {
-	include 'poll_summary.php';
-}
-else {
-	\OCP\Util::addScript('polls', 'page_anon');
-}*/
 
 /* Load vote page (copy of case 'vote')*/
 unset($_POST);
