@@ -8,8 +8,6 @@ $(document).ready(function () {
 	// submit
 	$('#submit_finish_poll').click(function () {
 
-
-
 		var form = document.finish_poll;
 		form.elements['items'].value = JSON.stringify(
 			{
@@ -18,6 +16,17 @@ $(document).ready(function () {
 		form.submit();
 
 	});
+	$('#submit_cancel_poll').click(function () {
+
+		var form = document.finish_poll;
+		form.elements['items'].value = JSON.stringify(
+			{
+				items: 'cancel'
+			});
+		form.submit();
+
+	});
+
 });
 
 function addItem(){

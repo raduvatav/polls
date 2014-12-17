@@ -37,6 +37,16 @@ $(document).ready(function () {
 			});
 		form.submit();
 	});
+
+	$('#submit_cancel_poll').click(function() {
+		var form = document.finish_poll;
+		form.elements['chosen_dates'].value = JSON.stringify(
+			{
+				chosen: 'cancel'
+			});
+		form.submit();
+	});
+
 });
 function hourClicked(e) {
 

@@ -47,6 +47,7 @@
 		<input id="id_expire_date" type="text" required="" value="" name="expire_date" disabled="true">
 
         <br/>
+		<input type="submit" id="submit_cancel_poll" value="<?php p($l->t('Cancel')); ?>" />
 		<input type="submit" id="submit_create_poll" value="<?php p($l->t('Next')); ?>" />
 	</div>
 

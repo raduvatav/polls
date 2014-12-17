@@ -52,10 +52,15 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 			if (!isset($desc) || !strlen($desc)) $desc = '_none_';
 			$access = $_POST['radio_pub'];
 
-			if ($access === 'select') {
+			$groups = json_decode($_POST['access_ids'])->groups;
+			$users = json_decode($_POST['access_ids'])->users;
 
-				$groups = json_decode($_POST['access_ids'])->groups;
-				$users = json_decode($_POST['access_ids'])->users;
+			// cancel, goto summary
+			if ($groups === 'cancel'){
+				break;
+			}
+
+			if ($access === 'select') {
 
 				$access = '';
 				foreach ($groups as $gid) {
@@ -134,6 +139,11 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 			$chosen = json_decode($_POST['chosen_dates'])->chosen;
 			$poll_id = $_POST['poll_id'];
 
+			// poll creation canceled; goto summary
+			if ($chosen === 'cancel') {
+				break;
+			}
+
 			usort($chosen, 'sort_dates');
 
 			// get title and description from DB, needed for next page
@@ -160,6 +170,11 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 			$poll_type = 'text';
 			$chosen = json_decode($_POST['items'])->items;
 			$poll_id = $_POST['poll_id'];
+
+			// poll creation canceled; goto summary
+			if ($chosen === 'cancel') {
+				break;
+			}
 
 			// get title and description from DB, needed for next page
 			$query = DB::prepare('SELECT title, description FROM *PREFIX*polls_events WHERE id=?');

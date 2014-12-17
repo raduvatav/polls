@@ -106,6 +106,7 @@
 			<input type="hidden" name="poll_id" value="<?php echo $poll_id; ?>" />
 			<input type="hidden" name="chosen_dates" />
 			<td colspan="2">
+				<input type="button" id="submit_cancel_poll" value="<?php p($l->t('Cancel')); ?>" />
 				<input type="button" id="submit_finish_poll" value="<?php p($l->t('Next')); ?>" />
 			</td>
 		</form>

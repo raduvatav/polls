@@ -60,6 +60,19 @@ $(document).ready(function () {
 			}
 		}
 	}
+	// cancel poll
+	var submit_cancel_poll = document.getElementById('submit_cancel_poll');
+	if (submit_cancel_poll != null) {
+		submit_cancel_poll.onclick = function () {
+			var form = document.create_poll;
+			form.elements['access_ids'].value = JSON.stringify(
+				{
+					groups: 'cancel',
+					users: 'cancel'
+				});
+
+		}
+	}
 
 
 	// users, groups
