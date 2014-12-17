@@ -34,6 +34,7 @@ $TRANSLATIONS = array(
 	"Comment" => "Comment",
 	"Comments" => "Comments",
 	"Send" => "Send",
+	"Vote!" => "Vote!",
 	"Home" => "Home",
 	"participated" => "participated",
 	"Yourself" => "Yourself",

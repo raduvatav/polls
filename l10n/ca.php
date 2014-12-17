@@ -31,6 +31,7 @@ $TRANSLATIONS = array(
         "Comments" => "Comentaris",
         "UTC" => "UTC",
         "Send" => "Enviar",
+		"Vote!" => "Enviar",
         "Home" => "Inici",
         "participated" => "participat",
         "Yourself" => "Jo",

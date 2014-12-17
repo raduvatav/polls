@@ -363,8 +363,8 @@ $line = str_replace("\n", '<br>', $desc);
 			<input type="hidden" name="poll_id" value="<?php echo $poll_id; ?>" />
 			<input type="hidden" name="options" />
 			<td colspan="2" style "background-color: white">
-				<input type="button" id="submit_finish_poll" value="<?php p($l->t('Send')); ?>" />
 				<input type="button" id="button_home" value="<?php p($l->t('Home')); ?>" />
+				<input type="button" id="submit_finish_poll" value="<?php p($l->t('Vote!')); ?>" />
 			</td>
 		</form>
 	</tr>
