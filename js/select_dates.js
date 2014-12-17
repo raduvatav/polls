@@ -227,11 +227,11 @@ function addDateRow(obj) {
 // helper for inserting sorted
 function myCmpDate(obj1, obj2){
 	str1 = '' + obj1.year;
-	str1 += obj1.month > 9 ? obj1.month : '0' + obj1.month;
-	str1 += obj1.day > 9 ? obj1.day : '0' + obj1.day;
+	str1 += obj1.month > 9 ? obj1.month : '0' + Number(obj1.month);
+	str1 += obj1.day > 9 ? obj1.day : '0' + Number(obj1.day);
 	str2 = '' + obj2.year;
-	str2 += obj2.month > 9 ? obj2.month : '0' + obj2.month;
-	str2 += obj2.day > 9 ? obj2.day : '0' + obj2.day;
+	str2 += obj2.month > 9 ? obj2.month : '0' + Number(obj2.month);
+	str2 += obj2.day > 9 ? obj2.day : '0' + Number(obj2.day);
 
 	return ( ( str1 == str2 ) ? 0 : ( ( str1 > str2 ) ? 1 : -1 ) );
 }
