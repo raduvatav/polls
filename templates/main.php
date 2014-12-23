@@ -81,7 +81,9 @@ if (isset ($_POST) && isset ($_POST['j'])) {
 					$expire = '' . (strtotime($expire) + 60*60*24); //add one day, so it expires at the end of a day
 				}
 			}
-
+			
+			if (!isset($desc) || !strlen($desc)) $desc = '<_none_>';
+			
 			if ($_POST['radio_type'] === 'text') {
 				// --- text based poll ---
 				// add entry to db; don't set 'created' yet!
