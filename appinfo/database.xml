@@ -79,7 +79,8 @@
             <field>
                 <name>description</name>
                 <type>text</type>
-                <notnull>true</notnull>
+                <default>0</default>
+                <notnull>false</notnull>
                 <length>256</length>
             </field>
         </declaration>
