@@ -76,7 +76,11 @@ if(($options->values_changed === 'true') || (isset($options->comment) && (strlen
 		$fromaddress = "polls-noreply@localhost";
 		$fromname = $l->t("ownCloud Polls");
 
-		OC_Mail::send($email, $toname, $subject, $msg, $fromaddress, $fromname, 1);
+		try {
+			OC_Mail::send($email, $toname, $subject, $msg, $fromaddress, $fromname, 1);
+		} catch (\Exception $e) {
+			oclog('error sending mail to: ' . $toname . ' (' . $email . ')');
+		}
 	}
 
 	// set the language back (todo: really need this?)
