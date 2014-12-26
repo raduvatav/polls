@@ -161,6 +161,7 @@ function showAccessDialog(e) {
 	if (edit_access_id) {
 		// only on edit; otherwise on create, it only works once
 		document.getElementById('private').onclick = hideSelectTable;
+		document.getElementById('hidden').onclick = hideSelectTable;
 		document.getElementById('public').onclick = hideSelectTable;
 		document.getElementById('select').onclick = showSelectTable;
 	}
@@ -225,6 +226,9 @@ function closeAccessDialog() {
 	else if (document.getElementById('public').checked) {
 		html = 'public';
 	}
+	else if (document.getElementById('hidden').checked) {
+		html = 'hidden';
+	}
 	else {
 		cells = document.getElementsByClassName('cl_user_item_selected');
 		for (var i = 0; i < cells.length; i++) {
@@ -261,8 +265,8 @@ function closeAccessDialog() {
 		var parent = id_cell.parentNode;
 		var access_cell = parent.getElementsByClassName('cl_poll_access')[0];
 		access_cell.innerHTML = t('polls', html);
-
-		$.post("ajax/access.php", { access: html, poll_id: edit_access_id });
+		
+		$.post(OC.filePath('polls', 'ajax', 'access.php'), { access: html, poll_id: edit_access_id });
 
 	}
 	else {
