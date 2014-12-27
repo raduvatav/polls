@@ -265,8 +265,8 @@ function closeAccessDialog() {
 		var parent = id_cell.parentNode;
 		var access_cell = parent.getElementsByClassName('cl_poll_access')[0];
 		access_cell.innerHTML = t('polls', html);
-		
-		$.post(OC.filePath('polls', 'ajax', 'access.php'), { access: html, poll_id: edit_access_id });
+
+		$.post(OC.generateUrl('apps/polls/ajax/access.php'), { access: html, poll_id: edit_access_id });
 
 	}
 	else {
