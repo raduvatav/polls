@@ -34,7 +34,7 @@ $TRANSLATIONS = array(
         "Comment" => "Commentaire",
         "Comments" => "Commentaires",
         "Send" => "Envoyer",
-		"Vote!" => "Envoyer",
+	"Vote!" => "Voter!",
         "Home" => "Accueil",
         "participated" => "Participation",
         "Yourself" => "Vous-même",
@@ -60,6 +60,14 @@ $TRANSLATIONS = array(
         "Poll expired" => "Sondage expiré",
         "The poll expired on %s. Voting is disabled, but you can still comment." => "Ce sondage a expiré le %s. Les votes sont clos mais vous pouvez toujours ajouter des commentaires.",
         "You are not allowed to view this poll or the poll does not exist." => "Vous n'êtes pas autorisé à voir ce sondage ou bien ce vote n'existe pas.",
-        "Error" => "Erreur"
-);
+        "Error" => "Erreur",
+        "Hello %s,<br/><br/><strong>%s</strong> shared the poll '%s' with you. To go directly to the poll, you can use this link: <a href=\"%s\">%s</a>" => "Bonjour %s,<br/><br/><strong>%s</strong> a partagé le sondage '%s' avec vous. Pour répondre au sondage, utilisez ce lien: <a href=\"%s\">%s</a>",
+	"Hello %s,<br/><br/><strong>%s</strong> commented on the poll '%s'.<br/><br/><i>%s</i><br/><br/>To go directly to the poll, you can use this link: <a href=\"%s\">%s</a>" => "Bonjour %s,<br/><br/><strong>%s</strong> a commenté le sondage '%s'.<br/><br/><i>%s</i><br/><br/>Pour voir le sondage, utilisez ce lien: <a href=\"%s\">%s</a>",
+	"Hello %s,<br/><br/><strong>%s</strong> participated in the poll '%s'.<br/><br/>To go directly to the poll, you can use this link: <a href=\"%s\">%s</a>" => "Bonjour %s,<br/><br/><strong>%s</strong> a répondu au sondage '%s'.<br/><br/>Pour voir le sondage, utilisez ce lien: <a href=\"%s\">%s</a>",
+	"ownCloud Polls -- New Comment" => "Sondages ownCloud -- Nouveau Commentaire",
+	"ownCloud Polls -- New Participant" => "Sondages ownCloud -- Nouveau Participant",
+	"ownCloud Polls -- New Poll" => "Sondages ownCloud -- Nouveau Sondage",
+	"ownCloud Polls" => "Sondages ownCloud",
+	"Receive notification email on activity" => "Recevoir un mail de notification pour toute activitée"
+	);
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";
