@@ -5,6 +5,25 @@
 use \OCP\DB;
 use \OCP\User;
 
+
+oclog("query DB for created...");
+
+// set 'created' timestamp if this user is the owner
+$query = DB::prepare('SELECT owner, created, access, title FROM *PREFIX*polls_events WHERE id=?');
+$result = $query->execute(array($poll_id));
+$row = $result->fetchRow();
+
+if ((User::getUser() === $row['owner']) && (!isset($row['created']))) {
+	// only on new
+
+	// set creation date
+	$query = DB::prepare('UPDATE *PREFIX*polls_events SET created=? WHERE id=?');
+	//$query->execute(array(date('d.m.Y_H:i'), $poll_id));
+	$query->execute(array(date('U'), $poll_id));
+
+}
+
+
 // if this happens during poll creation, $expired doesn't exist
 if (!isset($expired)) $expired = false;
 

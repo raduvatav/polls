@@ -88,21 +88,6 @@ if(($options->values_changed === 'true') || (isset($options->comment) && (strlen
 
 }
 
-// set 'created' timestamp if this user is the owner
-$query = DB::prepare('SELECT owner, created, access, title FROM *PREFIX*polls_events WHERE id=?');
-$result = $query->execute(array($poll_id));
-$row = $result->fetchRow();
-
-
-if (($user === $row['owner']) && (!isset($row['created']))) {
-	// only on new
-
-	// set creation date
-	$query = DB::prepare('UPDATE *PREFIX*polls_events SET created=? WHERE id=?');
-	//$query->execute(array(date('d.m.Y_H:i'), $poll_id));
-	$query->execute(array(date('U'), $poll_id));
-
-}
 
 // save comment
 if (isset($options->comment) && (strlen($options->comment) > 0)) {
