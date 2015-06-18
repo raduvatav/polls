@@ -272,7 +272,7 @@ function userHasAccess($poll_id) {
 }
 
 function oclog($str) {
-	Util::writeLog("_____________polls", $str, \OCP\Util::ERROR);
+	Util::writeLog("polls", $str, \OCP\Util::ERROR);
 }
 
 function hasParticipated(){

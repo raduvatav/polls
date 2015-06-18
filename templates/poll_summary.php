@@ -50,13 +50,13 @@
 						<?php echo $row['title']; ?><input type="hidden" value="<?php echo $row['id']; ?>" />
 					</td>
 					<?php
-						//$str = $row['description'];
-						/*if (strlen($str) > 60){
-							$str = substr($str, 0, 57) . '...';
-						}*/
-						//$str = wordwrap($str, 50, "<br/>", true);
+						$desc_str = $row['description'];
+						if (strlen($desc_str) > 100){
+							$desc_str = substr($desc_str, 0, 80) . '...';
+						}
+						//$desc_str = wordwrap($desc_str, 60, "<br/>", true);
 					?>
-					<td><div class="wordwrap"><?php echo $row['description']; ?></div></td>
+					<td><?php echo $desc_str; ?></div></td>
 					<?php //echo '<td>' . str_replace("_", " ", $row['created']) . '</td>'; ?>
 
 					<?php
