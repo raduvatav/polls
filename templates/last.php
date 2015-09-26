@@ -5,9 +5,6 @@
 use \OCP\DB;
 use \OCP\User;
 
-
-oclog("query DB for created...");
-
 // set 'created' timestamp if this user is the owner
 $query = DB::prepare('SELECT owner, created, access, title FROM *PREFIX*polls_events WHERE id=?');
 $result = $query->execute(array($poll_id));
