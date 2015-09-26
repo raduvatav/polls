@@ -68,7 +68,7 @@
 							<tr>
 								<?php for ($i = 0; $i < 60; $i += 5) : ?>
 									<?php $str = sprintf("%02d", $i); ?>
-									<?php if($i == 0): ?>
+									<?php if($i === 0): ?>
 										<td colspan="2" class="cl_min_selected" id="id_min_00">00</td>
 									<?php else : ?>
 										<td colspan="2" class="cl_min" id="id_min_<?php echo $str; ?>"><?php echo $str; ?></td>
