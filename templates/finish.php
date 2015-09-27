@@ -47,6 +47,12 @@ if(($options->values_changed === 'true') || (isset($options->comment) && (strlen
 		array_push($users, $row['user']);
 	}
 
+	$query = DB::prepare('SELECT title FROM *PREFIX*polls_events WHERE id=?');
+	$result = $query->execute(array($poll_id));
+	$row = $result->fetchRow();
+
+	$title = $row['title'];
+
 	$query = DB::prepare('INSERT INTO *PREFIX*polls_particip(ok, id, USER, dt) VALUES(?,?,?,?)');
 	// insert
 	foreach ($sel_yes as $dt) {
@@ -73,11 +79,11 @@ if(($options->values_changed === 'true') || (isset($options->comment) && (strlen
 
 		$toname = OCP\User::getDisplayName($uid);
 		$subject = $l->t('ownCloud Polls -- New Comment');
-		$fromaddress = "polls-noreply@localhost";
+		$fromaddress = \OCP\Util::getDefaultEmailAddress('no-reply');
 		$fromname = $l->t("ownCloud Polls");
 
 		try {
-			OC_Mail::send($email, $toname, $subject, $msg, $fromaddress, $fromname, 1);
+			OCP\Util::sendMail($email, $toname, $subject, $msg, $fromaddress, $fromname, $html=1);
 		} catch (\Exception $e) {
 			oclog('error sending mail to: ' . $toname . ' (' . $email . ')');
 		}
