@@ -86,7 +86,7 @@ if(($options->values_changed === 'true') || (isset($options->comment) && (strlen
 			OCP\Util::sendMail($email, $toname, $subject, $msg, $fromaddress, $fromname, $html=1);
 		} catch (\Exception $e) {
 			$message = 'error sending mail to: ' . $toname . ' (' . $email . ')';
-			\OCP\Util::writeLog(self::APP_ID, $message, \OCP\Util::ERROR);
+			\OCP\Util::writeLog("polls", $message, \OCP\Util::ERROR);
 		}
 	}
 
