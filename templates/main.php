@@ -271,10 +271,6 @@ function userHasAccess($poll_id) {
 	return false;
 }
 
-function oclog($str) {
-	Util::writeLog("_____________polls", $str, \OCP\Util::ERROR);
-}
-
 function hasParticipated(){
     $query = DB::prepare('select id from *PREFIX*polls_particip where user=? order by id');
     $polls = $query->execute(array(User::getUser()))->fetchAll();

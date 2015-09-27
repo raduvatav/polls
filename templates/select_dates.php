@@ -37,8 +37,8 @@
 				<th><?php p($l->t('Wed')); ?></th>
 				<th><?php p($l->t('Thu')); ?></th>
 				<th><?php p($l->t('Fri')); ?></th>
-				<th><?php p($l->t('Sat')); ?></th
-				><th><?php p($l->t('Sun')); ?></th>
+				<th><?php p($l->t('Sat')); ?></th>
+				<th><?php p($l->t('Sun')); ?></th>
 			</tr>
 			<?php for ($i = 0; $i < 6; $i++) : ?>
 				<tr>
