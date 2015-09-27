@@ -25,7 +25,7 @@
 							<tr>
 								<th><?php p($l->t('Groups')); ?></th>
 							</tr>
-						<?php $groups = OC_Group::getUserGroups(OC_User::getUser()); ?>
+						<?php $groups = OC_Group::getUserGroups(OCP\User::getUser()); ?>
 						<?php foreach($groups as $gid) : ?>
 							<tr>
 								<td class="cl_group_item"><?php echo $gid; ?></td>
@@ -40,7 +40,7 @@
 						<tr>
 							<th><?php p($l->t('Users')); ?></th>
 						</tr>
-						<?php $users = OC_User::getUsers(); ?>
+						<?php $users = OCP\User::getUser(); ?>
 						<?php foreach ($users as $uid) : ?>
 							<tr>
 								<td class="cl_user_item" id="user_<?php echo $uid; ?>" ><?php echo OCP\User::getDisplayName($uid); ?></td>

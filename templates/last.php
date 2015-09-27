@@ -82,7 +82,7 @@ $line = str_replace("\n", '<br>', $desc);
 	                	<div id="logo-claim" style="display:none;"><?php p($theme->getLogoClaim()); ?></div>
         	        	<div class="header-right">
 					<?php p($l->t('Already have an account?')); ?>
-					<?php $url = OC_Helper::linkToAbsolute( '', 'index.php' ).'?redirect_url='.OCP\Util::linkToRoute('polls_goto', array('poll_id' => $poll_id)); ?>
+					<?php $url = OCP\Util::linkToAbsolute( '', 'index.php' ).'?redirect_url='.OCP\Util::linkToRoute('polls_goto', array('poll_id' => $poll_id)); ?>
 					<a href="<?php echo $url; ?>"><?php p($l->t('Login')); ?></a>
 				</div>
 			</div>
@@ -105,7 +105,7 @@ $line = str_replace("\n", '<br>', $desc);
 <p class="url">
 	<?php
 		$url = \OCP\Util::linkToRoute('polls_index');
-		$url = \OC_Helper::makeURLAbsolute($url);
+		$url = \OC::$server->getURLGenerator()->getAbsoluteURL($url);
 		$url .= 'goto/' . $poll_id;
 	?>
 	<a href="<?php echo $url;?>"><?php echo $url; ?></a>

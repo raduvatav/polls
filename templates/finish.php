@@ -67,7 +67,7 @@ if(($options->values_changed === 'true') || (isset($options->comment) && (strlen
 		if($user === $uid) continue;
 		$email = \OCP\Config::getUserValue($uid, 'settings', 'email');
 		if(strlen($email) === 0 || !isset($email)) continue;
-		$url = \OC_Helper::makeURLAbsolute(OCP\Util::linkToRoute('polls_goto', array('poll_id' => $poll_id)));
+		$url = \OC::$server->getURLGenerator()->getAbsoluteURL(OCP\Util::linkToRoute('polls_goto', array('poll_id' => $poll_id)));
 
 		// set translation language according to the user who receives the email
 		OC_L10N::forceLanguage($uid, 'core', 'lang', 'en');

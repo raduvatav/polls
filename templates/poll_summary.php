@@ -62,7 +62,7 @@
 					<?php
 					// direct url to poll
 					$url = \OCP\Util::linkToRoute('polls_index');
-					$url = \OC_Helper::makeURLAbsolute($url);
+					$url = \OC::$server->getURLGenerator()->getAbsoluteURL($url);
 					$url .= 'goto/' . $row['id'];
 					?>
 
