@@ -287,7 +287,7 @@ $line = str_replace("\n", '<br>', $desc);
 						<tr>
 							<td id="id_y_<?php echo $i; ?>" class="cl_total_y">
 								<?php if(isset($total_y[$i])) : ?>
-									<?php if( $total_y[$i] - $total_n[$i] == $max_votes) : ?>
+									<?php if( $total_y[$i] - $total_n[$i] === $max_votes) : ?>
 											<?php echo '<strong>' . $total_y[$i] . '</strong>'; ?>
 									<?php else : ?>
 										<?php echo $total_y[$i]; ?>
@@ -315,7 +315,7 @@ $line = str_replace("\n", '<br>', $desc);
 
 				$str = '';
 
-				if ($total_y[$i] - $total_n[$i] == $max_votes){
+				if ($total_y[$i] - $total_n[$i] === $max_votes){
 					$str = '&#10004;';
 				}
 

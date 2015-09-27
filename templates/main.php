@@ -35,7 +35,7 @@ if (isset ($_POST) && isset ($_POST['j'])) {
     $post_j = $_POST['j'];
 
 	// vote: build vote page; finish: save "vote" - both available w/o login
-	if(($post_j != 'vote') && ($post_j != 'finish')) OCP\User::checkLoggedIn();
+	if(($post_j !== 'vote') && ($post_j !== 'finish')) OCP\User::checkLoggedIn();
 
 
 

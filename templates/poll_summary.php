@@ -69,7 +69,7 @@
 					<td class="cl_poll_url" title="<?php p($l->t('Click to get link')); ?>"><input type="hidden" value="<?php echo $url; ?>" /><?php echo date('d.m.Y H:i', $row['created']); ?></td>
 					<td>
 						<?php
-							if($row['owner'] == OCP\User::getUser()) p($l->t('Yourself'));
+							if($row['owner'] === OCP\User::getUser()) p($l->t('Yourself'));
 							else echo OCP\User::getDisplayName($row['owner']); //echo OCP\User::getDisplayName($row['owner']);
 						?>
 					</td>
@@ -90,7 +90,7 @@
 						<?php
 							$partic_class = 'partic_no';
 							for($i = 0; $i < count($partic_polls); $i++){
-								if($row['id'] == $partic_polls[$i]['id']){
+								if($row['id'] === $partic_polls[$i]['id']){
 									$partic_class = 'partic_yes';
 									array_splice($partic_polls, $i, 1);
 									break;
@@ -103,7 +103,7 @@
 						<?php
 							$partic_class = 'partic_no';
 							for($i = 0; $i < count($partic_comm); $i++){
-								if($row['id'] == $partic_comm[$i]['id']){
+								if($row['id'] === $partic_comm[$i]['id']){
 									$partic_class = 'partic_yes';
 									array_splice($partic_comm, $i, 1);
 									break;
@@ -113,10 +113,10 @@
 						<div class="partic_all <?php echo $partic_class; ?>">
 						</div>
                     </td>
-					<td <?php if ($row['owner'] == OCP\User::getUser()) echo 'class="cl_poll_access" title="'.$l->t('Edit access').'"' ?> >
+					<td <?php if ($row['owner'] === OCP\User::getUser()) echo 'class="cl_poll_access" title="'.$l->t('Edit access').'"' ?> >
 						<?php p($l->t($row['access'])); ?>
 					</td>
-					<?php if (strcmp($row['owner'], OCP\User::getUser()) == 0) : ?>
+					<?php if (strcmp($row['owner'], OCP\User::getUser()) === 0) : ?>
 						<td title="delete poll" id="id_del_<?php echo $row['id']; ?>" class="cl_delete"><!--<?php p($l->t('delete')); ?>-->&#x2716;</td>
 					<?php endif; ?>
 				</tr>
