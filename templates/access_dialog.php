@@ -40,7 +40,7 @@
 						<tr>
 							<th><?php p($l->t('Users')); ?></th>
 						</tr>
-						<?php $users = OCP\User::getUser(); ?>
+						<?php $users = OCP\User::getUsers(); ?>
 						<?php foreach ($users as $uid) : ?>
 							<tr>
 								<td class="cl_user_item" id="user_<?php echo $uid; ?>" ><?php echo OCP\User::getDisplayName($uid); ?></td>
