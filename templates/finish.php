@@ -1,7 +1,6 @@
 <?php
 use \OCP\DB;
 use \OCP\User;
-use \OC_L10N;
 
 $poll_id = $_POST['poll_id'];
 $poll_type = $_POST['poll_type'];
