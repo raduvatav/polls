@@ -318,9 +318,37 @@ $line = str_replace("\n", '<br>', $desc);
 
 				echo '<td class="win_row" id="id_total_' . $i . '">' . $str . '</td>';
 
-			endfor; ?>
-		</tr>
+			endfor; 
+			?>
 
+		<tr>
+			<th <?php if ($poll_type === 'datetime') echo 'rowspan="4"'; ?>>&nbsp;</th> <?php // upper left header rectangle ?>
+		</tr>
+		<?php
+		if ($poll_type === 'datetime'){
+			echo '<tr>';
+			for ($i = 0; $i < count($chosen); $i++) {
+				$ch_obj = $chosen[$i];
+				echo '<th>' . $ch_obj->time . '</th>';
+			}
+			echo '</tr>';
+			echo '<tr>' .  $for_string_dates . '</tr>';
+		}
+		?>
+		</tr>
+		<tr>
+		<?php
+		if ($poll_type === 'datetime') {
+			echo $for_string_years;
+		}
+		else {
+			foreach ($chosen as $el) {
+				echo '<th title="' . $el->desc . '">' . $el->dt . '</th>';
+			}
+		}
+		?>
+		</tr>
+		
 
 	</table>
 </div>
@@ -341,7 +369,7 @@ $line = str_replace("\n", '<br>', $desc);
 	</tr>
 	<tr>
 		<th><?php p($l->t('Comment')); ?></th>
-		<td><textarea style="width: 200px;" cols="50" rows="5" id="comment_box"></textarea></td>
+		<td><textarea style="width: 300px;" cols="50" rows="3" id="comment_box"></textarea></td>
 	</tr>
 	<?php // -------- submit ----------- ?>
 	<tr>
