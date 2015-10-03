@@ -4,16 +4,16 @@
 
 	$arr = explode("\n", $desc);
 ?>
-<table id="id_table_1">
+<table>
 	<tr>
-	<th class="cl_title_header" rowspan="<?php count($arr); ?>"><em><div id="id_title"><?php echo $title; ?></div></em></th>
+	<th class="cl_title" rowspan="<?php count($arr); ?>"><em><div id="id_title"><?php echo $title; ?></div></em></th>
 
 	<tr>
-		<th class="cl_desc_header"><em><div class="wordwrap" id="id_descr"><?php echo $desc; //wordwrap($line, 50, "<br/>", true); ?></div></em></th>
+		<th class="wordwrap"><em><div id="id_descr"><?php echo $desc; ?></div></em></th>
 	</tr>
-	<tr>
-		<td>&nbsp;</td>
-	</tr>
+</table>
+
+<table id="id_table_1">
 	<tr>
        <td><h2><?php p($l->t('Click on days to add or remove')); ?></h2></td>
        <td><h2><?php p($l->t('Select hour & minute, then click on time')); ?></h2></td>
@@ -25,8 +25,8 @@
 				<th style="padding:0px" colspan="1">
 					<a id="id_header_prev_month"><<</a>
 				</th>
-				<th id="id_header_curr_month" colspan="2"></th>
-				<th id="id_header_curr_year" colspan="3"></th>
+				<th id="id_header_curr_month" colspan="3"></th>
+				<th id="id_header_curr_year" colspan="2"></th>
 				<th style="padding:0px" colspan="1">
 					<a id="id_header_next_month">>></a>
 				</th>
