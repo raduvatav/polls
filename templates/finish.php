@@ -69,7 +69,7 @@ if(($options->values_changed === 'true') || (isset($options->comment) && (strlen
 		$url = \OC::$server->getURLGenerator()->getAbsoluteURL(OCP\Util::linkToRoute('polls_goto', array('poll_id' => $poll_id)));
 
 		// set translation language according to the user who receives the email
-		OC_L10N::forceLanguage($uid, 'core', 'lang', 'en');
+		//OC_L10N::forceLanguage($uid, 'core', 'lang', 'en');
 
 		$msg = $l->t('Hello %s,<br/><br/><strong>%s</strong> participated in the poll \'%s\'.<br/><br/>To go directly to the poll, you can use this link: <a href="%s">%s</a>', array(
 			OCP\User::getDisplayName($uid), OCP\User::getDisplayName($user), $title, $url, $url));
@@ -90,7 +90,7 @@ if(($options->values_changed === 'true') || (isset($options->comment) && (strlen
 	}
 
 	// set the language back (todo: really need this?)
-	OC_L10N::forceLanguage($user, 'core', 'lang', 'en');
+	//OC_L10N::forceLanguage($user, 'core', 'lang', 'en');
 
 }
 
