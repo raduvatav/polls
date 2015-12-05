@@ -1,5 +1,4 @@
-<?php
-$TRANSLATIONS = array(
+{ "translations": {
         "Polls" : "Sondages",
         "Summary" : "Résumé",
         "Title" : "Titre",
